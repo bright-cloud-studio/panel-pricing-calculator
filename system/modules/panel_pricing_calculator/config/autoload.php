@@ -13,15 +13,15 @@
 /* Register the classes */
 ClassLoader::addClasses(array
 (
-    'Bcs\Module\LocationsList' 		=> 'system/modules/rep_finder/library/Bcs/Module/LocationsList.php',
-	'Bcs\Backend\Locations' 		=> 'system/modules/rep_finder/library/Bcs/Backend/Locations.php',
-	'Bcs\Model\Location' 			=> 'system/modules/rep_finder/library/Bcs/Model/Location.php',
-	'Bcs\Locations'		 		=> 'system/modules/rep_finder/library/Bcs/Locations.php'
+    	'Bcs\Module\LocationsList' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Module/LocationsList.php',
+	'Bcs\Backend\Locations' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/Locations.php',
+	'Bcs\Model\Location' 			=> 'system/modules/panel_pricing_calculator/library/Bcs/Model/Location.php',
+	'Bcs\Locations'		 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Locations.php'
 ));
 
 /* Register the templates */
 TemplateLoader::addFiles(array
 (
-   	'mod_locations_list' 		=> 'system/modules/rep_finder/templates/modules',
-	'item_location' 		=> 'system/modules/rep_finder/templates/items',
+   	'mod_locations_list' 		=> 'system/modules/panel_pricing_calculator/templates/modules',
+	'item_location' 		=> 'system/modules/panel_pricing_calculator/templates/items',
 ));
