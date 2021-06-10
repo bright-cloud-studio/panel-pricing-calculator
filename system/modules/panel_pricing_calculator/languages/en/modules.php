@@ -11,7 +11,7 @@
  */
  
 /* Front end modules */
-$GLOBALS['TL_LANG']['FMD']['locations_list'] 	= array('Locations List', 'Locations list module.');
+$GLOBALS['TL_LANG']['FMD']['locations_list'] 	= array('Panel Pricing Calculator', 'Front end calulator using the panel pricing data.');
 
 /* Back end modules */
-$GLOBALS['TL_LANG']['MOD']['locations'] = array('Rep Locations', 'Configure Rep Locations');
+$GLOBALS['TL_LANG']['MOD']['locations'] = array('Panel Pricing', 'Manage data for the Panel Pricing Calculator');
