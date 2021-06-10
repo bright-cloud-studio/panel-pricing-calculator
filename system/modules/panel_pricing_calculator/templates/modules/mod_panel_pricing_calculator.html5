@@ -1,0 +1,11 @@
+<!–– Wrapper for the whole module on the page ––>
+<div class="mod_locations_list <?= $this->class ?>">
+	<!–– input for entering in the zip code, automatically update results on input ––>
+	<p class="enter_zip">Enter your ZIP code</p>
+	<input name="locations_zip_input" class="locations_zip_input" type="text" name="zip"><br>
+
+	<!–– This adds every listing onto the page but hidden, JS makes them visible if they match inputs ––>
+    <?php foreach($this->states as $state): ?>
+		<?= implode('', $state['locations']) ?>
+	<?php endforeach; ?>
+</div>
