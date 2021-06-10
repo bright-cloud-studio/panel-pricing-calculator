@@ -13,7 +13,7 @@
 /* Back end modules */
 $GLOBALS['BE_MOD']['content']['locations'] = array(
 	'tables' => array('tl_location'),
-	'icon'   => 'system/modules/rep_finder/assets/icons/location.png',
+	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/location.png',
 	'exportLocations' => array('Bcs\Backend\Locations', 'exportLocations')
 );
 
