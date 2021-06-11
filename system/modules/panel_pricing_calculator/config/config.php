@@ -1,36 +1,24 @@
 <?php
 
 /**
- * Simple Inventory Tracker - A simple way to track inventory manually.
+ * Panel Pricing Calculator - Adds a panel pricing calculator with a front end module for users and a back end system for managing the data.
  *
- * Copyright (C) 2021 Mark St. Jean.
+ * Copyright (C) 2021 Bright Cloud Studio
  *
- * @package    stjeanmark/simple_inventory_tracker
- * @link       http://www.markstjean.com
+ * @package    bright-cloud-studio/panel-pricing-calculator
+ * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
 
-/**
-* Back end modules
-*/
+/* Back end modules */
 
 // DECLARING LOCATIONS BACK END PLUGIN
-$GLOBALS['BE_MOD']['content']['simple_inventory_tracker'] = array(
-	'tables' => array('tl_simple_inventory_tracker'),
-	'icon'   => 'system/modules/simple_inventory_tracker/assets/icons/simple_inventory_tracker.png',
-	'exportLocations' => array('Asc\Backend\SimpleInventoryTrackerBackend', 'exportSimpleInventoryTracker')
+$GLOBALS['BE_MOD']['content']['panel_pricing_calculator'] = array(
+	'tables' => array('tl_panel_pricing_calculator'),
+	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
+	'exportLocations' => array('Bcs\Backend\PanelPricingCalculatorBackend', 'exportPanelPricingCalculator')
 );
 
-/**
- * Models
- */
-$GLOBALS['TL_MODELS']['tl_simple_inventory_tracker'] = 'Asc\Model\SimpleInventoryTracker';
-
-
-/**
- * Hooks
- */
-if (\Config::getInstance()->isComplete()) {
-	$GLOBALS['TL_HOOKS']['replaceInsertTags'][] = array('CustomTags\SimpleInventoryTrackerInsertTag', 'onReplaceTag');
-}
+/* Models */
+$GLOBALS['TL_MODELS']['tl_panel_pricing_calculator'] = 'Bcs\Model\PanelPricingCalculator';
