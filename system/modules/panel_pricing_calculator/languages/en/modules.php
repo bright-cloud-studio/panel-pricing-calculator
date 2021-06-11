@@ -1,16 +1,14 @@
 <?php
 
 /**
- * Simple Inventory Tracker - A simple way to track inventory manually.
+ * Panel Pricing Calculator - Adds a panel pricing calculator with a front end module for users and a back end system for managing the data.
  *
- * Copyright (C) 2021 Mark St. Jean.
+ * Copyright (C) 2021 Bright Cloud Studio
  *
- * @package    stjeanmark/simple_inventory_tracker
- * @link       http://www.markstjean.com
+ * @package    bright-cloud-studio/panel-pricing-calculator
+ * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
-/**
- * Back end modules
- */
-$GLOBALS['TL_LANG']['MOD']['simple_inventory_tracker'] = array('Inventory', 'Track product inventories');
+/* Back end modules */
+$GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'] = array('Panel Pricing Calculator', 'Track data for panel pricing calculator');
