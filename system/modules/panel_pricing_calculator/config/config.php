@@ -14,7 +14,8 @@
 /* Back end modules */
 
 // DECLARING LOCATIONS BACK END PLUGIN
-$GLOBALS['BE_MOD']['content']['panel_pricing_calculator'] = array(
+$GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'][0] = "Panel Pricing Calculator";
+$GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_pricing_calculator'] = array(
 	'tables' => array('tl_panel_pricing_calculator'),
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
 	'exportLocations' => array('Bcs\Backend\PanelPricingCalculatorBackend', 'exportPanelPricingCalculator')
