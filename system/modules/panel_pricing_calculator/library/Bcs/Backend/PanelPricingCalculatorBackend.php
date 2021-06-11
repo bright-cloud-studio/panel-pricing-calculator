@@ -1,21 +1,22 @@
 <?php
+
 /**
- * Simple Inventory Tracker - A simple way to track inventory manually.
+ * Panel Pricing Calculator - Adds a panel pricing calculator with a front end module for users and a back end system for managing the data.
  *
- * Copyright (C) 2021 Mark St. Jean.
+ * Copyright (C) 2021 Bright Cloud Studio
  *
- * @package    stjeanmark/simple_inventory_tracker
- * @link       http://www.markstjean.com
+ * @package    bright-cloud-studio/panel-pricing-calculator
+ * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
  
-namespace Asc\Backend;
+namespace Bcs\Backend;
 
 use Contao\DataContainer;
-use Asc\Model\SimpleInventoryTracker;
+use Bcs\Model\PanelPricingCalculator;
 
-class SimpleInventoryTrackerBackend extends \Backend
+class PanelPricingCalculatorBackend extends \Backend
 {
 	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
 	{
@@ -39,9 +40,9 @@ class SimpleInventoryTrackerBackend extends \Backend
 	public function toggleVisibility($intId, $blnVisible, DataContainer $dc=null)
 	{
 		// Trigger the save_callback
-		if (is_array($GLOBALS['TL_DCA']['tl_simple_inventory_tracker']['fields']['published']['save_callback']))
+		if (is_array($GLOBALS['TL_DCA']['tl_panel_pricing_calculator']['fields']['published']['save_callback']))
 		{
-			foreach ($GLOBALS['TL_DCA']['tl_simple_inventory_tracker']['fields']['published']['save_callback'] as $callback)
+			foreach ($GLOBALS['TL_DCA']['tl_panel_pricing_calculator']['fields']['published']['save_callback'] as $callback)
 			{
 				if (is_array($callback))
 				{
@@ -56,10 +57,10 @@ class SimpleInventoryTrackerBackend extends \Backend
 		}
 
 		// Update the database
-		$this->Database->prepare("UPDATE tl_simple_inventory_tracker SET tstamp=". time() .", published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
+		$this->Database->prepare("UPDATE tl_panel_pricing_calculator SET tstamp=". time() .", published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
 					   ->execute($intId);
 
-		$this->log('A new version of record "tl_simple_inventory_tracker.id='.$intId.'" has been created'.$this->getParentEntries('tl_simple_inventory_tracker', $intId), __METHOD__, TL_GENERAL);
+		$this->log('A new version of record "tl_panel_pricing_calculator.id='.$intId.'" has been created'.$this->getParentEntries('tl_panel_pricing_calculator', $intId), __METHOD__, TL_GENERAL);
 	}
 	
 	public function generateAlias($varValue, DataContainer $dc)
@@ -73,7 +74,7 @@ class SimpleInventoryTrackerBackend extends \Backend
 			$varValue = standardize(\StringUtil::restoreBasicEntities($dc->activeRecord->name));
 		}
 
-		$objAlias = $this->Database->prepare("SELECT id FROM tl_simple_inventory_tracker WHERE id=? OR alias=?")
+		$objAlias = $this->Database->prepare("SELECT id FROM tl_panel_pricing_calculator WHERE id=? OR alias=?")
 								   ->execute($dc->id, $varValue);
 
 		// Check whether the page alias exists
