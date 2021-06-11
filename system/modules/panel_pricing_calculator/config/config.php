@@ -14,6 +14,12 @@
 /* Back end modules */
 
 // DECLARING LOCATIONS BACK END PLUGIN
+
+if (!is_array($GLOBALS['BE_MOD']['panel_pricing_calculator']))
+{
+    array_insert($GLOBALS['BE_MOD'], 1, array('panel_pricing_calculator' => array()));
+}
+
 $GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'][0] = "Panel Pricing Calculator";
 $GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_pricing_calculator'] = array(
 	'tables' => array('tl_panel_pricing_calculator'),
