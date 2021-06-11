@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Simple Inventory Tracker - A simple way to track inventory manually.
+ * Panel Pricing Calculator - Adds a panel pricing calculator with a front end module for users and a back end system for managing the data.
  *
- * Copyright (C) 2021 Mark St. Jean.
+ * Copyright (C) 2021 Bright Cloud Studio
  *
- * @package    stjeanmark/simple_inventory_tracker
- * @link       http://www.markstjean.com
+ * @package    bright-cloud-studio/panel-pricing-calculator
+ * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
@@ -16,10 +16,5 @@
  */
 ClassLoader::addClasses(array
 (
-	'Asc\Model\SimpleInventoryTracker' 		=> 'system/modules/simple_inventory_tracker/library/Asc/Model/SimpleInventoryTracker.php'
-));
-
-ClassLoader::addClasses(array
-(
-	'CustomTags\SimpleInventoryTrackerInsertTag' 		=> 'system/modules/simple_inventory_tracker/library/CustomTags/SimpleInventoryTrackerInsertTag.php'
+	'Bcs\Model\SimpleInventoryTracker' 		=> 'system/modules/simple_inventory_tracker/library/Asc/Model/SimpleInventoryTracker.php'
 ));
