@@ -16,5 +16,5 @@
  */
 ClassLoader::addClasses(array
 (
-	'Bcs\Model\SimpleInventoryTracker' 		=> 'system/modules/simple_inventory_tracker/library/Asc/Model/SimpleInventoryTracker.php'
+	'Bcs\Model\PanelPricingCalculator' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Model/PanelPricingCalculator.php'
 ));
