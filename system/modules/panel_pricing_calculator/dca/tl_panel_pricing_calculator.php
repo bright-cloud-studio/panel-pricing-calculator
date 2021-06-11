@@ -1,20 +1,18 @@
 <?php
 
 /**
- * Simple Inventory Tracker - A simple way to track inventory manually.
+ * Panel Pricing Calculator - Adds a panel pricing calculator with a front end module for users and a back end system for managing the data.
  *
- * Copyright (C) 2021 Mark St. Jean.
+ * Copyright (C) 2021 Bright Cloud Studio
  *
- * @package    stjeanmark/simple_inventory_tracker
- * @link       http://www.markstjean.com
+ * @package    bright-cloud-studio/panel-pricing-calculator
+ * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
  
-/**
- * Table tl_simple_inventory_tracker
- */
-$GLOBALS['TL_DCA']['tl_simple_inventory_tracker'] = array
+/* Table tl_panel_pricing_calculator */
+$GLOBALS['TL_DCA']['tl_panel_pricing_calculator'] = array
 (
  
     // Config
@@ -59,34 +57,34 @@ $GLOBALS['TL_DCA']['tl_simple_inventory_tracker'] = array
         (
             'edit' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['edit'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['edit'],
                 'href'                => 'act=edit',
                 'icon'                => 'edit.gif'
             ),
 			
             'copy' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['copy'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['copy'],
                 'href'                => 'act=copy',
                 'icon'                => 'copy.gif'
             ),
             'delete' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['delete'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['toggle'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-				'button_callback'     => array('Asc\Backend\SimpleInventoryTrackerBackend', 'toggleIcon')
+				'button_callback'     => array('Bcs\Backend\PanelPricingCalculatorBackend', 'toggleIcon')
 			),
             'show' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['show'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['show'],
                 'href'                => 'act=show',
                 'icon'                => 'show.gif'
             )
@@ -116,21 +114,21 @@ $GLOBALS['TL_DCA']['tl_simple_inventory_tracker'] = array
 	),
 	'alias' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['alias'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['alias'],
 		'exclude'                 => true,
 		'inputType'               => 'text',
 		'search'                  => true,
 		'eval'                    => array('unique'=>true, 'rgxp'=>'alias', 'doNotCopy'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 		'save_callback' => array
 		(
-			array('Asc\Backend\SimpleInventoryTrackerBackend', 'generateAlias')
+			array('Bcs\Backend\PanelPricingCalculatorBackend', 'generateAlias')
 		),
 		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
 
 	),
 	'product_name' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['product_name'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['product_name'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
@@ -139,7 +137,7 @@ $GLOBALS['TL_DCA']['tl_simple_inventory_tracker'] = array
 	),
 	'product_inventory' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['product_inventory'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['product_inventory'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
@@ -149,11 +147,10 @@ $GLOBALS['TL_DCA']['tl_simple_inventory_tracker'] = array
 	'published' => array
 	(
 		'exclude'                 => true,
-		'label'                   => &$GLOBALS['TL_LANG']['tl_simple_inventory_tracker']['published'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['published'],
 		'inputType'               => 'checkbox',
 		'eval'                    => array('submitOnChange'=>true, 'doNotCopy'=>true),
 		'sql'                     => "char(1) NOT NULL default ''"
 	)		
     )
 );
-
