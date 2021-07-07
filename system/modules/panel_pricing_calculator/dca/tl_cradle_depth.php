@@ -12,7 +12,7 @@
 
  
 /* Table tl_cradle_depth */
-$GLOBALS['TL_DCA']['tl_cradle_depth'] = array
+$GLOBALS['TL_DCA']['tl_cradle_depths'] = array
 (
  
     // Config
@@ -56,34 +56,34 @@ $GLOBALS['TL_DCA']['tl_cradle_depth'] = array
         (
             'edit' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depth']['edit'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depths']['edit'],
                 'href'                => 'act=edit',
                 'icon'                => 'edit.gif'
             ),
 			
             'copy' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depth']['copy'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depths']['copy'],
                 'href'                => 'act=copy',
                 'icon'                => 'copy.gif'
             ),
             'delete' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depth']['delete'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depths']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depth']['toggle'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depths']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
 				'button_callback'     => array('Bcs\Backend\CradleDepthsBackend', 'toggleIcon')
 			),
             'show' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depth']['show'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depths']['show'],
                 'href'                => 'act=show',
                 'icon'                => 'show.gif'
             )
@@ -113,7 +113,7 @@ $GLOBALS['TL_DCA']['tl_cradle_depth'] = array
 	),
 	'label' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_cradle_depth']['label'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_cradle_depths']['label'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_cradle_depth'] = array
 	'published' => array
 	(
 		'exclude'                 => true,
-		'label'                   => &$GLOBALS['TL_LANG']['tl_cradle_depth']['published'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_cradle_depths']['published'],
 		'inputType'               => 'checkbox',
 		'eval'                    => array('submitOnChange'=>true, 'doNotCopy'=>true),
 		'sql'                     => "char(1) NOT NULL default ''"
