@@ -79,7 +79,7 @@ $GLOBALS['TL_DCA']['tl_cradle_depth'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_cradle_depth']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-				'button_callback'     => array('Bcs\Backend\CradleDepth', 'toggleIcon')
+				'button_callback'     => array('Bcs\Backend\CradleDepthsBackend', 'toggleIcon')
 			),
             'show' => array
             (
