@@ -19,5 +19,5 @@ ClassLoader::addClasses(array
 	'Bcs\Model\PanelPricingCalculator' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Model/PanelPricingCalculator.php',
 	'Bcs\Backend\PanelPricingCalculatorBackend' 	=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PanelPricingCalculatorBackend.php',
 	'Bcs\Backend\CradleDepthsBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/CradleDepthsBackend.php',
-	'Bcs\Backend\PanelThicknessBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PanelThicknessBackend.php'
+	'Bcs\Backend\PanelThicknessesBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PanelThicknessesBackend.php'
 ));
