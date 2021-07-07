@@ -35,10 +35,10 @@ $GLOBALS['BE_MOD']['panel_pricing_calculator']['cradle_depths'] = array(
 	'exportLocations' => array('Bcs\Backend\CradleDepthsBackend', 'exportCradleDepths')
 );
 // Adds "Panel Thickness" to our custom section
-$GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_thickness'] = array(
-	'tables' => array('tl_panel_thickness'),
+$GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_thicknesses'] = array(
+	'tables' => array('tl_panel_thicknesses'),
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
-	'exportLocations' => array('Bcs\Backend\PanelThicknessBackend', 'exportPanelThickness')
+	'exportLocations' => array('Bcs\Backend\PanelThicknessesBackend', 'exportPanelThicknesses')
 );
 
 
