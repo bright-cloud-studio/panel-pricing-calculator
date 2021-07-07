@@ -11,8 +11,8 @@
  */
 
  
-/* Table tl_panel_thickness */
-$GLOBALS['TL_DCA']['tl_panel_thickness'] = array
+/* Table tl_panel_thicknesses */
+$GLOBALS['TL_DCA']['tl_panel_thicknesses'] = array
 (
  
     // Config
@@ -56,20 +56,20 @@ $GLOBALS['TL_DCA']['tl_panel_thickness'] = array
         (
             'edit' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thickness']['edit'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thicknesses']['edit'],
                 'href'                => 'act=edit',
                 'icon'                => 'edit.gif'
             ),
 			
             'copy' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thickness']['copy'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thicknesses']['copy'],
                 'href'                => 'act=copy',
                 'icon'                => 'copy.gif'
             ),
             'delete' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thickness']['delete'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thicknesses']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
@@ -79,11 +79,11 @@ $GLOBALS['TL_DCA']['tl_panel_thickness'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_panel_thickness']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-				'button_callback'     => array('Bcs\Backend\PanelThicknessBackend', 'toggleIcon')
+				'button_callback'     => array('Bcs\Backend\PanelThicknessesBackend', 'toggleIcon')
 			),
             'show' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thickness']['show'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_panel_thicknesses']['show'],
                 'href'                => 'act=show',
                 'icon'                => 'show.gif'
             )
@@ -113,7 +113,7 @@ $GLOBALS['TL_DCA']['tl_panel_thickness'] = array
 	),
 	'label' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_thickness']['label'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_thicknesses']['label'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_panel_thickness'] = array
 	'published' => array
 	(
 		'exclude'                 => true,
-		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_thickness']['published'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_thicknesses']['published'],
 		'inputType'               => 'checkbox',
 		'eval'                    => array('submitOnChange'=>true, 'doNotCopy'=>true),
 		'sql'                     => "char(1) NOT NULL default ''"
