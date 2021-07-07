@@ -16,7 +16,7 @@ namespace Bcs\Backend;
 use Contao\DataContainer;
 use Bcs\Model\PanelPricingCalculator;
 
-class PanelThicknessBackend extends \Backend
+class PanelThicknessesBackend extends \Backend
 {
 	public function toggleIcon($row, $href, $label, $title, $icon, $attributes)
 	{
@@ -40,9 +40,9 @@ class PanelThicknessBackend extends \Backend
 	public function toggleVisibility($intId, $blnVisible, DataContainer $dc=null)
 	{
 		// Trigger the save_callback
-		if (is_array($GLOBALS['TL_DCA']['tl_panel_thickness']['fields']['published']['save_callback']))
+		if (is_array($GLOBALS['TL_DCA']['tl_panel_thicknesses']['fields']['published']['save_callback']))
 		{
-			foreach ($GLOBALS['TL_DCA']['tl_panel_thickness']['fields']['published']['save_callback'] as $callback)
+			foreach ($GLOBALS['TL_DCA']['tl_panel_thicknesses']['fields']['published']['save_callback'] as $callback)
 			{
 				if (is_array($callback))
 				{
@@ -57,9 +57,9 @@ class PanelThicknessBackend extends \Backend
 		}
 
 		// Update the database
-		$this->Database->prepare("UPDATE tl_panel_thickness SET tstamp=". time() .", published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
+		$this->Database->prepare("UPDATE tl_panel_thicknesses SET tstamp=". time() .", published='" . ($blnVisible ? 1 : '') . "' WHERE id=?")
 					   ->execute($intId);
 
-		$this->log('A new version of record "tl_panel_thickness.id='.$intId.'" has been created'.$this->getParentEntries('tl_panel_thickness', $intId), __METHOD__, TL_GENERAL);
+		$this->log('A new version of record "tl_panel_thicknesses.id='.$intId.'" has been created'.$this->getParentEntries('tl_panel_thicknesses', $intId), __METHOD__, TL_GENERAL);
 	}	
 }
