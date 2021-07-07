@@ -13,3 +13,4 @@
 /* Back end modules */
 $GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'] = array('Panel Pricing Calculator', 'Track data for panel pricing calculator');
 $GLOBALS['TL_LANG']['MOD']['cradle_depths'] = array('Cradle Depths', 'Add/Edit cradle depths');
+$GLOBALS['TL_LANG']['MOD']['panel_thickness'] = array('Panel Thickness', 'Add/Edit panel thicknesses');
