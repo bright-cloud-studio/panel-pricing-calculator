@@ -22,7 +22,7 @@ if (!is_array($GLOBALS['BE_MOD']['panel_pricing_calculator']))
 
 $GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'][0] = "Panel Pricing Calculator";
 $GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_pricing_calculator'] = array(
-	'tables' => array('tl_panel_pricing_calculator'),
+	'tables' => array('tl_panel_pricing_calculator', 'tl_cradle_depths'),
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
 	'exportLocations' => array('Bcs\Backend\PanelPricingCalculatorBackend', 'exportPanelPricingCalculator')
 );
