@@ -16,5 +16,6 @@
  */
 ClassLoader::addClasses(array
 (
-	'Bcs\Model\PanelPricingCalculator' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Model/PanelPricingCalculator.php'
+	'Bcs\Model\PanelPricingCalculator' 			=> 'system/modules/panel_pricing_calculator/library/Bcs/Model/PanelPricingCalculator.php',
+	'Bcs\Backend\PanelPricingCalculatorBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PanelPricingCalculatorBackend.php'
 ));
