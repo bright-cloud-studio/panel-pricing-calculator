@@ -22,7 +22,7 @@ class PanelPricingCalculatorModule extends \Contao\Module
      * Template
      * @var string
      */
-    protected $strTemplate = 'mod_panel_pricing_calculator';
+    protected $strTemplate = 'panel_pricing_calculator_module';
  
 	protected $arrStates = array();
  
