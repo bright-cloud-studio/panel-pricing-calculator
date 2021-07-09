@@ -12,4 +12,4 @@
 **/
 
 /* Add a palette to tl_module */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['mod_panel_pricing_calculator'] 		= '{title_legend},name;{template_legend:hide},customTpl;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['panel_pricing_calculator_module'] 		= '{title_legend},name,headline,type;{template_legend:hide},customTpl;{expert_legend:hide},guests,cssID,space';
