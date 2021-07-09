@@ -11,6 +11,10 @@
  */
 
 
+/* Front end modules */
+$GLOBALS['FE_MOD']['panel_pricing_calculator']['mod_panel_pricing_calculator'] 	= 'Bcs\Module\PanelPricingCalculatorModule';
+
+
 /* Back end modules */
 
 // DECLARING LOCATIONS BACK END PLUGIN
