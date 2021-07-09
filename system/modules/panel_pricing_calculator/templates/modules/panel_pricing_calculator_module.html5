@@ -1,3 +1,101 @@
 <div class="calculator_container">
-  THIS IS THE CALCULATOR MODULE
+
+THIS IS THE CALC
+
+
+<div class="bodytext calculator_wrapper">
+<div class="flex_wrapper">
+   <div class="widget-select size50">
+	    <!--<label for="panel_id" class="control-label">Panel ID</label>-->
+	    <!--<input type="text" id="panel_id" name="panel_id">-->
+	    <select required="" class="form-control" id="panel_id" name="panel_id">
+			<option value="0">Panel Name</option>
+			<option value="1">Claybord</option>
+			<option value="2">Gessobord</option>
+			<option value="3">Aquabord</option>
+			<option value="4">Encausticbord</option>
+			<option value="5">Pastelbord</option>
+			<option value="6">Scratchbord</option>
+			<option value="7">Hardbord</option>
+			<option value="8">ArtWhite</option>
+		</select>
+    </div>
+    <div class="widget-select size50">
+<!--		<label for="flat_id" class="control-label">Panel Thickness</label>-->
+		<select required="" class="form-control" id="flat_id" name="flat_id">
+			<option value="0">Panel Thickness</option>
+						<option value="1">1/8"</option>
+						<option value="2">1/4"</option>
+					</select>	
+		</div>
+             </div>  
+<div class="flex_wrapper">
+	
+
+			<div class="widget widget-select size33">
+<!--		<label for="cradle_id" class="control-label">Cradle Depth</label>-->
+			<select required="" class="form-control" id="cradle_id" name="cradle_id">
+						<option value="none">Cradle Depth</option>
+						<option value="none">None</option>
+						<option value="3">3/4" cradled</option>
+						<option value="4">1" Cradled</option>
+						<option value="5">1 1/2" Cradled</option>
+						<option value="6">2" Cradled</option>
+						<option value="7">2 1/2" Cradled</option>
+						<option value="8">3" Cradled</option>
+					</select>	
+		</div>
+
+		<div class="size33">
+			<label for="width" class="control-label">Panel Width in Inches (Max 48)</label>
+			<input required="" type="number" min="1" step="any" class="form-control" id="width" name="width" max="48" data-w="width" placeholder="">
+		</div>
+            
+		<div class="size33">
+			<label for="height" class="control-label">Panel Width in Inches (Max 90)</label>
+			<input required="" type="number" min="1" max="90" step="any" class="form-control" id="height" name="height" data-h="height" placeholder="">
+	<!--<select name="size" id="size" class="select mandatory" required="">-->
+          
+ <!--             <option value="">Sizes</option>-->
+ <!--             <option data-w="6" data-h="6" value="72">6x6</option>-->
+ <!--             <option data-w="8" data-h="8" value="53">8x8</option>-->
+ <!--             <option data-w="8" data-h="10" value="54">8x10</option>-->
+ <!--             <option data-w="9" data-h="12" value="55">9x12</option>-->
+ <!--             <option data-w="10" data-h="10" value="56">10x10</option>-->
+ <!--             <option data-w="11" data-h="14" value="57">11x14</option>-->
+ <!--             <option data-w="12" data-h="12" value="58">12x12</option>-->
+ <!--             <option data-w="12" data-h="16" value="59">12x16</option>-->
+ <!--             <option data-w="16" data-h="20" value="39">16x20</option>-->
+ <!--             <option data-w="18" data-h="24" value="40">18x24</option>-->
+ <!--             <option data-w="24" data-h="24" value="29">24x24</option>-->
+ <!--             <option data-w="24" data-h="30" value="30">24x30</option>-->
+ <!--             <option data-w="24" data-h="36" value="31" selected="">24x36</option>-->
+ <!--           </select>-->
+            </div>
+            
+           </div>
+	
+	<div class="form-group size100"> <!-- State Button -->
+		<label for="quantity" class="control-label">There may be a quantity discount. How many OF THIS SIZE PANEL do you want to quote?</label>	
+		<input style="width:100px;" required="" type="number" min="1" class="form-control" id="quantity" name="quantity" placeholder=""><br>
+			<br><br><button onclick="calculate()">Calculate</button>
+	<br><br>
+<strong id="total"></strong>
+	</div>
+	
+
+
+</div><!--END BODYTEXT-->
+
+
+    
+<!--javascript-->
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../CalculatorEndpoint/js/panelcalculator.js?ver=17"></script>
+
+
+
+
+
 </div>
