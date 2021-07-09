@@ -11,18 +11,13 @@
  */
 
 
-/* Front end modules */
-$GLOBALS['FE_MOD']['panel_pricing_calculator']['mod_panel_pricing_calculator'] 	= 'Bcs\Module\PanelPricingCalculatorModule';
-
 
 /* Back end modules */
-
 // DECLARING LOCATIONS BACK END PLUGIN
 if (!is_array($GLOBALS['BE_MOD']['panel_pricing_calculator']))
 {
     array_insert($GLOBALS['BE_MOD'], 1, array('panel_pricing_calculator' => array()));
 }
-
 
 // This sets up our custom section "PANEL PRICING CALCULATOR"
 $GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'][0] = "Panel Pricing Calculator";
@@ -44,6 +39,10 @@ $GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_thicknesses'] = array(
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
 	'exportLocations' => array('Bcs\Backend\PanelThicknessesBackend', 'exportPanelThicknesses')
 );
+
+
+/* Front end modules */
+$GLOBALS['FE_MOD']['panel_pricing_calculator']['panel_pricing_calculator_module'] 	= 'Bcs\Module\PanelPricingCalculatorModule';
 
 
 /* Models */
