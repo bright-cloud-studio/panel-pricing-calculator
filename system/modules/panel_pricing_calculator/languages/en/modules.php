@@ -16,4 +16,4 @@ $GLOBALS['TL_LANG']['MOD']['cradle_depths'] = array('Cradle Depths', 'Add/Edit c
 $GLOBALS['TL_LANG']['MOD']['panel_thicknesses'] = array('Panel Thicknesses', 'Add/Edit panel thicknesses');
 
 /* Front end modules */
-$GLOBALS['TL_LANG']['FMD']['mod_panel_pricing_calculator'] 	= array('Panel Pricing Calculator', 'The front end module that displays the calculator form.');
+$GLOBALS['TL_LANG']['FMD']['panel_pricing_calculator_module'] 	= array('Panel Pricing Calculator', 'The front end module that displays the calculator form.');
