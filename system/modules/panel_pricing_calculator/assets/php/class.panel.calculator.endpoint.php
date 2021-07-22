@@ -351,7 +351,7 @@ class PanelCalculator
 
     public function verifyFormToken($form)
     {
-		// check if a session is started and a token is transmitted, if not return an error
+	// check if a session is started and a token is transmitted, if not return an error
         if (!isset($_SESSION[$form.'_token'])) {
             return false;
         }
