@@ -469,7 +469,7 @@ class PanelCalculator
     
     public function validateForm($vars)
     {
-		if ($vars['panel_id'] =='' or !is_numeric($vars['panel_id'])) {
+	if ($vars['panel_id'] =='' or !is_numeric($vars['panel_id'])) {
             $this->errors[] = "Choose panel";
         }
         if (!is_numeric($vars['cradle_id'])) {
