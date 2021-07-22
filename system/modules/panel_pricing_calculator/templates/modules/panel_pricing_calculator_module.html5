@@ -1,7 +1,6 @@
 <!-- The main calc module container -->
 <div class="calculator_container">
 
-
 	<!-- Form top row -->
 	<div class="flex_wrapper">
 
