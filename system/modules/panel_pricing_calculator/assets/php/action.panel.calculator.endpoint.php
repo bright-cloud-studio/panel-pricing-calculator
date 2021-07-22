@@ -1,6 +1,7 @@
 <?php
 // Starts the session and connects to the database
-include_once("_includes/prepend.endpoint.php");
+include_once("prepend.endpoint.php");
+//include_once("_includes/prepend.endpoint.php");
 
 // object created in prepend.endpoint.php, set our total price to the value returned from the processForm() function
 $total_price = $PanelCalculator->processForm();
