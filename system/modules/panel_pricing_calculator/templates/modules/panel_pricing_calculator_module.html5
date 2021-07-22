@@ -74,7 +74,7 @@
 		<br><br>
 		<button onclick="calculate()">Calculate</button>
 		<br><br>
-		<strong id="total"></strong>
+		<strong id="total_label">Total: </strong><strong id="total"></strong>
 	</div>
 	<!-- End Quantity and Submit -->
 
