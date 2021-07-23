@@ -4,92 +4,92 @@
 class PanelCalculator
 {
     
-    public static $cart_cookie_name = 'ampersandart_cart';
-    public function __construct($dbh)
-    {
-        $this->dbh = $dbh;
-        $this->message = array();
-        $this->errors = array();
-    }
-    public function insertData($query)
-    {
-        $result = $this->dbh->prepare($query);
-        $result->execute();
-        return $this->dbh->lastInsertId();
-    }
+	public static $cart_cookie_name = 'ampersandart_cart';
+	public function __construct($dbh)
+	{
+		$this->dbh = $dbh;
+		$this->message = array();
+		$this->errors = array();
+	}
+	public function insertData($query)
+	{
+		$result = $this->dbh->prepare($query);
+		$result->execute();
+		return $this->dbh->lastInsertId();
+	}
     
-    ///////////////////////////////////////////////////////////////
+	///////////////////////////////////////////////////////////////
 	// GETS - Grabs information from the database for everything //
 	///////////////////////////////////////////////////////////////
 	
-    public function getPanelNameById($id)
-    {
-        $data = array();
-        $query = "select * from six_panel where id=".$id.' LIMIT 1';
-        $result = $this->dbh->prepare($query);
-        $result->execute();
-        $row = $result->fetch();
-        return $row['panel_name'];
-    }
-    public function getPanelTypeNameById($id)
-    {
-        $data = array();
-        $query = "select * from six_panel_type where id=".$id.' LIMIT 1';
-        $result = $this->dbh->prepare($query);
-        $result->execute();
-        $row = $result->fetch();
-        return $row['panel_type_name'];
-    }
-    public function getPanels()
-    {
-        $data = array();
-        $query = "select * from six_panel where id<>8";
-        $result = $this->dbh->prepare($query);
-        $result->execute();
-        while ($row = $result->fetch()) {
-            $data[$row['id']] = $row;
-        }
-        return $data;
-    }
-    public function getFlats()
-    {
-        $data = array();
-        $query = "select * from six_panel_type WHERE type='flat'";
-        $result = $this->dbh->prepare($query);
-        $result->execute();
-        while ($row = $result->fetch()) {
-            $data[$row['id']] = $row;
-        }
-        return $data;
-    }
-    public function getCradles()
-    {
-        $data = array();
-        $query = "select * from six_panel_type WHERE type='cradle'";
-        $result = $this->dbh->prepare($query);
-        $result->execute();
-        while ($row = $result->fetch()) {
-            $data[$row['id']] = $row;
-        }
-        return $data;
-    }
+	public function getPanelNameById($id)
+	{
+		$data = array();
+		$query = "select * from six_panel where id=".$id.' LIMIT 1';
+		$result = $this->dbh->prepare($query);
+		$result->execute();
+		$row = $result->fetch();
+		return $row['panel_name'];
+	}
+	public function getPanelTypeNameById($id)
+	{
+		$data = array();
+		$query = "select * from six_panel_type where id=".$id.' LIMIT 1';
+		$result = $this->dbh->prepare($query);
+		$result->execute();
+		$row = $result->fetch();
+		return $row['panel_type_name'];
+	}
+	public function getPanels()
+	{
+		$data = array();
+		$query = "select * from six_panel where id<>8";
+		$result = $this->dbh->prepare($query);
+		$result->execute();
+		while ($row = $result->fetch()) {
+			$data[$row['id']] = $row;
+		}
+		return $data;
+	}
+	public function getFlats()
+	{
+		$data = array();
+		$query = "select * from six_panel_type WHERE type='flat'";
+		$result = $this->dbh->prepare($query);
+		$result->execute();
+		while ($row = $result->fetch()) {
+			$data[$row['id']] = $row;
+		}
+		return $data;
+	}
+	public function getCradles()
+	{
+		$data = array();
+		$query = "select * from six_panel_type WHERE type='cradle'";
+		$result = $this->dbh->prepare($query);
+		$result->execute();
+		while ($row = $result->fetch()) {
+			$data[$row['id']] = $row;
+		}
+		return $data;
+	}
     
 	////////////////////////////////////////////////////////
 	// THIS IS THE FIRST FUNCTION CALLED FROM THE SCRIPTS //
 	////////////////////////////////////////////////////////
 	
-    public function processForm()
-    {
-        // turn the form values into $vars
-        $vars = $_POST;
+	public function processForm()
+	{
+		// turn the form values into $vars
+		$vars = $_POST;
         
-        // validateForm just makes sure numbers are set
-        if ($this->validateForm($vars)) {
-            $total_price = $this->calculatePrice($vars);
-            return $this->formatPrice($total_price);
-        }            
-        return false;
-    }
+		// validateForm just makes sure numbers are set
+		if ($this->validateForm($vars)) {
+			$total_price = $this->calculatePrice($vars);
+			return $this->formatPrice($total_price);
+		}            
+		return false;
+	}
     
     public function calculatePrice($vars)
     {
@@ -103,6 +103,7 @@ class PanelCalculator
         }
     }
 
+    // For Square Feet 6 or under
     public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
     {
     	// create a new array to store data
@@ -139,7 +140,7 @@ class PanelCalculator
                 // set rate in our message array
                 $this->message['rate'] = $rate;
 
-				// "percent" from "six_quantity"
+		// "percent" from "six_quantity"
                 $discount_percent = $this->sixDiscount($quantity);
                 
                 // if we have a discount
@@ -202,6 +203,7 @@ class PanelCalculator
         return false;
     }
     
+    // For Squre Feet 6 or more
     public function getMoreSixRate($vars, $square_feet)
     {
         $data = array();
@@ -298,76 +300,78 @@ class PanelCalculator
         return false;
     }
     
-    public function moreDiscount($quantity)
-    {
-        if ($quantity == 1) {
-            return 10;
-        }
-        if ($quantity == 2) {
-            return 20;
-        }
-        if ($quantity == 3) {
-            return 30;
-        }
-        if ($quantity >= 4 && $quantity < 10) {
-            return 40;
-        }
-        if ($quantity >= 10) {
-            return 50;
-        }
-        return false;
-    }
+	// Large Panel Quantity Discount
+	// this applies a percentage off discount for large custom panels based on the quantity of the order
+	public function moreDiscount($quantity)
+	{
+		if ($quantity == 1) {
+			return 10;
+        	}
+		if ($quantity == 2) {
+			return 20;
+		}
+		if ($quantity == 3) {
+			return 30;
+		}
+		if ($quantity >= 4 && $quantity < 10) {
+			return 40;
+		}
+		if ($quantity >= 10) {
+			return 50;
+		}
+		return false;
+	}
     
-    public function formatPrice($total_price)
-    {
-        return round($total_price, 2);
-    }
+	public function formatPrice($total_price)
+	{
+		return round($total_price, 2);
+	}
     
-    public function getSquareFeet($width, $height)
-    {
-        $square_inches = $this->getSquareInches($width, $height);
-        return round(($square_inches / 144), 4);
-    }
+	public function getSquareFeet($width, $height)
+	{
+		$square_inches = $this->getSquareInches($width, $height);
+		return round(($square_inches / 144), 4);
+	}
 
-    public function getSquareInches($width, $height)
-    {
-        return ($width * $height);
-    }
+	public function getSquareInches($width, $height)
+	{
+		return ($width * $height);
+	}
     
-    ///////////////////////////////////////
-    // SESSIONS, COOKIES AND CART STUFFS //
-    ///////////////////////////////////////
+	///////////////////////////////////////
+	// SESSIONS, COOKIES AND CART STUFFS //
+	///////////////////////////////////////
     
-    public function generateFormToken($form)
-    {
-       // generate a token from an unique value
-        $token = md5(uniqid(microtime(), true));
+	public function generateFormToken($form)
+	{
+		// generate a token from an unique value
+		$token = md5(uniqid(microtime(), true));
         
-        // Write the generated token to the session variable to check it against the hidden field when the form is sent
-        $_SESSION[$form.'_token'] = $token;
+		// Write the generated token to the session variable to check it against the hidden field when the form is sent
+		$_SESSION[$form.'_token'] = $token;
         
-        return $token;
-    }
+		return $token;
+	}
 
-    public function verifyFormToken($form)
-    {
-	// check if a session is started and a token is transmitted, if not return an error
-        if (!isset($_SESSION[$form.'_token'])) {
-            return false;
-        }
+	public function verifyFormToken($form)
+	{
+		// check if a session is started and a token is transmitted, if not return an error
+		if (!isset($_SESSION[$form.'_token'])) {
+			return false;
+		}
     
-        // check if the form is sent with token in it
-        if (!isset($_POST['token'])) {
-            return false;
-        }
+		// check if the form is sent with token in it
+		if (!isset($_POST['token'])) {
+			return false;
+		}
     
-        // compare the tokens against each other if they are still the same
-        if ($_SESSION[$form.'_token'] !== $_POST['token']) {
-            return false;
-        }
+		// compare the tokens against each other if they are still the same
+		if ($_SESSION[$form.'_token'] !== $_POST['token']) {
+			return false;
+		}
     
-        return true;
-    }
+		return true;
+	}
 
     public function processOrderForm()
     {
