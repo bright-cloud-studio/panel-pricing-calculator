@@ -41,7 +41,7 @@ $GLOBALS['TL_DCA']['tl_panel_pricing_calculator'] = array
         'label' => array
         (
             'fields'                  => array('size', 'square_feet'),
-            'format'                  => '<span style="font-weight: bold;">Size:</span> %s, <span style="font-weight: bold;">Square Feet:</span> %s'
+            'format'                  => '<span style="font-weight: bold;">Size:</span> %s <span style="font-weight: bold;">Square Feet:</span> %s'
         ),
         'global_operations' => array
         (
