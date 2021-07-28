@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_panel_pricing_calculator'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{product_legend},product_name,product_inventory;{publish_legend},published;'
+        'default'                     => '{size_legend},size,square_feet;{products_legend},1_8_1,1_8_2,1_8_3,3_4_1,3_4_2;{publish_legend},published;'
     ),
  
     // Fields
@@ -126,23 +126,68 @@ $GLOBALS['TL_DCA']['tl_panel_pricing_calculator'] = array
 		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
 
 	),
-	'product_name' => array
+	'size' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['product_name'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['size'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
-	'product_inventory' => array
+	'square_feet' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['product_inventory'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['square_feet'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
-		'eval'                    => array('mandatory'=>false, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) unsigned NOT NULL default '0'"
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'1_8_1' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['1_8_1'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'1_8_2' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['1_8_2'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'1_8_3' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['1_8_3'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'3_4_1' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['3_4_1'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'3_4_2' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['3_4_2'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'published' => array
 	(
