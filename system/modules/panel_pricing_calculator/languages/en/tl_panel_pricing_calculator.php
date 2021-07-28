@@ -22,7 +22,7 @@ $GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['published'] 		        = arra
 
 /* Sizes */
 $GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['size'] 			     	      = array('Size', 'The size of the product');
-$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['square_feet']         = array('Size', 'The size of the product');
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['square_feet']         = array('Square Feet', 'The square feet of the product');
 
 /* Products */
 $GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['1_8_1']         = array('1/8" FLAT Claybord, Gessobord, Aquabord, Encausticbord', ' ');
