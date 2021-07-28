@@ -22,8 +22,8 @@ if (!is_array($GLOBALS['BE_MOD']['panel_pricing_calculator']))
 // This sets up our custom section "PANEL PRICING CALCULATOR"
 $GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'][0] = "Panel Pricing Calculator";
 // Adds "Panel Pricing Calculator" to our custom section
-$GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_pricing_calculator'] = array(
-	'tables' => array('tl_panel_pricing_calculator'),
+$GLOBALS['BE_MOD']['panel_pricing_calculator']['price_chart'] = array(
+	'tables' => array('tl_price_chart'),
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
 	'exportLocations' => array('Bcs\Backend\PanelPricingCalculatorBackend', 'exportPanelPricingCalculator')
 );
