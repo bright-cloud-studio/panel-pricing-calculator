@@ -3,7 +3,6 @@
 // This is the main object and itss functions. Everything starts, besides the constructor, at processForm().
 class PanelCalculator
 {
-    
 	public static $cart_cookie_name = 'ampersandart_cart';
 	public function __construct($dbh)
 	{
