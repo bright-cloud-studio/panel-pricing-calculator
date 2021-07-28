@@ -27,19 +27,6 @@ $GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_pricing_calculator'] = arr
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
 	'exportLocations' => array('Bcs\Backend\PanelPricingCalculatorBackend', 'exportPanelPricingCalculator')
 );
-// Adds "Cradle Depths" to our custom section
-$GLOBALS['BE_MOD']['panel_pricing_calculator']['cradle_depths'] = array(
-	'tables' => array('tl_cradle_depths'),
-	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
-	'exportLocations' => array('Bcs\Backend\CradleDepthsBackend', 'exportCradleDepths')
-);
-// Adds "Panel Thickness" to our custom section
-$GLOBALS['BE_MOD']['panel_pricing_calculator']['panel_thicknesses'] = array(
-	'tables' => array('tl_panel_thicknesses'),
-	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
-	'exportLocations' => array('Bcs\Backend\PanelThicknessesBackend', 'exportPanelThicknesses')
-);
-
 
 /* Front end modules */
 $GLOBALS['FE_MOD']['panel_pricing_calculator']['panel_pricing_calculator_module'] 	= 'Bcs\Module\PanelPricingCalculatorModule';
