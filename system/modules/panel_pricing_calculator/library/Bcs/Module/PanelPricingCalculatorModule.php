@@ -61,11 +61,13 @@ class PanelPricingCalculatorModule extends \Contao\Module
     }
  
  
-    /**
-     * Generate the module
-     */
-    protected function compile()
-    {
+	/* Generate the module */
+	protected function compile()
+	{
+		// add our js
+		if (!in_array('<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js"></script>', $GLOBALS['TL_BODY'])) { 
+			$GLOBALS['TL_BODY'][] = '<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js"></script>';
+		}
 	    
 	    /*
 		$objLocation = Location::findBy('published', '1');
