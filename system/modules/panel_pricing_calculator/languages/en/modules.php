@@ -11,9 +11,7 @@
  */
 
 /* Back end modules */
-$GLOBALS['TL_LANG']['MOD']['panel_pricing_calculator'] = array('Panel Pricing Calculator', 'Track data for panel pricing calculator');
-$GLOBALS['TL_LANG']['MOD']['cradle_depths'] = array('Cradle Depths', 'Add/Edit cradle depths');
-$GLOBALS['TL_LANG']['MOD']['panel_thicknesses'] = array('Panel Thicknesses', 'Add/Edit panel thicknesses');
+$GLOBALS['TL_LANG']['MOD']['price_chart'] = array('Price Chart', 'Add/Edit/View pricing information');
 
 /* Front end modules */
 $GLOBALS['TL_LANG']['FMD']['panel_pricing_calculator_module'] 	= array('Panel Pricing Calculator', 'The front end module that displays the calculator form.');
