@@ -12,14 +12,26 @@
 
 
 /* Legends */
-$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['product_legend'] 	= 'Product Details';
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['size_legend'] 	= 'Size Details';
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['products_legend'] 	= 'Products Details';
 $GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['publish_legend'] 	= 'Publish';
 
 /* Fields */
 $GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['alias'] 			           = array('Alias', 'Auto-generated alias.');
-$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['product_name'] 			   	= array('Product Name', 'The name of the product');
-$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['product_inventory'] 		= array('Product Inventory', 'The inventory total');
 $GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['published'] 		        = array('Published', 'Save this product\'s record.');
+
+/* Sizes */
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['size'] 			     	      = array('Size', 'The size of the product');
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['square_feet']         = array('Size', 'The size of the product');
+
+/* Products */
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['1_8_1']         = array('1/8" FLAT Claybord, Gessobord, Aquabord, Encausticbord', ' ');
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['1_8_2']         = array('1/8" FLAT Scratchbord, Pastelbord', ' ');
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['1_8_3']         = array('1/8" FLAT Hardbord', ' ');
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['3_4_1']         = array('3/4" cradled Hardbord', ' ');
+$GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['3_4_2']         = array('3/4" cradled Other', ' ');
+
+
  
  /* Buttons */
 $GLOBALS['TL_LANG']['tl_panel_pricing_calculator']['new']   		 	= array('New record', 'Add a new record');
