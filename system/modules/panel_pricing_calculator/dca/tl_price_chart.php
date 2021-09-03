@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{size_legend},size,width,height,square_feet;{products_legend},1_8_1,1_8_2,1_8_3,3_4_1,3_4_2;{publish_legend},published;'
+        'default'                     => '{size_legend},width,height,square_feet;{products_legend},1_8_1,1_8_2,1_8_3,3_4_1,3_4_2;{publish_legend},published;'
     ),
  
     // Fields
@@ -126,15 +126,6 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
 
 	),
-	'size' => array
-	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['size'],
-		'inputType'               => 'text',
-		'default'		  => '',
-		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
-	),
 	'width' => array
 	(
 		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['width'],
@@ -142,7 +133,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
+		'sql'                     => "int(10) NOT NULL default ''"
 	),
 	'height' => array
 	(
@@ -151,7 +142,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
+		'sql'                     => "int(10) NOT NULL default ''"
 	),
 	'square_feet' => array
 	(
