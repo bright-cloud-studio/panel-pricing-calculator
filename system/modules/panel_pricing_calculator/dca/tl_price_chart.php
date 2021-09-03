@@ -40,8 +40,8 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('size', 'square_feet'),
-            'format'                  => '<span style="font-weight: bold;">Size:</span> %s <span style="font-weight: bold;">Square Feet:</span> %s'
+            'fields'                  => array('width', 'height', 'square_feet'),
+            'format'                  => '<span style="font-weight: bold;">Size:</span> %s X %s <span style="font-weight: bold;">Square Feet:</span> %s'
         ),
         'global_operations' => array
         (
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{size_legend},size,square_feet;{products_legend},1_8_1,1_8_2,1_8_3,3_4_1,3_4_2;{publish_legend},published;'
+        'default'                     => '{size_legend},size,width,height,square_feet;{products_legend},1_8_1,1_8_2,1_8_3,3_4_1,3_4_2;{publish_legend},published;'
     ),
  
     // Fields
@@ -129,6 +129,24 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 	'size' => array
 	(
 		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['size'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'width' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['width'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'height' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['height'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
