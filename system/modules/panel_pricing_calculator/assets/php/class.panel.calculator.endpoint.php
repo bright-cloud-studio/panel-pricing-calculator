@@ -7,7 +7,7 @@ use Contao\DataContainer;
 use Bcs\Model\PanelPricingCalculator;
 
 // This is the main object and itss functions. Everything starts, besides the constructor, at processForm().
-class PanelCalculator
+class PanelCalculator extends \Backend
 {
 	public static $cart_cookie_name = 'ampersandart_cart';
 	public function __construct()
