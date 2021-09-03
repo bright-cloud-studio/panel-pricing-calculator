@@ -115,14 +115,21 @@ class PanelCalculator extends \Backend
 		
 		// get the row with the closest matching square feet
 		$this->import('Database');
+		
+		error_log("After import", 0);
+		
 		$result = $this->Database->prepare("SELECT * FROM tl_price_chart WHERE square_feet >= ".$square_feet." ORDER BY square_feet ASC LIMIT 1")->execute();
+		
+		error_log("After query", 0);
 		
 		while($result->next())
 		{
 			return $result->square_feet;
 		}
 		
-		return "-123456789";
+		error_log("After loop", 0);
+		
+		return "9999";
 	}
 	
 	/*
