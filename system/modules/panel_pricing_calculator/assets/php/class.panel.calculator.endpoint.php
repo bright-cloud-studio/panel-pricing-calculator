@@ -1,13 +1,7 @@
 <?php
 
-// lets add in some Contao stuff and see if we can interact with the database
-namespace Bcs\Backend;
-
-use Contao\DataContainer;
-use Bcs\Model\PanelPricingCalculator;
-
 // This is the main object and itss functions. Everything starts, besides the constructor, at processForm().
-class PanelCalculator extends \Backend
+class PanelCalculator
 {
 	public static $cart_cookie_name = 'ampersandart_cart';
 	public function __construct()
@@ -113,21 +107,7 @@ class PanelCalculator extends \Backend
 		// create a new array to store data
 		$data = array();
 		
-		// get the row with the closest matching square feet
-		$this->import('Database');
-		
-		error_log("After import", 0);
-		
 		$result = $this->Database->prepare("SELECT * FROM tl_price_chart WHERE square_feet >= ".$square_feet." ORDER BY square_feet ASC LIMIT 1")->execute();
-		
-		error_log("After query", 0);
-		
-		while($result->next())
-		{
-			return $result->square_feet;
-		}
-		
-		error_log("After loop", 0);
 		
 		return "9999";
 	}
