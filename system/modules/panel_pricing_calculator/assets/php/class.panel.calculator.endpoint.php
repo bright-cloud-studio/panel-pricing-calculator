@@ -83,8 +83,9 @@ class PanelCalculator
         
 		// validateForm just makes sure numbers are set
 		if ($this->validateForm($vars)) {
-			$total_price = $this->calculatePrice($vars);
-			return $this->formatPrice($total_price);
+			//$total_price = $this->calculatePrice($vars);
+			//return $this->formatPrice($total_price);
+			return 'FUNC: processForm();';
 		}            
 		return false;
 	}
