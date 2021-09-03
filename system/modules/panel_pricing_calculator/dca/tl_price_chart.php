@@ -41,7 +41,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
         'label' => array
         (
             'fields'                  => array('width', 'height', 'square_feet'),
-            'format'                  => '<span style="font-weight: bold;">Size:</span> %s X %s <span style="font-weight: bold;">Square Feet:</span> %s'
+            'format'                  => '<span style="font-weight: bold;">Size:</span> %sx%s <span style="font-weight: bold;">Square Feet:</span> %s'
         ),
         'global_operations' => array
         (
