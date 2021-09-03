@@ -22,6 +22,8 @@ $GLOBALS['TL_LANG']['tl_price_chart']['published'] 		        = array('Published'
 
 /* Sizes */
 $GLOBALS['TL_LANG']['tl_price_chart']['size'] 			     	      = array('Size', 'The size of the product');
+$GLOBALS['TL_LANG']['tl_price_chart']['width'] 			     	      = array('Width', 'The width of the product');
+$GLOBALS['TL_LANG']['tl_price_chart']['height'] 			     	      = array('Height', 'The height of the product');
 $GLOBALS['TL_LANG']['tl_price_chart']['square_feet']         = array('Square Feet', 'The square feet of the product');
 
 /* Products */
