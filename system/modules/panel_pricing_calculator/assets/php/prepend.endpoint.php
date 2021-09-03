@@ -20,4 +20,5 @@ try {
 include_once('class.panel.calculator.endpoint.php');
 
 // create a new object using the database connection
-$PanelCalculator = new PanelCalculator($dbh);
+//$PanelCalculator = new PanelCalculator($dbh);
+$PanelCalculator = new PanelCalculator(); // removed the $dbh connection
