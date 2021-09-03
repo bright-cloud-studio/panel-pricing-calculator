@@ -83,7 +83,7 @@ class PanelCalculator
         
 		// validateForm just makes sure numbers are set
 		if ($this->validateForm($vars)) {
-			//$total_price = $this->calculatePrice($vars);
+			$total_price = $this->calculatePrice($vars);
 			return $this->formatPrice($total_price);
 		}            
 		return false;
@@ -109,7 +109,8 @@ class PanelCalculator
         
          /* WHAT WE NEED TO DO
 	 
-	 	1. 
+	 	1. Get the product price
+		2. Add 15% for 
 	 
 	 */
 	
