@@ -1,5 +1,11 @@
 <?php
 
+// lets add in some Contao stuff and see if we can interact with the database
+namespace Bcs\Backend;
+
+use Contao\DataContainer;
+use Bcs\Model\PanelPricingCalculator;
+
 // This is the main object and itss functions. Everything starts, besides the constructor, at processForm().
 class PanelCalculator
 {
@@ -80,7 +86,7 @@ class PanelCalculator
 	{
 		// turn the form values into $vars
 		$vars = $_POST;
-        
+
 		// validateForm just makes sure numbers are set
 		if ($this->validateForm($vars)) {
 			$total_price = $this->calculatePrice($vars);
@@ -89,35 +95,35 @@ class PanelCalculator
 		return false;
 	}
     
-    public function calculatePrice($vars)
-    {
-    	// calculate square feet. If 6 or less run SixRate, if more than run MoreSixRate
-        $square_feet = $this->getSquareFeet($vars['width'], $vars['height']);
-        if ($square_feet <=6) {
-            return $this->getSixRate($vars['panel_id'], $vars['flat_id'], $vars['cradle_id'], $square_feet, $vars['quantity'], $vars['width'], $vars['height']);
-        } else {
-            $price = $this->getMoreSixRate($vars, $square_feet);
-            return $price;
-        }
-    }
+	public function calculatePrice($vars)
+	{
+		// calculate square feet. If 6 or less run SixRate, if more than run MoreSixRate
+		$square_feet = $this->getSquareFeet($vars['width'], $vars['height']);
+		if ($square_feet <=6) {
+			return $this->getSixRate($vars['panel_id'], $vars['flat_id'], $vars['cradle_id'], $square_feet, $vars['quantity'], $vars['width'], $vars['height']);
+		} else {
+			$price = $this->getMoreSixRate($vars, $square_feet);
+			return $price;
+		}
+	}
 
-    // For Square Feet 6 or under
-    public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
-    {
-    	// create a new array to store data
-        $data = array();
-        
-         /* WHAT WE NEED TO DO
-	 
-	 	1. Get the product price
-		2. Add 15% for 
-	 
-	 */
-	
-	return "9999";
-	
-        return false;
-    }
+	// For Square Feet 6 or under
+	public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
+	{
+		// create a new array to store data
+		$data = array();
+		
+		// get the row with the closest matching square feet
+		$this->import('Database');
+		$result = $this->Database->prepare("SELECT * FROM tl_price_chart WHERE square_feet >= ".$square_feet." ORDER BY square_feet ASC LIMIT 1")->execute();
+		
+		while($result->next())
+		{
+			return $result->square_feet;
+		}
+		
+		return "-123456789";
+	}
 	
 	/*
 	// For Square Feet 6 or under
