@@ -84,8 +84,7 @@ class PanelCalculator
 		// validateForm just makes sure numbers are set
 		if ($this->validateForm($vars)) {
 			//$total_price = $this->calculatePrice($vars);
-			//return $this->formatPrice($total_price);
-			return 'FUNC: processForm();';
+			return $this->formatPrice($total_price);
 		}            
 		return false;
 	}
@@ -108,59 +107,78 @@ class PanelCalculator
     	// create a new array to store data
         $data = array();
         
-        // if a cradle as been picked then set the panel type id to that selection, else set to the flat id
-        if ($cradle_id > 0) {
-            $panel_type_id = $cradle_id;
-        } else {
-            $panel_type_id = $flat_id;
-        }
-        
-        // "id" field from "six_standard_size" based on "size_val"
-        $standard_size = $this->getStandardSize($square_feet);
-        $standard_size_id = $standard_size['id'];
-        
-        // if we have a valid id
-        if (isset($standard_size_id)) {
-            if (is_numeric($panel_id) && is_numeric($panel_type_id) && is_numeric($standard_size_id)) {
-                
-                // "price" from "six_junction" based on every other id
-                $rate = $this->getPriceSixJunction($panel_id, $panel_type_id, $standard_size_id);
-                // "plus_percentage" from "six_panel_type"
-                $plusPercentage = $this->getPercentageByFlatId($flat_id);
-                
-                if($plusPercentage > 0){
-                    $rate = $rate + ($rate * ($plusPercentage/100));
-                }
-                
-                if ($width > 72 || $height > 72) {
-                    $rate = $rate + ((20/100) * $rate);
-                }
-                
-                // set rate in our message array
-                $this->message['rate'] = $rate;
-
-		// "percent" from "six_quantity"
-                $discount_percent = $this->sixDiscount($quantity);
-                
-                // if we have a discount
-                if ($discount_percent) {
-                	
-                    $discount_amount = (($discount_percent/100)*$rate);
-                    $price = $rate - $discount_amount;
-                    $total_discount_amount = $discount_amount*$quantity;
-                    $total_price = ($quantity*$price);
-
-                    $this->message['discount_percent'] = $discount_percent;
-                    $this->message['discount_amount'] = $discount_amount;
-                    $this->message['total_discount_amount'] = $total_discount_amount;
-                    return $total_price;
-                }
-                $total_price = ($quantity*$rate);
-                return $total_price;
-            }
-        }
+         /* WHAT WE NEED TO DO
+	 
+	 	1. 
+	 
+	 */
+	
+	return "9999";
+	
         return false;
     }
+	
+	/*
+	// For Square Feet 6 or under
+	public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
+	{
+	// create a new array to store data
+	$data = array();
+
+	// if a cradle as been picked then set the panel type id to that selection, else set to the flat id
+	if ($cradle_id > 0) {
+	    $panel_type_id = $cradle_id;
+	} else {
+	    $panel_type_id = $flat_id;
+	}
+
+	// "id" field from "six_standard_size" based on "size_val"
+	$standard_size = $this->getStandardSize($square_feet);
+	$standard_size_id = $standard_size['id'];
+
+	// if we have a valid id
+	if (isset($standard_size_id)) {
+	    if (is_numeric($panel_id) && is_numeric($panel_type_id) && is_numeric($standard_size_id)) {
+
+		// "price" from "six_junction" based on every other id
+		$rate = $this->getPriceSixJunction($panel_id, $panel_type_id, $standard_size_id);
+		// "plus_percentage" from "six_panel_type"
+		$plusPercentage = $this->getPercentageByFlatId($flat_id);
+
+		if($plusPercentage > 0){
+		    $rate = $rate + ($rate * ($plusPercentage/100));
+		}
+
+		if ($width > 72 || $height > 72) {
+		    $rate = $rate + ((20/100) * $rate);
+		}
+
+		// set rate in our message array
+		$this->message['rate'] = $rate;
+
+		// "percent" from "six_quantity"
+		$discount_percent = $this->sixDiscount($quantity);
+
+		// if we have a discount
+		if ($discount_percent) {
+
+		    $discount_amount = (($discount_percent/100)*$rate);
+		    $price = $rate - $discount_amount;
+		    $total_discount_amount = $discount_amount*$quantity;
+		    $total_price = ($quantity*$price);
+
+		    $this->message['discount_percent'] = $discount_percent;
+		    $this->messagdsdsae['discount_amount'] = $discount_amount;
+		    $this->message['total_discount_amount'] = $total_discount_amount;
+		    return $total_price;
+		}
+		$total_price = ($quantity*$rate);
+		return $total_price;
+	    }
+	}
+	return false;
+	}
+	*/
     
      public function getStandardSize($square_feet)
     {
