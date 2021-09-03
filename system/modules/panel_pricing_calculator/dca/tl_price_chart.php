@@ -133,7 +133,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default ''"
+		'sql'                     => "int(10) NOT NULL default '0'"
 	),
 	'height' => array
 	(
@@ -142,7 +142,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default ''"
+		'sql'                     => "int(10) NOT NULL default '0'"
 	),
 	'square_feet' => array
 	(
