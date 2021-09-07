@@ -10,6 +10,11 @@
  * @license    http://opensource.org/licenses/lgpl-3.0.html
  */
 
+namespace Bcs\Backend;
+
+use Contao\DataContainer;
+use Bcs\Model\PanelPricingCalculator;
+
 // This is the main object and itss functions. Everything starts, besides the constructor, at processForm().
 class PanelCalculator extends \Backend
 {
