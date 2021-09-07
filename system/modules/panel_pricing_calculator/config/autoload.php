@@ -18,8 +18,7 @@ ClassLoader::addClasses(array
 (
 	'Bcs\Module\PanelPricingCalculatorModule' 	=> 'system/modules/panel_pricing_calculator/library/Bcs/Module/PanelPricingCalculatorModule.php',
 	'Bcs\Model\PanelPricingCalculator' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Model/PanelPricingCalculator.php',
-	'Bcs\Backend\PriceChartBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PriceChartBackend.php',
-	'Bcs\Backend\PanelPricingFunctions' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PanelPricingFunctions.php'
+	'Bcs\Backend\PriceChartBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PriceChartBackend.php'
 ));
 
 /* Register the templates */
