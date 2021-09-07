@@ -6,7 +6,7 @@ error_reporting(E_ALL ^ E_NOTICE); // php function with pre defined number
 
 
 namespace Bcs\Module;
-use Bcs\Model\PanelPricingCalculator;
+use Bcs\Backend\PanelPricingFunctions;
 
 
 
