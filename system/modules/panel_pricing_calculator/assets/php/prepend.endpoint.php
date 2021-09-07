@@ -5,11 +5,6 @@ session_start(); // php function
 error_reporting(E_ALL ^ E_NOTICE); // php function with pre defined number
 
 
-namespace Bcs\Module;
-use Bcs\Backend\PanelPricingFunctions;
-
-
-
 // removing the connection to the database, no longer needed. Data will flow to and from Contao instead of the database directly.
 /*
 try {
@@ -23,7 +18,7 @@ try {
 */
 
 // include all of the functions this will use
-//include_once('class.panel.calculator.endpoint.php');
+include_once('class.panel.calculator.endpoint.php');
 
 // create a new object using the database connection
 //$PanelCalculator = new PanelCalculator($dbh);
