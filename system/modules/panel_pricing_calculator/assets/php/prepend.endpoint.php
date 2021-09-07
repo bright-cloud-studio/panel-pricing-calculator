@@ -17,7 +17,7 @@ try {
 */
 
 // include all of the functions this will use
-include_once('class.panel.calculator.endpoint.php');
+//include_once('class.panel.calculator.endpoint.php');
 
 // create a new object using the database connection
 //$PanelCalculator = new PanelCalculator($dbh);
