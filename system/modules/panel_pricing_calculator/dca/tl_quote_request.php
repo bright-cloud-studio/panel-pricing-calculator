@@ -80,7 +80,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-				'button_callback'     => array('Bcs\Backend\PriceChartBackend', 'toggleIcon')
+				'button_callback'     => array('Bcs\Backend\QuoteRequestBackend', 'toggleIcon')
 			),
             'show' => array
             (
