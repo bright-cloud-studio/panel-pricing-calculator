@@ -112,6 +112,20 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 	(
 		'sql'                    	=> "int(10) unsigned NOT NULL default '0'"
 	),
+	'alias' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['alias'],
+		'exclude'                 => true,
+		'inputType'               => 'text',
+		'search'                  => true,
+		'eval'                    => array('unique'=>true, 'rgxp'=>'alias', 'doNotCopy'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
+		'save_callback' => array
+		(
+			array('Bcs\Backend\QuoteRequestBackend', 'generateAlias')
+		),
+		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
+
+	),
 	'session_id' => array
 	(
 		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['session_id'],
