@@ -9,6 +9,12 @@ class PanelCalculator
 		$this->dbh = $dbh;
 		$this->message = array();
 		$this->errors = array();
+		
+		$this->servername = "localhost";
+		$this->username = "ampersan_dbadmin";
+		$this->password = "Y06ZCg9BiAh2Uv#@";
+		$this->dbname = "ampersan_cms49";
+		
 	}
 	public function insertData($query)
 	{
@@ -106,79 +112,75 @@ class PanelCalculator
 	public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
 	{
 		
-		$data = array();
-		$query = "select * from tl_price_chart";
-		$result = $this->dbh->prepare($query);
-		$result->execute();
-		$row = $result->fetch();
-		return $row['sorting'];
-		
-		
-		
-		//return "9999";
-	}
-	
-	/*
-	// For Square Feet 6 or under
-	public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
-	{
-	// create a new array to store data
-	$data = array();
-
-	// if a cradle as been picked then set the panel type id to that selection, else set to the flat id
-	if ($cradle_id > 0) {
-	    $panel_type_id = $cradle_id;
-	} else {
-	    $panel_type_id = $flat_id;
-	}
-
-	// "id" field from "six_standard_size" based on "size_val"
-	$standard_size = $this->getStandardSize($square_feet);
-	$standard_size_id = $standard_size['id'];
-
-	// if we have a valid id
-	if (isset($standard_size_id)) {
-	    if (is_numeric($panel_id) && is_numeric($panel_type_id) && is_numeric($standard_size_id)) {
-
-		// "price" from "six_junction" based on every other id
-		$rate = $this->getPriceSixJunction($panel_id, $panel_type_id, $standard_size_id);
-		// "plus_percentage" from "six_panel_type"
-		$plusPercentage = $this->getPercentageByFlatId($flat_id);
-
-		if($plusPercentage > 0){
-		    $rate = $rate + ($rate * ($plusPercentage/100));
+		// Create connection
+		$dbh = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+		if ($dbh->connect_error) {
+			die("Connection failed: " . $dbh->connect_error);
 		}
 
-		if ($width > 72 || $height > 72) {
-		    $rate = $rate + ((20/100) * $rate);
+		
+		// values to build our query
+		$price = '9999';
+		$product_type = 'unselected';
+		$thicknessPlusPercentage = 0;
+		$cradlePlusPercentage = 0;
+		
+		
+		// if uncradled, otherwise use 3/4 sizes
+		if($cradle_id == 'none')
+		{
+			// set which price field to grab based on which panel is selected
+			if($panel_id == 1 || $panel_id == 2 || $panel_id == 3 || $panel_id == 4)
+				$product_type = '1_8_1';
+			else if($panel_id == 5 || $panel_id == 6)
+				$product_type = '1_8_2';
+			else if($panel_id == 7)
+				$product_type = '1_8_3';
+		} else {
+			if($panel_id == 7)
+				$product_type = '3_4_1';
+			else
+				$product_type = '3_4_2';
 		}
-
-		// set rate in our message array
-		$this->message['rate'] = $rate;
-
-		// "percent" from "six_quantity"
-		$discount_percent = $this->sixDiscount($quantity);
-
-		// if we have a discount
-		if ($discount_percent) {
-
-		    $discount_amount = (($discount_percent/100)*$rate);
-		    $price = $rate - $discount_amount;
-		    $total_discount_amount = $discount_amount*$quantity;
-		    $total_price = ($quantity*$price);
-
-		    $this->message['discount_percent'] = $discount_percent;
-		    $this->messagdsdsae['discount_amount'] = $discount_amount;
-		    $this->message['total_discount_amount'] = $total_discount_amount;
-		    return $total_price;
+		
+		// add 15% if thickness is 1/4
+		if($flat_id == 2)
+			$thicknessPlusPercentage = 15;
+		
+		// add 20% if cradle is 1" through 2"
+		if($cradle_id == 4 || $cradle_id == 5 || $cradle_id == 6)
+			$cradlePlusPercentage = 20;
+		else if($cradle_id == 7 || $cradle_id == 8)
+			$cradlePlusPercentage = 25;
+		
+		
+		// STEPS
+		
+		// 1. Get price from nearest size
+		$query =  "select * from tl_price_chart WHERE square_feet >= ".$square_feet." ORDER BY square_feet ASC LIMIT 1";
+		$result = $dbh->query($query);
+		if($result) {
+			
+			while($row = $result->fetch_assoc()) {
+				$price = $row[$product_type];
+			}
+		} else {
+			return "Something has gone wrong! ".$sql->errorno;
 		}
-		$total_price = ($quantity*$rate);
-		return $total_price;
-	    }
+		
+		
+		// add our thickness plus percentage
+		$price = $price + ($price * ($thicknessPlusPercentage/100));
+		
+		// add our cradle plus percentage
+		$price = $price + ($price * ($cradlePlusPercentage/100));
+
+
+		
+		
+		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
+		return $price;
 	}
-	return false;
-	}
-	*/
     
      public function getStandardSize($square_feet)
     {
