@@ -12,6 +12,7 @@
 
 /* Back end modules */
 $GLOBALS['TL_LANG']['MOD']['price_chart'] = array('Price Chart', 'Add/Edit/View pricing information');
+$GLOBALS['TL_LANG']['MOD']['quote_request'] = array('Quote Requests', 'Add/Edit/View submitted Quote Requests');
 
 /* Front end modules */
 $GLOBALS['TL_LANG']['FMD']['panel_pricing_calculator_module'] 	= array('Panel Pricing Calculator', 'The front end module that displays the calculator form.');
