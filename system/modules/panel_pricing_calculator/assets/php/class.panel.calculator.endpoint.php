@@ -105,15 +105,6 @@ class PanelCalculator
 	// For Square Feet 6 or under
 	public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
 	{
-		// create a new array to store data
-		$data = array();
-		$query = "SELECT * FROM tl_price_chart ORDER BY square_feet ASC LIMIT 1";
-		$result = $this->dbh->prepare($query);
-		$result->execute();
-		$row = $result->fetch();
-		return $row['square_feet'];
-		
-		
 		return "9999";
 	}
 	
