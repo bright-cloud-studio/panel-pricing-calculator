@@ -41,7 +41,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
         'label' => array
         (
             'fields'                  => array('session_id', 'price'),
-            'format'                  => '<span style="font-weight: bold;">Session ID:</span> %sx%s <span style="font-weight: bold;">Price:</span> %s'
+            'format'                  => '<span style="font-weight: bold;">Session ID:</span> %s <span style="font-weight: bold;">Price:</span> %s'
         ),
         'global_operations' => array
         (
