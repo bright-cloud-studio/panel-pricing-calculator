@@ -133,7 +133,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'panel_type' => array
 	(
@@ -142,7 +142,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'thickness' => array
 	(
@@ -151,7 +151,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'cradle' => array
 	(
@@ -160,7 +160,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'width' => array
 	(
@@ -169,7 +169,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'height' => array
 	(
@@ -178,7 +178,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'quantity' => array
 	(
@@ -187,7 +187,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'discount' => array
 	(
@@ -196,7 +196,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'price' => array
 	(
@@ -205,7 +205,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "int(10) NOT NULL default '0'"
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'published' => array
 	(
