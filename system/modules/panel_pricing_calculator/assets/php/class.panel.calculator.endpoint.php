@@ -108,7 +108,7 @@ class PanelCalculator
 		// create a new array to store data
 		$data = array();
 		
-		$result = $this->Database->prepare("SELECT * FROM tl_price_chart WHERE square_feet >= ".$square_feet." ORDER BY square_feet ASC LIMIT 1")->execute();
+		$result = $this->Database->prepare("SELECT * FROM tl_price_chart ORDER BY square_feet ASC LIMIT 1")->execute();
 		while($result->next())
 		{
 			return $result->square_feet;
