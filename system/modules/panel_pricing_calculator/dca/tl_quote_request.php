@@ -12,7 +12,7 @@
 
  
 /* Table tl_price_chart */
-$GLOBALS['TL_DCA']['tl_price_chart'] = array
+$GLOBALS['TL_DCA']['tl_quote_request'] = array
 (
  
     // Config
@@ -40,8 +40,8 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('width', 'height', 'square_feet'),
-            'format'                  => '<span style="font-weight: bold;">Size:</span> %sx%s <span style="font-weight: bold;">Square Feet:</span> %s'
+            'fields'                  => array('session_id', 'price'),
+            'format'                  => '<span style="font-weight: bold;">Session ID:</span> %sx%s <span style="font-weight: bold;">Price:</span> %s'
         ),
         'global_operations' => array
         (
@@ -57,34 +57,34 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
         (
             'edit' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['edit'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['edit'],
                 'href'                => 'act=edit',
                 'icon'                => 'edit.gif'
             ),
 			
             'copy' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['copy'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['copy'],
                 'href'                => 'act=copy',
                 'icon'                => 'copy.gif'
             ),
             'delete' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['delete'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['toggle'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
 				'button_callback'     => array('Bcs\Backend\PriceChartBackend', 'toggleIcon')
 			),
             'show' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['show'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['show'],
                 'href'                => 'act=show',
                 'icon'                => 'show.gif'
             )
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{size_legend},width,height,square_feet;{products_legend},1_8_1,1_8_2,1_8_3,3_4_1,3_4_2;{publish_legend},published;'
+        'default'                     => '{size_legend},session_id,panel_type,thickness,cradle,width,height,quantity,discount,price;{publish_legend},published;'
     ),
  
     // Fields
@@ -112,23 +112,45 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 	(
 		'sql'                    	=> "int(10) unsigned NOT NULL default '0'"
 	),
-	'alias' => array
+	'session_id' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['alias'],
-		'exclude'                 => true,
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['session_id'],
 		'inputType'               => 'text',
+		'default'		  => '',
 		'search'                  => true,
-		'eval'                    => array('unique'=>true, 'rgxp'=>'alias', 'doNotCopy'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
-		'save_callback' => array
-		(
-			array('Bcs\Backend\PriceChartBackend', 'generateAlias')
-		),
-		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
-
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "int(10) NOT NULL default '0'"
+	),
+	'panel_type' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['panel_type'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "int(10) NOT NULL default '0'"
+	),
+	'thickness' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['thickness'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "int(10) NOT NULL default '0'"
+	),
+	'cradle' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['cradle'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "int(10) NOT NULL default '0'"
 	),
 	'width' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['width'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['width'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
@@ -137,71 +159,44 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 	),
 	'height' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['height'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['height'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 		'sql'                     => "int(10) NOT NULL default '0'"
 	),
-	'square_feet' => array
+	'quantity' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['square_feet'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['quantity'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
+		'sql'                     => "int(10) NOT NULL default '0'"
 	),
-	'1_8_1' => array
+	'discount' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['1_8_1'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['discount'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
+		'sql'                     => "int(10) NOT NULL default '0'"
 	),
-	'1_8_2' => array
+	'price' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['1_8_2'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['price'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
-	),
-	'1_8_3' => array
-	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['1_8_3'],
-		'inputType'               => 'text',
-		'default'		  => '',
-		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
-	),
-	'3_4_1' => array
-	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['3_4_1'],
-		'inputType'               => 'text',
-		'default'		  => '',
-		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
-	),
-	'3_4_2' => array
-	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['3_4_2'],
-		'inputType'               => 'text',
-		'default'		  => '',
-		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
+		'sql'                     => "int(10) NOT NULL default '0'"
 	),
 	'published' => array
 	(
 		'exclude'                 => true,
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['published'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['published'],
 		'inputType'               => 'checkbox',
 		'eval'                    => array('submitOnChange'=>true, 'doNotCopy'=>true),
 		'sql'                     => "char(1) NOT NULL default ''"
