@@ -12,10 +12,9 @@
 				<option value="2">Gessobord</option>
 				<option value="3">Aquabord</option>
 				<option value="4">Encausticbord</option>
-				<option value="5">Pastelbord</option>
-				<option value="6">Scratchbord</option>
+				<option value="5">Scratchbord</option>
+				<option value="6">Pastelbord</option>
 				<option value="7">Hardbord</option>
-				<option value="8">ArtWhite</option>
 			</select>
 		</div>
 		<!-- End Panel ID -->
@@ -83,5 +82,4 @@
 
 <!-- Scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="../CalculatorEndpoint/js/panelcalculator.js?ver=17"></script>
 <!-- End Scripts -->
