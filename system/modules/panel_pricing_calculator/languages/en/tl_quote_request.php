@@ -12,6 +12,8 @@
 
 
 /* Legends */
+$GLOBALS['TL_LANG']['tl_quote_request']['reviewed_legend'] 	= 'Reviewed Details';
+$GLOBALS['TL_LANG']['tl_quote_request']['user_legend'] 	= 'User Details';
 $GLOBALS['TL_LANG']['tl_quote_request']['size_legend'] 	= 'Size Details';
 $GLOBALS['TL_LANG']['tl_quote_request']['publish_legend'] 	= 'Publish';
 
@@ -20,7 +22,20 @@ $GLOBALS['TL_LANG']['tl_quote_request']['alias'] 			           = array('Alias', 
 $GLOBALS['TL_LANG']['tl_quote_request']['published'] 		        = array('Published', 'Save this product\'s record.');
 
 /* Sizes */
-$GLOBALS['TL_LANG']['tl_quote_request']['session_id']                    = array('Session ID', 'The size of the product');
+
+$GLOBALS['TL_LANG']['tl_quote_request']['reviewed']                    = array('Reviewed', 'Tracks if this quote has been reviewed or not');
+
+$GLOBALS['TL_LANG']['tl_quote_request']['first_name']                    = array('First Name', 'The first name of the user');
+$GLOBALS['TL_LANG']['tl_quote_request']['last_name']                     = array('Last Name', 'The last name of the user');
+$GLOBALS['TL_LANG']['tl_quote_request']['email']                         = array('Email', 'The email of the user');
+$GLOBALS['TL_LANG']['tl_quote_request']['phone']                         = array('Phone', 'The phone number of the user');
+$GLOBALS['TL_LANG']['tl_quote_request']['address_1']                     = array('Address Line 1', 'The first line of the users address');
+$GLOBALS['TL_LANG']['tl_quote_request']['address_2']                     = array('Address Line 2', 'The second line of the users address');
+$GLOBALS['TL_LANG']['tl_quote_request']['city']                          = array('City', 'The city of the user');
+$GLOBALS['TL_LANG']['tl_quote_request']['state']                         = array('State', 'The state of the user');
+$GLOBALS['TL_LANG']['tl_quote_request']['zip']                           = array('Zip', 'The zip of the user');
+$GLOBALS['TL_LANG']['tl_quote_request']['tell_us']                       = array('Tell Us', 'The personal details of the user');
+
 $GLOBALS['TL_LANG']['tl_quote_request']['panel_type']                    = array('Panel Type', 'The size of the product');
 $GLOBALS['TL_LANG']['tl_quote_request']['thickness']                     = array('Thickness', 'The size of the product');
 $GLOBALS['TL_LANG']['tl_quote_request']['cradle']                        = array('Cradle', 'The size of the product');
