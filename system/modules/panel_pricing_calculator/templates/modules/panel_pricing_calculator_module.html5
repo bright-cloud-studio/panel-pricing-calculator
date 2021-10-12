@@ -1,5 +1,27 @@
+<!-- Message container -->
+<div class="calc_message_container marbot60" style="background-color:#E1E1E1;">
+	<div class="size100 flex_wrapper">
+		<div class="size33">(<span id="cart_total">0</span>) in cart.</div>
+		<div class="size33"><a class="btn" id="cart_view">View Cart</a></div>
+		<div class="size33"><a class="btn" id="cart_checkout">Send Quote Request</a></div>
+	</div>
+	<div class="size100">
+		<div id="dev_message"></div>
+	</div>
+</div>
+<!-- End Message container -->
+
+<!-- Cart Container -->
+<div class="calc_cart_container marbot60" style="background-color:#E7E7E7;">
+	<div class="size100">
+		<div id="cart_contents"></div>
+	</div>
+</div>
+
+
+
 <!-- The main calc module container -->
-<div class="calculator_container">
+<div class="calculator_container" style="background-color:#C1C1C1;">
 
 	<!-- Form top row -->
 	<div class="flex_wrapper">
@@ -40,7 +62,7 @@
 			<select required="" class="form-control" id="cradle_id" name="cradle_id">
 				<option value="none">Cradle Depth</option>
 				<option value="none">None</option>
-				<option value="3">3/4" cradled</option>
+				<option value="3">3/4" Cradled</option>
 				<option value="4">1" Cradled</option>
 				<option value="5">1 1/2" Cradled</option>
 				<option value="6">2" Cradled</option>
@@ -73,12 +95,41 @@
 		<br><br>
 		<button onclick="calculate()">Calculate</button>
 		<br><br>
-		<strong id="total_label">Total: </strong><strong id="total"></strong>
+		<!--<strong id="total_label">Total: </strong><strong id="total"></strong>-->
 	</div>
 	<!-- End Quantity and Submit -->
+	
+	
+	<!-- the calculated display -->
+	<div id="quote_render" class="quote_render form-group size100 flex_wrapper" style="display:none;">
+
+			<div class="size20 no-pad"><img src="system/modules/panel_pricing_calculator/assets/images/claybord.jpg"></div>
+			<div class="size30">
+				<div id="name_id_wrapper"><strong id="name_id_label">Panel ID: </strong><span id="panel_name_id"></span></div>
+				<div id="name_wrapper"><strong id="name_label">Panel: </strong><span id="panel_name"></span></div>
+				<div id="thickness_id_wrapper"><strong id="thickness_id_label">Thickness ID: </strong><span id="panel_thickness_id"></span></div>
+				<div id="thickness_wrapper"><strong id="thickness_label">Thickness: </strong><span id="panel_thickness"></span></div>
+				<div id="cradle_id_wrapper"><strong id="cradle_id_wrapper">Cradle ID: </strong><span id="panel_cradle_id"></span></div>
+				<div id="cradle_wrapper"><strong id="cradle_wrapper">Cradle: </strong><span id="panel_cradle"></span></div>
+				<div id="width_wrapper"><strong id="width_label">Width: </strong><span id="panel_width"></span></div>
+				<div id="height_wrapper"><strong id="height_label">Height: </strong><span id="panel_height"></span></div>
+			</div>
+			<div class="size30">
+				<div id="quantity_wrapper"><strong id="quantity_label">Quantity: </strong><span id="quote_quantity"></span></div>
+				<div id="discount_wrapper"><strong id="discount_label">Discount: </strong><span id="quote_discount"></span></div>
+				<div id="price_wrapper"><strong id="price_label">Price: </strong><span id="quote_price"></span></div>
+			</div>
+			<div class="size20 no-pad">
+				<button onclick="add_to_cart()">Save Quote</button>
+			</div>
+	
+	</div>
 
 </div>
 <!-- End main calc container -->
+
+
+
 
 <!-- Scripts -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
