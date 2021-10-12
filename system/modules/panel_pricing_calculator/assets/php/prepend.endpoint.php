@@ -8,7 +8,7 @@ error_reporting(E_ALL ^ E_NOTICE); // php function with pre defined number
 // removing the connection to the database, no longer needed. Data will flow to and from Contao instead of the database directly.
 
 try {
-    $dbh = new PDO("mysql:host=localhost;dbname=ampersan_cms49", 'ampersan_dbadmin', 'Y06ZCg9BiAh2Uv#@', array(
+    $dbh = new PDO("mysql:host=localhost;dbname=bcdev_contao_4_9_20", 'bcdev_user', 'T{-hrwAC.N;Y%IY,)s', array(
     PDO::ATTR_PERSISTENT => true
 ));
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
