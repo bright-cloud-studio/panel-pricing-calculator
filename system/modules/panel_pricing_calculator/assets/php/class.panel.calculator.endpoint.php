@@ -175,8 +175,8 @@ class PanelCalculator
 		// add our cradle plus percentage
 		$price = $price + ($price * ($cradlePlusPercentage/100));
 
-
-		
+		// multiply the price based on the quantity
+		$price = $price * $quantity;
 		
 		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
 		return $price;
