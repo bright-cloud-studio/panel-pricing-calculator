@@ -19,6 +19,7 @@ $( document ).ready(function() {
         type:'POST',
         success:function(result){
         	$("#cart_contents").html(result);
+        	if(result != '') { $("#calc_cart_container").slideDown(); }
         },
         error:function(result){
 			$("#cart_contents").html("SHOW CART ITEMS FAIL");
@@ -26,6 +27,27 @@ $( document ).ready(function() {
     });
     
 });
+
+
+// this is the call to save to cart
+function send_email(){
+
+    // trigger this function when our form runs
+    $.ajax({
+        url:'/system/modules/panel_pricing_calculator/assets/php/action.send.email.php',
+        type:'POST',
+        success:function(result){
+        	$("#send_email_notification").html(result);
+        	$("#request_form").hide();
+        	
+        },
+        error:function(result){
+			$("#send_email_notification").html("SEND EMAIL FAIL");
+        }
+    });
+	
+}
+
 
 // this is the call to save to cart
 function add_to_cart(){
@@ -46,20 +68,18 @@ function add_to_cart(){
         success:function(result){
         	$("#cart_total").html(result);
         	
+			$.ajax({
+				url:'/system/modules/panel_pricing_calculator/assets/php/action.show.cart.items.endpoint.php',
+				type:'POST',
+				success:function(result){
+					$("#cart_contents").html(result);
+					$("#calc_cart_container").slideDown();
+				},
+				error:function(result){
+					$("#cart_contents").html("SHOW CART ITEMS FAIL");
+				}
+			});
         	
-        	$.ajax({
-        url:'/system/modules/panel_pricing_calculator/assets/php/action.show.cart.items.endpoint.php',
-        type:'POST',
-        success:function(result){
-        	$("#cart_contents").html(result);
-        },
-        error:function(result){
-			$("#cart_contents").html("SHOW CART ITEMS FAIL");
-        }
-    });
-        	
-        	
-
         },
         error:function(result){
 			$("#dev_message").html("ADD TO CART FAIL");
@@ -82,6 +102,11 @@ function remove_from_cart(id){
         	var ourItem = '#cart_item_' + id;
         	console.log("SELECTOR: " + ourItem);
         	$(ourItem).remove();
+        	
+        	if ($('#cart_contents').is(':empty')){
+        		$("#calc_cart_container").slideUp();
+			}
+        	
         	$("#cart_total").html(result);
 
         },
@@ -114,6 +139,9 @@ function calculate(){
         	///////////////////////////////////////
         	// quote_render - update values on page
         	///////////////////////////////////////
+        	
+        	
+        	$("#quote_render_image").html('<img src="system/modules/panel_pricing_calculator/assets/images/'+getPanelNameFromID(panel_id)+'.jpg">');
         	
         	$("#panel_name").html(getPanelNameFromID(panel_id));
         	$("#panel_name_id").html(panel_id);
