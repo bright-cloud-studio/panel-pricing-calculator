@@ -40,8 +40,8 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('session_id', 'price'),
-            'format'                  => '<span style="font-weight: bold;">Session ID:</span> %s <span style="font-weight: bold;">Price:</span> %s'
+            'fields'                  => array('first_name', 'last_name', 'city', 'state'),
+            'format'                  => '<span style="font-weight: bold;">Name :</span> %s %s <span style="font-weight: bold;">Location:</span> %s, %s'
         ),
         'global_operations' => array
         (
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{size_legend},session_id,panel_type,thickness,cradle,width,height,quantity,discount,price;{publish_legend},published;'
+        'default'                     => '{user_legend},first_name,last_name,email,phone,address_1,address_2,city,state,zip,tell_us;{size_legend},panel_type,thickness,cradle,width,height,quantity,discount,price;{publish_legend},published;'
     ),
  
     // Fields
@@ -126,13 +126,94 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
 
 	),
-	'session_id' => array
+	'first_name' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['session_id'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['first_name'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'last_name' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['last_name'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'email' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['email'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'phone' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['phone'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'address_1' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['addres_1'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'address_2' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['address_2'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'city' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['city'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'state' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['state'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'zip' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['zip'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
+	),
+	'tell_us' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['tell_us'],
+		'inputType'               => 'textarea',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'panel_type' => array
