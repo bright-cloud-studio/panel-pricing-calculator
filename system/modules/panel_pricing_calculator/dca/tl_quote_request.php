@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{user_legend},first_name,last_name,email,phone,address_1,address_2,city,state,zip,tell_us;{size_legend},panel_type,thickness,cradle,width,height,quantity,discount,price;{publish_legend},published;'
+        'default'                     => '{reviewed_legend},reviewed;{user_legend},first_name,last_name,email,phone,address_1,address_2,city,state,zip,tell_us;{size_legend},panel_type,thickness,cradle,width,height,quantity,discount,price;{publish_legend},published;'
     ),
  
     // Fields
@@ -126,6 +126,17 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
 
 	),
+	'reviewed' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['reviewed'],
+		'inputType'               => 'select',
+		'default'		  => '',
+		'search'                  => true,
+		'options'                 => array('unreviewed' => 'Unreviewed', 'reviewed' => 'Reviewed'),
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(32) NOT NULL default ''"
+	),
+	,
 	'first_name' => array
 	(
 		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['first_name'],
