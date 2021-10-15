@@ -46,7 +46,7 @@ class QuoteCart
 		//array_push($_SESSION['asdf'],serialize($ourQuote));
 		
 		
-		$ourQuote = array("panel_id"=>$vars['panel_id'], "flat_id"=>$vars['flat_id'], "cradle_id"=>$vars['cradle_id'], "width"=>$vars['width'], "height"=>$vars['height'], "quantity"=>$vars['quantity']);
+		$ourQuote = array("panel_id"=>$vars['panel_id'], "flat_id"=>$vars['flat_id'], "cradle_id"=>$vars['cradle_id'], "width"=>$vars['width'], "height"=>$vars['height'], "quantity"=>$vars['quantity'], "price"=>$vars['price']);
 		array_push($_SESSION['asdf'],serialize($ourQuote));
 		
 		return count($_SESSION['asdf']);
@@ -65,6 +65,7 @@ class Quote {
 	public $panel_width;
 	public $panel_height;
 	public $order_quantity;
+	public $order_price;
 
 	// Methods
 	function set_panel_id($panel_id) {
@@ -107,6 +108,12 @@ class Quote {
 	}
 	function get_order_quantity() {
 		return $this->order_quantity;
+	}
+	function set_order_price($order_price) {
+		$this->order_quantity = $order_price;
+	}
+	function get_order_price() {
+		return $this->order_price;
 	}
 }
 
