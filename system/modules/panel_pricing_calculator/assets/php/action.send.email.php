@@ -25,10 +25,11 @@ include_once("prepend.cart.endpoint.php");
 		<title>Panel Calculator Quote Request</title>
 		</head>
 		<body>
-		<h2>These are this quotes items:</h2>
+		<h2>User Details:</h2>
 		";
-		
-	$message_contents = "";
+	
+	$message_user_contents = "";
+	$message_panel_contents = "";
 		
 	$message_end = "
 		</body>
@@ -43,21 +44,17 @@ include_once("prepend.cart.endpoint.php");
 	$headers .= 'From: <webmaster@example.com>' . "\r\n";
 	$headers .= 'Cc: mark@brightcloudstudio.com' . "\r\n";
 	
-try {
-    $dbh = new PDO("mysql:host=localhost;dbname=bcdev_contao_4_9_20", 'bcdev_user', 'T{-hrwAC.N;Y%IY,)s', array(
-    PDO::ATTR_PERSISTENT => true
-));
-    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    echo 'ERROR: ' . $e->getMessage();
-}
+
+	// build the html for the users contents
+	$message_user_contents = $message_user_contents . '<p>Name: ' . $vars['user_first_name'] . " " . $vars['user_last_name'] . '</p><p>Email: ' . $vars['user_email'] . '</p><p>Phone: ' . $vars['user_phone'] . '</p><p>Address Line 1: ' . $vars['user_address_1'] . '</p><p>Address Line 2: ' . $vars['user_address_2'] . '</p><p>State: ' . $vars['user_state'] . '</p><p>City: ' . $vars['user_city'] . '</p><p>Zip: ' . $vars['user_zip'] . '</p><p>Tell Us: ' . $vars['user_tell_us'] . '</p><br><br>';
 	
 	
+	// build the html for the panel contents
 	foreach ($_SESSION['asdf'] as $key => $result){
 		$clean = unserialize($result);
-		$message_contents = $message_contents . '<p>Panel: ' .$clean['panel_id']. '</p><p>Thickness: ' .$clean['flat_id']. '</p><p>Cradle: ' .$clean['cradle_id']. '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><br><br>';
+		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: '$clean['price'].'</p><br><br>';
 		
-		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`) VALUES (NULL, '0', '0', '', 'Hardbord', '1', '2', '3', '4', '5', '6', '7', '1', 'asdf', '11111', 'ma', 'westfield', '923 General Knox rd', 'asdf', '4135644795', 'stjeanmark@gmail.com', 'St. Jean', 'reviewed', 'Mark')";
+		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`) VALUES (NULL, '0', '0', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".$vars['user_tell_us']."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."')";
 		$result = $dbh->prepare($query);
 		$result->execute();
 	
@@ -65,8 +62,8 @@ try {
 	
 	
 	
-
-	//mail($to,$subject,($message_start . $message_contents . $message_end),$headers);
+	// send the mail
+	//mail($to,$subject,($message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents . $message_end),$headers);
 	
 	
 		
