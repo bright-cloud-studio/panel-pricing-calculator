@@ -27,6 +27,11 @@ $GLOBALS['BE_MOD']['panel_pricing_calculator']['price_chart'] = array(
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
 	'exportLocations' => array('Bcs\Backend\PanelPricingCalculatorBackend', 'exportPanelPricingCalculator')
 );
+$GLOBALS['BE_MOD']['panel_pricing_calculator']['price_chart_large'] = array(
+	'tables' => array('tl_price_chart_large'),
+	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
+	'exportLocations' => array('Bcs\Backend\PanelPricingCalculatorBackend', 'exportPanelPricingCalculator')
+);
 $GLOBALS['BE_MOD']['panel_pricing_calculator']['quote_request'] = array(
 	'tables' => array('tl_quote_request'),
 	'icon'   => 'system/modules/panel_pricing_calculator/assets/icons/panel_pricing_calculator.png',
