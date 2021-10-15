@@ -32,13 +32,30 @@ $( document ).ready(function() {
 // this is the call to save to cart
 function send_email(){
 
+    // store our quote request values
+    var user_first_name = $("#firstname").val();
+    var user_last_name = $("#lastname").val();
+    var user_email = $("#email").val();
+    var user_phone = $("#phone").val();
+    var user_address_1 = $("#address_1").val();
+    var user_address_2 = $("#address_2").val();
+    var user_state = $("#state").val();
+    var user_city = $("#city").val();
+    var user_zip = $("#zip").val();
+    var user_tell_us = $("#tell_us").val();
+
+	  
     // trigger this function when our form runs
     $.ajax({
         url:'/system/modules/panel_pricing_calculator/assets/php/action.send.email.php',
         type:'POST',
+        data:"user_first_name="+user_first_name+"&user_last_name="+user_last_name+"&user_email="+user_email+"&user_phone="+user_phone+"&user_address_1="+user_address_1+"&user_address_2="+user_address_2+"&user_state="+user_state+"&user_city="+user_city+"&user_zip="+user_zip+"&user_tell_us="+user_tell_us+"",
         success:function(result){
-        	$("#send_email_notification").html(result);
-        	$("#request_form").hide();
+        	//$("#send_email_notification").html(result);
+        	//$("#request_form").hide();
+        	
+        	// redirect us to the success page
+        	window.location.replace("https://ampersandart.com/custom-calculator-success-message");
         	
         },
         error:function(result){
@@ -59,12 +76,13 @@ function add_to_cart(){
     var panel_width = $("#panel_width").html();
     var panel_height = $("#panel_height").html();
     var order_quantity = $("#quote_quantity").html();
+    var order_price = $("#quote_price").html();
 
     // trigger this function when our form runs
     $.ajax({
         url:'/system/modules/panel_pricing_calculator/assets/php/action.add.cart.endpoint.php',
         type:'POST',
-        data:"panel_id="+panel_id+"&flat_id="+panel_thickness_id+"&cradle_id="+panel_cradle_id+"&width="+panel_width+"&height="+panel_height+"&quantity="+order_quantity+"",
+        data:"panel_id="+panel_id+"&flat_id="+panel_thickness_id+"&cradle_id="+panel_cradle_id+"&width="+panel_width+"&height="+panel_height+"&quantity="+order_quantity+"&price="+order_price+"",
         success:function(result){
         	$("#cart_total").html(result);
         	
@@ -121,6 +139,9 @@ function remove_from_cart(id){
 // This is just an ajax call to send in the IDs from the form and get back the total, then push it onto the page
 function calculate(){
 	
+	
+	
+	
     // store our form values
     var panel_id = $("#panel_id").val();
     var panel_thickness_id = $("#flat_id").val();
@@ -129,44 +150,62 @@ function calculate(){
     var panel_height = $("#height").val();
     var order_quantity = $("#quantity").val();
     
-    // trigger this function when our form runs
-    $.ajax({
-        url:'/system/modules/panel_pricing_calculator/assets/php/action.panel.calculator.endpoint.php',
-        type:'POST',
-        data:"panel_id="+panel_id+"&flat_id="+panel_thickness_id+"&cradle_id="+panel_cradle_id+"&width="+panel_width+"&height="+panel_height+"&quantity="+order_quantity+"",
-        success:function(result){
-        	
-        	///////////////////////////////////////
-        	// quote_render - update values on page
-        	///////////////////////////////////////
-        	
-        	
-        	$("#quote_render_image").html('<img src="system/modules/panel_pricing_calculator/assets/images/'+getPanelNameFromID(panel_id)+'.jpg">');
-        	
-        	$("#panel_name").html(getPanelNameFromID(panel_id));
-        	$("#panel_name_id").html(panel_id);
-        	$("#panel_thickness").html(getPanelThicknessFromID(panel_thickness_id));
-        	$("#panel_thickness_id").html(panel_thickness_id);
-        	$("#panel_cradle_id").html(panel_cradle_id);
-        	$("#panel_cradle").html(getPanelCradleFromID(panel_cradle_id));
-        	$("#panel_width").html(panel_width);
-            $("#panel_height").html(panel_height);
-        	$("#quote_quantity").html(order_quantity);
-        	
-        	// will have to make a function to determine the discount eventually
-            //$("#quote_discount").html("0%");
-        	
-        	// update product details in the quote_rendered area
-            $("#quote_price").html(result);
-            
-            // slide down the quote_render section
-            $("#quote_render").slideDown();
+    var error_triggered = 0;
+    
+    if(panel_width >= 49) {
+    	error_triggered = 1;
+    	$("#width_error").slideDown();
+    } else {
+    	$("#width_error").slideUp();
+    }
+    if(panel_height >= 91) {
+    	error_triggered = 1;
+    	$("#height_error").slideDown();
+    } else {
+    	$("#height_error").slideUp();
+    }
+    
+    if(error_triggered == 0){
+    
+		// trigger this function when our form runs
+		$.ajax({
+			url:'/system/modules/panel_pricing_calculator/assets/php/action.panel.calculator.endpoint.php',
+			type:'POST',
+			data:"panel_id="+panel_id+"&flat_id="+panel_thickness_id+"&cradle_id="+panel_cradle_id+"&width="+panel_width+"&height="+panel_height+"&quantity="+order_quantity+"",
+			success:function(result){
+			
+				///////////////////////////////////////
+				// quote_render - update values on page
+				///////////////////////////////////////
+			
+			
+				$("#quote_render_image").html('<img src="system/modules/panel_pricing_calculator/assets/images/'+getPanelNameFromID(panel_id)+'.jpg">');
+			
+				$("#panel_name").html(getPanelNameFromID(panel_id));
+				$("#panel_name_id").html(panel_id);
+				$("#panel_thickness").html(getPanelThicknessFromID(panel_thickness_id));
+				$("#panel_thickness_id").html(panel_thickness_id);
+				$("#panel_cradle_id").html(panel_cradle_id);
+				$("#panel_cradle").html(getPanelCradleFromID(panel_cradle_id));
+				$("#panel_width").html(panel_width+"\"");
+				$("#panel_height").html(panel_height+"\"");
+				$("#quote_quantity").html(order_quantity);
+			
+				// will have to make a function to determine the discount eventually
+				//$("#quote_discount").html("0%");
+			
+				// update product details in the quote_rendered area
+				$("#quote_price").html("$"+result);
+			
+				// slide down the quote_render section
+				$("#quote_render").slideDown();
 
-        },
-        error:function(result){
-            $("#quote_price").html(result);
-        }
-    });
+			},
+			error:function(result){
+				$("#quote_price").html(result);
+			}
+		});
+    }
 
 }
 
@@ -203,10 +242,10 @@ function getPanelNameFromID(id){
 function getPanelThicknessFromID(id){
 	switch(id) {
 		case "1":
-			return "1/8";
+			return "1/8\"";
 	break;
 		case "2":
-			return "1/4";
+			return "1/4\"";
 	break;
 		default:
 			return "invalid_id";
