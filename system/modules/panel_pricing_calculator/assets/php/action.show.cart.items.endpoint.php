@@ -13,14 +13,14 @@
 		//$ourQuote = array("panel_id"=>$vars['panel_id'], "flat_id"=>$vars['flat_id'], "cradle_id"=>$vars['cradle_id'], "width"=>$vars['width'], "height"=>$vars['height'], "quantity"=>$vars['quantity']);
 		
 		$test = $test . '<div id="cart_item_'.$key.'" class="cart_item form-group size100 flex_wrapper">
-			<div class="size20 no-pad"><img style="height: 50px;" src="system/modules/panel_pricing_calculator/assets/images/'.getPanelNameByID($clean['panel_id']).'.jpg"></div>
+			<div class="size20 no-pad"><span id="cart_image cart_image_'.$key.'"><img src="system/modules/panel_pricing_calculator/assets/images/'.getPanelNameByID($clean['panel_id']).'.jpg"></span></div>
 			<div class="size30">
 				<div><strong id="cart_name_label">Panel: </strong><span>'.$clean['width'].'x'.$clean['height'].' '.getPanelNameByID($clean['panel_id']).', '.getPanelThicknessFromID($clean['flat_id']).'</span></div>
 				<div><strong id="cart_cradle_wrapper">Cradle: </strong><span>'.getPanelCradleFromID($clean['cradle_id']).'</span></div>
 			</div>
 			<div class="size30">
 				<div id="cart_quantity_wrapper"><strong id="quantity_label">Quantity: </strong><span">'.$clean['quantity'].'</span></div>
-				<div id="cart_price_wrapper"><strong id="price_label">Price: </strong><span>1234</span></div>
+				<div id="cart_price_wrapper"><strong id="price_label">Price: </strong><span>'.$clean['price'].'</span></div>
 			</div>
 			<div class="size20 no-pad">
 				<i class="fas fa-trash-alt" onclick="remove_from_cart('.$key.')"></i>
