@@ -21,17 +21,13 @@ $GLOBALS['TL_LANG']['tl_price_chart_large']['alias'] 			           = array('Alia
 $GLOBALS['TL_LANG']['tl_price_chart_large']['published'] 		        = array('Published', 'Save this product\'s record.');
 
 /* Sizes */
-$GLOBALS['TL_LANG']['tl_price_chart_large']['size'] 			     	      = array('Size', 'The size of the product');
 $GLOBALS['TL_LANG']['tl_price_chart_large']['width'] 			     	      = array('Width', 'The width of the product');
-$GLOBALS['TL_LANG']['tl_price_chart_large']['height'] 			     	      = array('Height', 'The height of the product');
-$GLOBALS['TL_LANG']['tl_price_chart_large']['square_feet']         = array('Square Feet', 'The square feet of the product');
 
 /* Products */
-$GLOBALS['TL_LANG']['tl_price_chart_large']['1_8_1']         = array('1/8" FLAT Claybord, Gessobord, Aquabord, Encausticbord', ' ');
-$GLOBALS['TL_LANG']['tl_price_chart_large']['1_8_2']         = array('1/8" FLAT Scratchbord, Pastelbord', ' ');
-$GLOBALS['TL_LANG']['tl_price_chart_large']['1_8_3']         = array('1/8" FLAT Hardbord', ' ');
-$GLOBALS['TL_LANG']['tl_price_chart_large']['3_4_1']         = array('3/4" cradled Hardbord', ' ');
-$GLOBALS['TL_LANG']['tl_price_chart_large']['3_4_2']         = array('3/4" cradled Other', ' ');
+$GLOBALS['TL_LANG']['tl_price_chart_large']['1_1']         = array('Claybord Smooth, Aquabord, Encausticbord & Gessobord', ' ');
+$GLOBALS['TL_LANG']['tl_price_chart_large']['1_2']         = array('Hardbord', ' ');
+$GLOBALS['TL_LANG']['tl_price_chart_large']['1_3']         = array('Scratchbord & Pastelbord', ' ');
+$GLOBALS['TL_LANG']['tl_price_chart_large']['1_4']         = array('Primed Hardbord', ' ');
 
  /* Buttons */
 $GLOBALS['TL_LANG']['tl_price_chart_large']['new']   		 	= array('New record', 'Add a new record');
