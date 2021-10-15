@@ -103,8 +103,7 @@ class PanelCalculator
 		if ($square_feet <=6) {
 			return $this->getSixRate($vars['panel_id'], $vars['flat_id'], $vars['cradle_id'], $square_feet, $vars['quantity'], $vars['width'], $vars['height']);
 		} else {
-			$price = $this->getMoreSixRate($vars, $square_feet);
-			return $price;
+			return $this->getMoreSixRate($vars['panel_id'], $vars['flat_id'], $vars['cradle_id'], $square_feet, $vars['quantity'], $vars['width'], $vars['height']);
 		}
 	}
 
@@ -181,6 +180,63 @@ class PanelCalculator
 		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
 		return $price;
 	}
+	
+	 // For Squre Feet 6 or more
+    public function getMoreSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
+    {
+        // Create connection
+		$dbh = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
+		if ($dbh->connect_error) {
+			die("Connection failed: " . $dbh->connect_error);
+		}
+
+		// values to build our query
+		$price = '1234';
+		$product_type = 'unselected';
+		$thickness = "1/8";
+		$thicknessPlusPercentage = 0;
+		$cradlePlusPercentage = 0;
+		
+		
+		if($panel_id == 1 || $panel_id == 2 || $panel_id == 3 || $panel_id == 4)
+			$product_type = '1_1';
+			
+		if($panel_id == 7)
+			$product_type == '1_2';
+			
+		if($panel_id == 5 || $panel_id == 6)
+			$product_type = '1_3';
+		
+		
+		if($flat_id == 1)
+			$thickness = "1/8";
+		if($flat_id == 2)
+			$thickness = "1/4";
+		
+			
+		// STEPS
+		
+		// 1. Get price from nearest size
+		$query =  "select * from tl_price_chart_large WHERE width = '".$thickness."'";
+		$result = $dbh->query($query);
+		if($result) {
+			
+			while($row = $result->fetch_assoc()) {
+				$price = $row['1_1'];
+			}
+		} else {
+			return "Something has gone wrong! ".$sql->errorno;
+		}
+		
+		// multiply the price based on the quantity
+		$price = $price * $square_feet;
+		
+		$price = $price * $quantity;
+		
+		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
+		return $price;
+    }
+	
     
      public function getStandardSize($square_feet)
     {
@@ -222,102 +278,7 @@ class PanelCalculator
         return false;
     }
     
-    // For Squre Feet 6 or more
-    public function getMoreSixRate($vars, $square_feet)
-    {
-        $data = array();
-        $query = "select price from more_junction WHERE panel_id=".$vars['panel_id']." AND panel_type_id=".$vars['flat_id']. " LIMIT 1";
-        $result = $this->dbh->prepare($query);
-        $result->execute();
-        $row = $result->fetch();
-        $panel_price = $row['price'];
-        $flat_price = ($panel_price * $square_feet);
-
-        if ($vars['cradle_id'] > 0) {
-            //perimeter
-            $perimeter = ($vars['height'] * 2) + ($vars['width'] * 2);
-            $query = "select * from six_panel_type WHERE id=".$vars['cradle_id']. " LIMIT 1";
-            $result = $this->dbh->prepare($query);
-            $result->execute();
-            $row = $result->fetch();
-
-            //price per inch
-            $price_per_inch = $row['more_price_per_inch'];
-
-            //cross bracing
-            $length_cross_piece = 0;
-            $width_cross_piece = 0;
-
-            if ($vars['width'] > $row['more_cross_bracing']) {
-                $c = $vars['width']/$row['more_cross_bracing'];
-                
-                $w = floor($c);
-                //echo '<br>';
-                $length_cross_piece = $w * $vars['height'];
-                //echo '<br>';
-                $this->message['length_cross_piece'] = $w.', '.$vars['height'].'" length cross brace';
-            }
-
-            if ($vars['height'] > $row['more_cross_bracing']) {
-                $c = $vars['height']/$row['more_cross_bracing'];
-                $w = floor($c);
-                //echo '<br>';
-                $width_cross_piece = $w * $vars['width'];
-                //echo '<br>';
-                $this->message['width_cross_piece'] = $w.', '.$vars['width'].'" width cross piece';
-            }
-
-            $cross_bracing_price = ($length_cross_piece + $width_cross_piece)*$price_per_inch;
-
-            $cradle_price = $perimeter*$price_per_inch;
-
-            $cradle_cross_bracing_discount = (15/100) * ($cross_bracing_price + $cradle_price);
-
-            $cradle_cross_bracing_price = ($cradle_price + $cross_bracing_price) - $cradle_cross_bracing_discount;
-
-            $more_price = $flat_price + $cradle_cross_bracing_price;
-            $this->message['price_per_inch'] = $price_per_inch;
-            $this->message['flat_price'] = $flat_price;
-            $this->message['cradle_price'] = $cradle_price;
-            $this->message['cross_bracing_price'] = $cross_bracing_price;
-            $discount_percent = $this->moreDiscount($vars['quantity']);
-            $this->message['total_discount_amount'] = 0;
-            if ($discount_percent) {
-                $this->message['discount_percent'] = $discount_percent;
-                $discount_amount = (($discount_percent/100)*$flat_price);
-                $this->message['discount_amount'] = $discount_amount;
-                $price = $more_price - $discount_amount;
-                $this->message['total_discount_amount'] = $vars['quantity']*$discount_amount;
-                if ($vars['width'] == 48) {
-                    $price = $price + ($price / 10);
-                }
-                return ($vars['quantity']*$price);
-            } else {
-                if ($vars['width'] == 48) {
-                    $more_price = $more_price + ($more_price / 10);
-                }
-                return ($vars['quantity']*$more_price);
-            }
-        } else {
-            $discount_percent = $this->moreDiscount($vars['quantity']);
-            if ($discount_percent) {
-                $discount_amount = (($discount_percent/100)*$flat_price);
-                $this->message['discount_amount'] = $discount_amount;
-                $price = $flat_price - $discount_amount;
-                $this->message['total_discount_amount'] = $vars['quantity']*$discount_amount;
-                if ($vars['width'] == 48) {
-                    $price = $price + ($price / 10);
-                }
-                return ($vars['quantity']*$price);
-            } else {
-                if ($vars['width'] == 48) {
-                    $flat_price = $flat_price + ($flat_price / 10);
-                }
-            }
-            return ($vars['quantity']*$flat_price);
-        }
-        return false;
-    }
+   
     
 	// Large Panel Quantity Discount
 	// this applies a percentage off discount for large custom panels based on the quantity of the order
