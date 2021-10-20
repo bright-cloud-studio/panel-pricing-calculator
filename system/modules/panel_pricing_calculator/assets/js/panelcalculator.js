@@ -92,6 +92,10 @@ function add_to_cart(){
 				success:function(result){
 					$("#cart_contents").html(result);
 					$("#calc_cart_container").slideDown();
+					
+					var aTag = $("a[name='anchor_cart']");
+    				$('html,body').animate({scrollTop: aTag.offset().top},'slow');
+					
 				},
 				error:function(result){
 					$("#cart_contents").html("SHOW CART ITEMS FAIL");
@@ -151,21 +155,57 @@ function calculate(){
     var order_quantity = $("#quantity").val();
     
     var error_triggered = 0;
+    var form_incomplete = 0;
     
+    
+    // ERROR - one or more fields doesnt have a value
+    
+    if(panel_id == 0) {
+    	form_incomplete = 1;
+    }
+    
+    if(panel_thickness_id == 0) {
+    	form_incomplete = 1;
+    }
+    
+    if(panel_cradle_id == 'default') {
+    	form_incomplete = 1;
+    }
+    
+    if(panel_width == '') {
+    	form_incomplete = 1;
+    }
+    if(panel_height == '') {
+    	form_incomplete = 1;
+    }
+    if(order_quantity == '') {
+    	form_incomplete = 1;
+    }
+    
+    
+    if(form_incomplete >= 1) {
+    	$('.form_error').css("display", "block");
+    	$('#quote_render').slideUp();
+    } else {
+    	$('.form_error').css("display", "none");
+    }
+    
+    
+    // ERROR - our values are too high
     if(panel_width >= 49) {
     	error_triggered = 1;
-    	$("#width_error").slideDown();
+    	$("#width_error").css("display", "block");
     } else {
-    	$("#width_error").slideUp();
+    	$("#width_error").css("display", "none");
     }
     if(panel_height >= 91) {
     	error_triggered = 1;
-    	$("#height_error").slideDown();
+    	$("#height_error").css("display", "block");
     } else {
-    	$("#height_error").slideUp();
+    	$("#height_error").css("display", "none");
     }
     
-    if(error_triggered == 0){
+    if(error_triggered == 0 && form_incomplete == 0){
     
 		// trigger this function when our form runs
 		$.ajax({
