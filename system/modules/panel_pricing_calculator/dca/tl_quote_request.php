@@ -38,7 +38,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
             'mode'                    => 2,
             'panelLayout'             => 'filter;search,limit,sort',
 	    'fields'		      => ['reviewed'],
-	    'flag' 		      => 11,
+	    'flag' 		      => 12,
         ),
         'label' => array
         (
