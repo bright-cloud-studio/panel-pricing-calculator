@@ -169,7 +169,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'eval'                    => array('tl_class'=>'w50'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'address_1' => array
@@ -187,7 +187,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr'),
+		'eval'                    => array('tl_class'=>'clr'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'city' => array
@@ -223,7 +223,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'inputType'               => 'textarea',
 		'default'		  => '',
 		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr'),
+		'eval'                    => array('tl_class'=>'clr'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'panel_type' => array
