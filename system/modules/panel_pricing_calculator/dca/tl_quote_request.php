@@ -35,10 +35,9 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
     (
         'sorting' => array
         (
-            'mode'                    => 1,
-            'panelLayout'             => 'filter;search,limit',
-	    'fields'		      => 'reviewed',
-	    'flag'		      => '11'
+            'mode'                    => 2,
+            'panelLayout'             => 'filter;search,limit,sort',
+	    'fields'		      => 'reviewed'
         ),
         'label' => array
         (
