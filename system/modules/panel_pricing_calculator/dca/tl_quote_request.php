@@ -37,12 +37,13 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
         (
             'mode'                    => 2,
             'panelLayout'             => 'filter;search,limit,sort',
-	    'fields'		      => ['reviewed']
+	    'fields'		      => ['reviewed'],
+	    'flag' 		      => 12,
         ),
         'label' => array
         (
-            'fields'                  => array('sorting', 'reviewed', 'first_name', 'last_name', 'city', 'state'),
-            'format'                  => '<span style="font-weight: bold;">Quote Request ID: </span>%s <span style="font-weight: bold;">Processed: </span>%s <span style="font-weight: bold;">Name :</span> %s %s <span style="font-weight: bold;">Location:</span> %s, %s'
+            'fields'                  => array('sorting', 'tstamp', 'first_name', 'last_name', 'city', 'state'),
+            'format'                  => '<span style="font-weight: bold;">Quote Request ID: </span>%s <span style="font-weight: bold;">Date: </span>%s <span style="font-weight: bold;">Name :</span> %s %s <span style="font-weight: bold;">Location:</span> %s, %s'
         ),
         'global_operations' => array
         (
@@ -77,12 +78,12 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
-			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['toggle'],
-				'icon'                => 'visible.gif',
-				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-				'button_callback'     => array('Bcs\Backend\QuoteRequestBackend', 'toggleIcon')
-			),
+	    (
+		'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['toggle'],
+		'icon'                => 'visible.gif',
+		'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
+		'button_callback'     => array('Bcs\Backend\QuoteRequestBackend', 'toggleIcon')
+	    ),
             'show' => array
             (
                 'label'               => &$GLOBALS['TL_LANG']['tl_quote_request']['show'],
