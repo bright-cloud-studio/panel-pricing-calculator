@@ -49,12 +49,23 @@ include_once("prepend.cart.endpoint.php");
 	$message_user_contents = $message_user_contents . '<p>Name: ' . $vars['user_first_name'] . " " . $vars['user_last_name'] . '</p><p>Email: ' . $vars['user_email'] . '</p><p>Phone: ' . $vars['user_phone'] . '</p><p>Address Line 1: ' . $vars['user_address_1'] . '</p><p>Address Line 2: ' . $vars['user_address_2'] . '</p><p>State: ' . $vars['user_state'] . '</p><p>City: ' . $vars['user_city'] . '</p><p>Zip: ' . $vars['user_zip'] . '</p><p>Tell Us: ' . $vars['user_tell_us'] . '</p><br><br>';
 	
 	
+	
+	
+	// we need to know what the previous sorting number is, if there is one
+	$sorting_number = getPreviousID();
+	
+
+	
+	
+	
+	
+	
 	// build the html for the panel contents
 	foreach ($_SESSION['asdf'] as $key => $result){
 		$clean = unserialize($result);
 		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><br><br>';
 		
-		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`) VALUES (NULL, '0', '0', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".$vars['user_tell_us']."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."')";
+		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`) VALUES (NULL, '0', '".$sorting_number."', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".$vars['user_tell_us']."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."')";
 		$result = $dbh->prepare($query);
 		$result->execute();
 	
@@ -74,6 +85,26 @@ include_once("prepend.cart.endpoint.php");
 
 // Functions
 //////////////////////////
+
+function getPreviousID(){
+    $dbh = new mysqli("localhost", "ampersan_dbadmin", "Y06ZCg9BiAh2Uv#@", "ampersan_cms49");
+	if ($dbh->connect_error) {
+		die("Connection failed: " . $dbh->connect_error);
+	}
+    
+    $sorting_number = 0;
+    $query =  "select * from tl_quote_request ORDER BY sorting desc LIMIT 1";
+    $result = $dbh->query($query);
+    if($result) {
+        while($row = $result->fetch_assoc()) {
+            $sorting_number = $row['sorting'];
+        }
+    }
+    
+    $sorting_number = $sorting_number + 1;
+    
+    return $sorting_number;
+}
 
 function getPanelNameByID($panel_id){
 	switch ($panel_id) {
