@@ -42,8 +42,8 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('sorting', 'first_name', 'last_name', 'city', 'state'),
-            'format'                  => '<span style="font-weight: bold;">Quote Request ID: </span>%s <span style="font-weight: bold;">Name :</span> %s %s <span style="font-weight: bold;">Location:</span> %s, %s'
+            'fields'                  => array('sorting', 'reviewed', 'first_name', 'last_name', 'city', 'state'),
+            'format'                  => '<span style="font-weight: bold;">Quote Request ID: </span>%s <span style="font-weight: bold;">Processed: </span>%s <span style="font-weight: bold;">Name :</span> %s %s <span style="font-weight: bold;">Location:</span> %s, %s'
         ),
         'global_operations' => array
         (
