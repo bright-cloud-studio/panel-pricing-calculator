@@ -42,7 +42,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('sorting', 'tstamp', 'first_name', 'last_name', 'city', 'state'),
+            'fields'                  => array('sorting', 'created', 'first_name', 'last_name', 'city', 'state'),
             'format'                  => '<span style="font-weight: bold;">Quote Request ID: </span>%s <span style="font-weight: bold;">Date: </span>%s <span style="font-weight: bold;">Name :</span> %s %s <span style="font-weight: bold;">Location:</span> %s, %s'
         ),
         'global_operations' => array
@@ -135,6 +135,15 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		'options'                 => array('reviewed' => 'Reviewed', 'unreviewed' => 'Unreviewed'),
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 		'sql'                     => "varchar(32) NOT NULL default ''"
+	),
+	'created' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_quote_request']['created'],
+		'inputType'               => 'text',
+		'default'		  => '',
+		'search'                  => true,
+		'eval'                    => array('tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'first_name' => array
 	(
