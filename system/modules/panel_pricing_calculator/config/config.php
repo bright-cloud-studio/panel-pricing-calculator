@@ -44,3 +44,10 @@ $GLOBALS['FE_MOD']['panel_pricing_calculator']['panel_pricing_calculator_module'
 
 /* Models */
 $GLOBALS['TL_MODELS']['tl_panel_pricing_calculator'] = 'Bcs\Model\PanelPricingCalculator';
+
+
+/* Add Backend CSS to style Reviewed and Unreviewed */
+if (TL_MODE == 'BE')
+{
+	$GLOBALS['TL_CSS'][]					= 'system/modules/panel_pricing_calculator/assets/css/panel_pricing_calculator.css';
+}
