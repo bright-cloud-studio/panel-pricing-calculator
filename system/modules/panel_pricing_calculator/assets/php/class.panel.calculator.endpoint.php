@@ -173,9 +173,32 @@ class PanelCalculator
 		
 		// add our cradle plus percentage
 		$price = $price + ($price * ($cradlePlusPercentage/100));
+		
+		// add 20% for lengths of 72 or higher
+		if($height >= 72)
+			$price = $price + ($price * (20/100));
 
 		// multiply the price based on the quantity
 		$price = $price * $quantity;
+		
+		
+		// add a quantity discount
+		$quantity_discount = 0;
+		if($quantity >= 10 && $quantity <= 24)
+			$quantity_discount = 0.15;
+		if($quantity >= 25 && $quantity <= 49)
+			$quantity_discount = 0.20;
+		if($quantity >= 50 && $quantity <= 99)
+			$quantity_discount = 0.25;
+		if($quantity >= 100 && $quantity <= 249)
+			$quantity_discount = 0.30;
+		if($quantity >= 250 && $quantity <= 499)
+			$quantity_discount = 0.40;
+		if($quantity >= 500)
+			$quantity_discount = 0.50;
+			
+		$price = $price - ($price * $quantity_discount);
+		
 		
 		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
 		return $price;
@@ -192,20 +215,24 @@ class PanelCalculator
 
 		// values to build our query
 		$price = '1234';
-		$product_type = 'unselected';
+		$price_total = '0';
+		$product_type = '1_2';
 		$thickness = "1/8";
 		$thicknessPlusPercentage = 0;
 		$cradlePlusPercentage = 0;
+		$db_price = 0;
+		$debug_panel_price = 0;
 		
 		
 		if($panel_id == 1 || $panel_id == 2 || $panel_id == 3 || $panel_id == 4)
 			$product_type = '1_1';
 			
-		if($panel_id == 7)
-			$product_type == '1_2';
 			
 		if($panel_id == 5 || $panel_id == 6)
 			$product_type = '1_3';
+			
+		if($panel_id == 7)
+			$product_type == '1_2';
 		
 		
 		if($flat_id == 1)
@@ -222,19 +249,99 @@ class PanelCalculator
 		if($result) {
 			
 			while($row = $result->fetch_assoc()) {
-				$price = $row['1_1'];
+				$price = $row[$product_type];
+				$db_price = $row[$product_type];
 			}
 		} else {
 			return "Something has gone wrong! ".$sql->errorno;
 		}
 		
+		
 		// multiply the price based on the quantity
 		$price = $price * $square_feet;
 		
-		$price = $price * $quantity;
+		// add a quantity discount
+		$quantity_discount = 0.10;
+		if($quantity == 2)
+			$quantity_discount = 0.20;
+		if($quantity == 3)
+			$quantity_discount = 0.30;
+		if($quantity >= 4 && $quantity <= 9)
+			$quantity_discount = 0.40;
+		if($quantity >= 10)
+			$quantity_discount = 0.50;
+			
+		$price = $price - ($price * $quantity_discount);
+		
+	
+		
+		// DETERMINE THE CRADLE PRICE
+		
+		// figure out the every X inch size
+		$every_x_inches = 12.01;
+		if( $cradle_id == 5 || $cradle_id == 6 || $cradle_id == 7 || $cradle_id == 8 )
+			$every_x_inches = 24.01;
+			
+		// figure out the price per linear inch price
+		$price_per_inch = 0;
+		if($cradle_id == 3)
+			$price_per_inch = 0.44;
+		if($cradle_id == 4)
+			$price_per_inch = 0.50;
+		if($cradle_id == 5)
+			$price_per_inch = 0.52;
+		if($cradle_id == 6)
+			$price_per_inch = 0.55;
+		if($cradle_id == 7)
+			$price_per_inch = 0.58;
+		if($cradle_id == 8)
+			$price_per_inch = 0.60;
+	
+			
+		// step one is divide width by every_x and divide height by every_y;
+		$cross_width = ceil($width / $every_x_inches);
+		$cross_height = ceil($height / $every_x_inches);
+		
+		$linear_inch_width = ($cross_width + 1) * $height;
+		$linear_inch_height = ($cross_height + 1) * $width;
+		
+		$cradle_price = ($linear_inch_width + $linear_inch_height) * $price_per_inch;
+		
+		
+		// if we have a cradle selected, take 15% off the panel
+		if($cradle_id == 3 || $cradle_id == 4 || $cradle_id == 5 || $cradle_id == 6 || $cradle_id == 7 || $cradle_id == 8)
+			$cradle_price = $cradle_price - ($cradle_price * 0.15);
+		
+		
+		
+		
+		// cradle price total is price multiplied by how many
+		//$cradle_price = $cradle_price * $quantity;
+		
+		// price total is the price multiplied by how many
+		//$price_total = $price * $quantity;
+		
+		
+		$price_total = $price + $cradle_price;
+		
+		//if 48" add ten percent;
+		if($width == 48)
+			$price_total = $price_total + ($price_total * 0.10);
+			
+			
+		// multiply by quantity
+		
+		$price_total = $price_total * $quantity;
+		
+		// add the cradle price onto the total
+		//$price_total = $price_total + $cradle_price;
 		
 		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
-		return $price;
+		//return $price_total;
+		//return $db_price;
+		
+		return $price_total;
+		
     }
 	
     
