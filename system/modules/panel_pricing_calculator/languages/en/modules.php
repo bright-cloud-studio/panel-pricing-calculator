@@ -13,6 +13,7 @@
 /* Back end modules */
 $GLOBALS['TL_LANG']['MOD']['price_chart'] = array('Price Chart - Small', 'Add/Edit/View pricing information for small custom sizes');
 $GLOBALS['TL_LANG']['MOD']['price_chart_large'] = array('Price Chart - Large', 'Add/Edit/View pricing information for large FLAT custom panels');
+$GLOBALS['TL_LANG']['MOD']['cradle_prices'] = array('Cradle Prices', 'Add/Edit/View the price per square inch for each cradle depth');
 $GLOBALS['TL_LANG']['MOD']['quote_request'] = array('Quote Requests', 'Add/Edit/View submitted Quote Requests');
 
 /* Front end modules */
