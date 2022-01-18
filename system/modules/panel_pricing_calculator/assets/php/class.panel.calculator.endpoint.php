@@ -284,6 +284,8 @@ class PanelCalculator
 			
 		// figure out the price per linear inch price
 		$price_per_inch = 0;
+		
+		/*
 		if($cradle_id == 3)
 			$price_per_inch = 0.44;
 		if($cradle_id == 4)
@@ -296,6 +298,40 @@ class PanelCalculator
 			$price_per_inch = 0.58;
 		if($cradle_id == 8)
 			$price_per_inch = 0.60;
+		*/
+		
+		$cradle_table = '';
+		switch($cradle_id) {
+			case 3:
+				$cradle_table = "3_4_inch";
+				break;
+			case 4:
+				$cradle_table = "1_inch";
+				break;
+			case 5:
+				$cradle_table = "1_5_inch";
+				break;
+			case 6:
+				$cradle_table = "2_inch";
+				break;
+			case 7:
+				$cradle_table = "2_5_inch";
+				break;
+			case 8:
+				$cradle_table = "3_inch";
+				break;
+		}
+		
+		$query =  "select * from tl_cradle_prices";
+		$result = $dbh->query($query);
+		if($result) {
+			
+			while($row = $result->fetch_assoc()) {
+				$price_per_inch = $row[$cradle_table];
+			}
+		} else {
+			return "Something has gone wrong! ".$sql->errorno;
+		}
 	
 			
 		// step one is divide width by every_x and divide height by every_y;
@@ -341,6 +377,7 @@ class PanelCalculator
 		//return $db_price;
 		
 		return $price_total;
+		//return $price_per_inch;
 		
     }
 	
