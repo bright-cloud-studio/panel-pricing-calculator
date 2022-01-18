@@ -12,7 +12,7 @@
 
  
 /* Table tl_price_chart */
-$GLOBALS['TL_DCA']['tl_price_chart'] = array
+$GLOBALS['TL_DCA']['tl_price_chart_large'] = array
 (
  
     // Config
@@ -40,8 +40,8 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('width', 'height', 'square_feet'),
-            'format'                  => '<span style="font-weight: bold;">Size:</span> %sx%s <span style="font-weight: bold;">Square Feet:</span> %s'
+            'fields'                  => array('width'),
+            'format'                  => '<span style="font-weight: bold;">Width:</span> %s'
         ),
         'global_operations' => array
         (
@@ -57,34 +57,34 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
         (
             'edit' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['edit'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart_large']['edit'],
                 'href'                => 'act=edit',
                 'icon'                => 'edit.gif'
             ),
 			
             'copy' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['copy'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart_large']['copy'],
                 'href'                => 'act=copy',
                 'icon'                => 'copy.gif'
             ),
             'delete' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['delete'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart_large']['delete'],
                 'href'                => 'act=delete',
                 'icon'                => 'delete.gif',
                 'attributes'          => 'onclick="if(!confirm(\'' . $GLOBALS['TL_LANG']['MSC']['deleteConfirm'] . '\'))return false;Backend.getScrollOffset()"'
             ),
             'toggle' => array
 			(
-				'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['toggle'],
+				'label'               => &$GLOBALS['TL_LANG']['tl_price_chart_large']['toggle'],
 				'icon'                => 'visible.gif',
 				'attributes'          => 'onclick="Backend.getScrollOffset();return AjaxRequest.toggleVisibility(this,%s)"',
-				'button_callback'     => array('Bcs\Backend\PriceChartBackend', 'toggleIcon')
+				'button_callback'     => array('Bcs\Backend\PriceChartLargeBackend', 'toggleIcon')
 			),
             'show' => array
             (
-                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart']['show'],
+                'label'               => &$GLOBALS['TL_LANG']['tl_price_chart_large']['show'],
                 'href'                => 'act=show',
                 'icon'                => 'show.gif'
             )
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{size_legend},width,height,square_feet;{products_legend},1_8_1,1_8_2,1_8_3,3_4_1,3_4_2;{publish_legend},published;'
+        'default'                     => '{size_legend},width;{products_legend},1_1,1_2,1_3,1_4;{publish_legend},published;'
     ),
  
     // Fields
@@ -114,84 +114,57 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 	),
 	'alias' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['alias'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart_large']['alias'],
 		'exclude'                 => true,
 		'inputType'               => 'text',
 		'search'                  => true,
 		'eval'                    => array('unique'=>true, 'rgxp'=>'alias', 'doNotCopy'=>true, 'maxlength'=>128, 'tl_class'=>'w50'),
 		'save_callback' => array
 		(
-			array('Bcs\Backend\PriceChartBackend', 'generateAlias')
+			array('Bcs\Backend\PriceChartLargeBackend', 'generateAlias')
 		),
 		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
 
 	),
 	'width' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['width'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart_large']['width'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
-	'height' => array
+	'1_1' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['height'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart_large']['1_1'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
-	'square_feet' => array
+	'1_2' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['square_feet'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart_large']['1_2'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
-	'1_8_1' => array
+	'1_3' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['1_8_1'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart_large']['1_3'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
 		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
 		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
-	'1_8_2' => array
+	'1_4' => array
 	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['1_8_2'],
-		'inputType'               => 'text',
-		'default'		  => '',
-		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
-	),
-	'1_8_3' => array
-	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['1_8_3'],
-		'inputType'               => 'text',
-		'default'		  => '',
-		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
-	),
-	'3_4_1' => array
-	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['3_4_1'],
-		'inputType'               => 'text',
-		'default'		  => '',
-		'search'                  => true,
-		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
-		'sql'                     => "varchar(255) NOT NULL default ''"
-	),
-	'3_4_2' => array
-	(
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['3_4_2'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart_large']['1_4'],
 		'inputType'               => 'text',
 		'default'		  => '',
 		'search'                  => true,
@@ -201,7 +174,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 	'published' => array
 	(
 		'exclude'                 => true,
-		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart']['published'],
+		'label'                   => &$GLOBALS['TL_LANG']['tl_price_chart_large']['published'],
 		'inputType'               => 'checkbox',
 		'eval'                    => array('submitOnChange'=>true, 'doNotCopy'=>true),
 		'sql'                     => "char(1) NOT NULL default ''"
