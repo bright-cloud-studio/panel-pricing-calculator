@@ -40,8 +40,8 @@ $GLOBALS['TL_DCA']['tl_cradle_prices'] = array
         ),
         'label' => array
         (
-            'fields'                  => array('width'),
-            'format'                  => '<span style="font-weight: bold;">Width:</span> %s'
+            'fields'                  => array('3_4_inch'),
+            'format'                  => 'Cradle Depth Prices'
         ),
         'global_operations' => array
         (
@@ -94,7 +94,7 @@ $GLOBALS['TL_DCA']['tl_cradle_prices'] = array
     // Palettes
     'palettes' => array
     (
-        'default'                     => '{price_legend},1_inch,1_5_inch,2_inch,2_5_inch,3_inch;{publish_legend},published;'
+        'default'                     => '{price_legend},3_4_inch,1_inch,1_5_inch,2_inch,2_5_inch,3_inch;{publish_legend},published;'
     ),
  
     // Fields
@@ -125,6 +125,15 @@ $GLOBALS['TL_DCA']['tl_cradle_prices'] = array
 		),
 		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
 
+	),
+	'3_4_inch' => array
+	(
+		'label'                   => &$GLOBALS['TL_LANG']['tl_cradle_prices']['3_4_inch'],
+		'inputType'               => 'text',
+		'default'		  		  => '',
+		'search'                  => true,
+		'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50'),
+		'sql'                     => "varchar(255) NOT NULL default ''"
 	),
 	'1_inch' => array
 	(
