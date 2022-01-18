@@ -20,6 +20,7 @@ ClassLoader::addClasses(array
 	'Bcs\Model\PanelPricingCalculator' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Model/PanelPricingCalculator.php',
 	'Bcs\Backend\PriceChartBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PriceChartBackend.php',
 	'Bcs\Backend\PriceChartLargeBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PriceChartLargeBackend.php',
+	'Bcs\Backend\CradlePricesBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/CradlePricesBackend.php',
 	'Bcs\Backend\QuoteRequestBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/QuoteRequestBackend.php'
 ));
 
