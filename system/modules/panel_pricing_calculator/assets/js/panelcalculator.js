@@ -239,6 +239,10 @@ function calculate(){
 			
 				// slide down the quote_render section
 				$("#quote_render").slideDown();
+				
+				$([document.documentElement, document.body]).animate({
+					scrollTop: $("#calculate_anchor").offset().top
+				}, 500);
 
 			},
 			error:function(result){
