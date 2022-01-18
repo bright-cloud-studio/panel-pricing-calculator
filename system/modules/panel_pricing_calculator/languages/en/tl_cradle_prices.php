@@ -20,6 +20,7 @@ $GLOBALS['TL_LANG']['tl_cradle_prices']['alias'] 			        = array('Alias', 'Au
 $GLOBALS['TL_LANG']['tl_cradle_prices']['published'] 		        = array('Published', 'Save this product\'s record.');
 
 /* Cradle Sizes and Prices */
+$GLOBALS['TL_LANG']['tl_cradle_prices']['3_4_inch'] 		= array('3/4" Cradle Price', 'The price per square inch');
 $GLOBALS['TL_LANG']['tl_cradle_prices']['1_inch'] 		= array('1" Cradle Price', 'The price per square inch');
 $GLOBALS['TL_LANG']['tl_cradle_prices']['1_5_inch']     = array('1.5" Cradle Price', 'The price per square inch');
 $GLOBALS['TL_LANG']['tl_cradle_prices']['2_inch']       = array('2" Cradle Price', 'The price per square inch');
