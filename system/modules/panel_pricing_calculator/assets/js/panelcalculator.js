@@ -26,6 +26,28 @@ $( document ).ready(function() {
         }
     });
     
+    
+    
+    
+    // adding exception for 1/4" sizes for hardbord selections
+	$('#panel_id').on('change', function() {
+		// if the selection is hardbord, remove 1/4" as a panel thickness option, otherwise put it back in
+		if(this.value == '7') {
+			$("#flat_id option[value='2']").remove();
+		} else {
+			// if the 1/4" option doesnt exist, add it
+			if($("#flat_id option[value='2']").length == 0) {
+				$('#flat_id').append($('<option>', {
+					value: 2,
+					text: '1/4"'
+				}));
+			}
+		}
+	});
+    
+    
+    
+    
 });
 
 
@@ -44,24 +66,31 @@ function send_email(){
     var user_zip = $("#zip").val();
     var user_tell_us = $("#tell_us").val();
 
-	  
-    // trigger this function when our form runs
-    $.ajax({
-        url:'/system/modules/panel_pricing_calculator/assets/php/action.send.email.php',
-        type:'POST',
-        data:"user_first_name="+user_first_name+"&user_last_name="+user_last_name+"&user_email="+user_email+"&user_phone="+user_phone+"&user_address_1="+user_address_1+"&user_address_2="+user_address_2+"&user_state="+user_state+"&user_city="+user_city+"&user_zip="+user_zip+"&user_tell_us="+user_tell_us+"",
-        success:function(result){
-        	//$("#send_email_notification").html(result);
-        	//$("#request_form").hide();
-        	
-        	// redirect us to the success page
-        	window.location.replace("https://ampersandart.com/custom-calculator-success-message");
-        	
-        },
-        error:function(result){
-			$("#send_email_notification").html("SEND EMAIL FAIL");
-        }
-    });
+	
+	// if first name isnt blank
+	if(user_first_name !== '' && user_last_name !== '' && user_email !== '' && user_address_1 !== '' && user_city !== '' && user_zip !== '') {
+	    
+	   // trigger this function when our form runs
+        $.ajax({
+            url:'/system/modules/panel_pricing_calculator/assets/php/action.send.email.php',
+            type:'POST',
+            data:"user_first_name="+user_first_name+"&user_last_name="+user_last_name+"&user_email="+user_email+"&user_phone="+user_phone+"&user_address_1="+user_address_1+"&user_address_2="+user_address_2+"&user_state="+user_state+"&user_city="+user_city+"&user_zip="+user_zip+"&user_tell_us="+user_tell_us+"",
+            success:function(result){
+            	//$("#send_email_notification").html(result);
+            	//$("#request_form").hide();
+            	
+            	// redirect us to the success page
+            	window.location.replace("https://ampersandart.com/custom-calculator-success-message");
+            	
+            },
+            error:function(result){
+    			$("#send_email_notification").html("SEND EMAIL FAIL");
+            }
+        });
+	    
+	} else {
+        $("#send_email_notification").html('<p class="marbot60">Please fill in all mandatory (<span class="mandatory">*</span>) fields</p>');
+	}
 	
 }
 
