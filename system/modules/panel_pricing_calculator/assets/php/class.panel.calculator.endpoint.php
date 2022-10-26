@@ -223,6 +223,17 @@ class PanelCalculator
 		$db_price = 0;
 		$debug_panel_price = 0;
 		
+		// debug - database price
+		$d_db_price = 0;
+		// debug - square foot price total
+		$d_sf_price = 0;
+		// debug - price after qualtity discount
+		$d_after_quantity_price = 0;
+		// debug - price per square inch
+		$d_square_inch_price = 0;
+		// debug - cradle price
+		$d_cradle_price = 0;
+		
 		
 		if($panel_id == 1 || $panel_id == 2 || $panel_id == 3 || $panel_id == 4)
 			$product_type = '1_1';
@@ -251,14 +262,16 @@ class PanelCalculator
 			while($row = $result->fetch_assoc()) {
 				$price = $row[$product_type];
 				$db_price = $row[$product_type];
+				$d_db_price = $row[$product_type];
 			}
 		} else {
 			return "Something has gone wrong! ".$sql->errorno;
 		}
 		
-		
 		// multiply the price based on the quantity
 		$price = $price * $square_feet;
+		
+		$d_sf_price = $price;
 		
 		// add a quantity discount
 		$quantity_discount = 0.10;
@@ -273,6 +286,7 @@ class PanelCalculator
 			
 		$price = $price - ($price * $quantity_discount);
 		
+		$d_after_quantity_price = $price;
 	
 		
 		// DETERMINE THE CRADLE PRICE
@@ -284,6 +298,7 @@ class PanelCalculator
 			
 		// figure out the price per linear inch price
 		$price_per_inch = 0;
+		
 		
 		/*
 		if($cradle_id == 3)
@@ -299,6 +314,7 @@ class PanelCalculator
 		if($cradle_id == 8)
 			$price_per_inch = 0.60;
 		*/
+		
 		
 		$cradle_table = '';
 		switch($cradle_id) {
@@ -322,6 +338,7 @@ class PanelCalculator
 				break;
 		}
 		
+		
 		$query =  "select * from tl_cradle_prices";
 		$result = $dbh->query($query);
 		if($result) {
@@ -332,7 +349,9 @@ class PanelCalculator
 		} else {
 			return "Something has gone wrong! ".$sql->errorno;
 		}
-	
+		
+		//return $price_per_inch;
+		$d_square_inch_price = $price_per_inch;
 			
 		// step one is divide width by every_x and divide height by every_y;
 		$cross_width = ceil($width / $every_x_inches);
@@ -343,6 +362,7 @@ class PanelCalculator
 		
 		$cradle_price = ($linear_inch_width + $linear_inch_height) * $price_per_inch;
 		
+		$d_cradle_price = $cradle_price;
 		
 		// if we have a cradle selected, take 15% off the panel
 		if($cradle_id == 3 || $cradle_id == 4 || $cradle_id == 5 || $cradle_id == 6 || $cradle_id == 7 || $cradle_id == 8)
@@ -376,8 +396,13 @@ class PanelCalculator
 		//return $price_total;
 		//return $db_price;
 		
+		// Debug - send email with values
+		//$this->pushDebugMessage($d_db_price, $d_sf_price, $d_after_quantity_price, $d_square_inch_price, $d_cradle_price);
+		
 		return $price_total;
 		//return $price_per_inch;
+		
+		
 		
     }
 	
@@ -465,6 +490,42 @@ class PanelCalculator
 	///////////////////////////////////////
 	// SESSIONS, COOKIES AND CART STUFFS //
 	///////////////////////////////////////
+    
+	public function pushDebugMessage($d_db_price, $d_sf_price, $d_after_quantity_price, $d_square_inch_price, $d_cradle_price)
+    {
+    	$to = 'mark@brightcloudstudio.com';
+		$subject = "Debug Email";
+
+		$message_start = "
+			<html>
+			<head>
+			<title>Debug Email</title>
+			</head>
+			<body>
+			";
+	
+		$message_debug_contents = "Database price: " . $d_db_price . "<br>Square Foot Price: " . $d_sf_price . "<br>After Quantity Price: " . $d_after_quantity_price . "<br>Square Inch Price: " . $d_square_inch_price . "<br>Cradle Price: " . $d_cradle_price;
+		
+		$message_end = "
+			</body>
+			</html>
+			";
+
+		// Always set content-type when sending HTML email
+		$headers = "MIME-Version: 1.0" . "\r\n";
+		$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+		// More headers
+		$headers .= 'From: <mark@brightcloudstudio.com>' . "\r\n";
+		$headers .= 'Cc: <mark@brightcloudstudio.com>' . "\r\n";
+	
+
+		// Add our custom intro text
+		$message_user_contents = $message_user_contents . '<p>Thank you for your Ampersand Art Supply custom quote request.</p>';
+   		mail($to,$subject,($message_start . $message_debug_contents . $message_end),$headers);
+   		
+   		return true;
+    }
     
 	public function generateFormToken($form)
 	{
