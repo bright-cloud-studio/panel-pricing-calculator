@@ -16,8 +16,9 @@ include_once("prepend.cart.endpoint.php");
 	
 
 	// SEND EMAIL
-	$to = "mark@brightcloudstudio.com";
-	$subject = "Panel Calculator Quote Request";
+	//$to = "mark@brightcloudstudio.com";
+	$to = $vars['user_email'];
+	$subject = "Panel Calculator Quote Request - " . $vars['user_email'];
 
 	$message_start = "
 		<html>
@@ -25,7 +26,6 @@ include_once("prepend.cart.endpoint.php");
 		<title>Panel Calculator Quote Request</title>
 		</head>
 		<body>
-		<h2>User Details:</h2>
 		";
 	
 	$message_user_contents = "";
@@ -41,12 +41,19 @@ include_once("prepend.cart.endpoint.php");
 	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 	// More headers
-	$headers .= 'From: <webmaster@example.com>' . "\r\n";
-	$headers .= 'Cc: mark@brightcloudstudio.com' . "\r\n";
+	$headers .= 'From: <bords@ampersandart.com>' . "\r\n";
+	$headers .= 'Cc: <web@brightcloudstudio.com>, <bords@ampersandart.com>' . "\r\n";
 	
 
+	// Add our custom intro text
+	$message_user_contents = $message_user_contents . '<p>Thank you for your Ampersand Art Supply custom quote request.</p>';
+	$message_user_contents = $message_user_contents . '<p>Our team is reviewing your request and will respond with a confirmed quote, estimated shipping and timing. Please allow 2-4 days for a response.</p>';
+	$message_user_contents = $message_user_contents . '<p>All custom orders are handmade in our factory in Buda, TX just minutes outside of Austin. Due to the special nature of a custom-made panel, our current lead time is 8 weeks.</p><br>';
+
+	$message_user_contents = $message_user_contents . '<h2>Details:</h2>';
+
 	// build the html for the users contents
-	$message_user_contents = $message_user_contents . '<p>Name: ' . $vars['user_first_name'] . " " . $vars['user_last_name'] . '</p><p>Email: ' . $vars['user_email'] . '</p><p>Phone: ' . $vars['user_phone'] . '</p><p>Address Line 1: ' . $vars['user_address_1'] . '</p><p>Address Line 2: ' . $vars['user_address_2'] . '</p><p>State: ' . $vars['user_state'] . '</p><p>City: ' . $vars['user_city'] . '</p><p>Zip: ' . $vars['user_zip'] . '</p><p>Tell Us: ' . $vars['user_tell_us'] . '</p><br><br>';
+	$message_user_contents = $message_user_contents . '<p>Name: ' . $vars['user_first_name'] . " " . $vars['user_last_name'] . '</p><p>Email: ' . $vars['user_email'] . '</p><p>Phone: ' . $vars['user_phone'] . '</p><p>Address Line 1: ' . $vars['user_address_1'] . '</p><p>Address Line 2: ' . $vars['user_address_2'] . '</p><p>State: ' . $vars['user_state'] . '</p><p>City: ' . $vars['user_city'] . '</p><p>Zip: ' . $vars['user_zip'] . '</p><p>Tell Us About Your Project: ' . $vars['user_tell_us'] . '</p><br>';
 	
 	
 	
@@ -59,11 +66,10 @@ include_once("prepend.cart.endpoint.php");
 	
 	
 	
-	
 	// build the html for the panel contents
 	foreach ($_SESSION['asdf'] as $key => $result){
 		$clean = unserialize($result);
-		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><br><br>';
+		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Panel Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><br>';
 		
 		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`, `created`) VALUES (NULL, '0', '".$sorting_number."', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".$vars['user_tell_us']."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."', '".date('F j, Y, g:i a')."')";
 		$result = $dbh->prepare($query);
@@ -74,9 +80,9 @@ include_once("prepend.cart.endpoint.php");
 	
 	
 	// send the mail
-	//mail($to,$subject,($message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents . $message_end),$headers);
+	mail($to,$subject,($message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents . $message_end),$headers);
 	
-	
+	unset($_SESSION['asdf']);
 		
 	echo "Email Sent!";
 
