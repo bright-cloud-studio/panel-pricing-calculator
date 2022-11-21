@@ -12,9 +12,9 @@ class QuoteCart
 		$this->errors = array();
 		
 		$this->servername = "localhost";
-		$this->username = "ampersan_dbadmin";
-		$this->password = "Y06ZCg9BiAh2Uv#@";
-		$this->dbname = "ampersan_cms49";
+		$this->username = "ampers_cms_db_admin";
+		$this->password = "JKDlS*3klsd9sk";
+		$this->dbname = "ampers_cms413";
 
 	}
 
