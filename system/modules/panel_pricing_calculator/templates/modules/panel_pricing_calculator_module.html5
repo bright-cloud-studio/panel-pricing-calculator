@@ -84,8 +84,17 @@
 		<input required="" type="number" min="1" class="form-control" id="quantity" name="quantity" placeholder="QTY"><br>
 		<!-- End Quantity -->
 	</div>
+	<div class="size100">
+		<div class="marbot30 center_element">
+			<div class="form_error" style="display:none;">ERROR: All values need to be filled in in-order to calculate an estimate</div>
+		</div>
+	</div>
+	<div class="size100">
+		<div class="marbot30 center_element calculator_note">
+			NOTE: Minimum of 1.5″ deep cradles are recommended for sizes larger than 24″x36″
+		</div>
+	</div>
 	<div class="calculate center">
-		<div class="form_error" style="display:none;">All values need to be filled in in-order to calculate an estimate</div>
 		<button onclick="calculate()">Calculate</button>
 	</div>
 
@@ -97,7 +106,7 @@
 	
 	
 	
-	
+	<a id="calculate_anchor"></a>
 	<!-- the calculated display -->
 	<div id="quote_render" class="quote_render form-group size100" style="display:none;">
 		<hr>
