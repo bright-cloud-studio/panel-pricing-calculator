@@ -93,7 +93,7 @@ include_once("prepend.cart.endpoint.php");
 //////////////////////////
 
 function getPreviousID(){
-    $dbh = new mysqli("localhost", "ampersan_dbadmin", "Y06ZCg9BiAh2Uv#@", "ampersan_cms49");
+    $dbh = new mysqli("localhost", "ampers_cms_db_admin", "JKDlS*3klsd9sk", "ampers_cms413");
 	if ($dbh->connect_error) {
 		die("Connection failed: " . $dbh->connect_error);
 	}
