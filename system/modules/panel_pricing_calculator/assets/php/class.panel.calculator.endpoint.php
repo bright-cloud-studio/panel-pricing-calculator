@@ -661,7 +661,7 @@ class PanelCalculator
 	if ($vars['panel_id'] =='' or !is_numeric($vars['panel_id'])) {
             $this->errors[] = "Choose panel";
         }
-        if (!is_numeric($vars['cradle_id'])) {
+        if ($vars['cradle_id'] != 'none') {
             if ($vars['cradle_id'] == 0) {
             } else {
                 $this->errors[] = "Invalid cradle";
