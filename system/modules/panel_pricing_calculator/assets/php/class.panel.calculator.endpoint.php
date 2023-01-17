@@ -93,7 +93,7 @@ class PanelCalculator
 			$total_price = $this->calculatePrice($vars);
 			return $this->formatPrice($total_price);
 		}            
-		return false;
+		return 99999;
 	}
     
 	public function calculatePrice($vars)
@@ -658,13 +658,13 @@ class PanelCalculator
     
     public function validateForm($vars)
     {
-	if ($vars['panel_id'] =='' or !is_numeric($vars['panel_id'])) {
+	if ($vars['panel_id'] == '' or !is_numeric($vars['panel_id'])) {
             $this->errors[] = "Choose panel";
         }
         if ($vars['cradle_id'] != 'none') {
             if ($vars['cradle_id'] == 0) {
             } else {
-                $this->errors[] = "Invalid cradle";
+                //$this->errors[] = "Invalid cradle";
             }
         }
         if (!is_numeric($vars['width'])) {
