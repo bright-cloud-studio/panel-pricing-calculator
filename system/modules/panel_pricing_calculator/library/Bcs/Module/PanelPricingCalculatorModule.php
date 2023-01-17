@@ -66,9 +66,8 @@ class PanelPricingCalculatorModule extends \Contao\Module
 	{
 		// add our js
 		$rand_ver = rand(1,9999);
-		if (!in_array('<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js?v='.$rand_ver.'"></script>', $GLOBALS['TL_BODY'])) { 
-			$GLOBALS['TL_BODY'][] = '<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js?v='.$rand_ver.'"></script>';
-		}
+		$GLOBALS['TL_BODY'][] = '<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js?v='.$rand_ver.'"></script>';
+		
 	    
 	    /*
 		$objLocation = Location::findBy('published', '1');
