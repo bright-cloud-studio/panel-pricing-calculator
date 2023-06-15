@@ -5,15 +5,21 @@ include_once("prepend.cart.endpoint.php");
 	// turn the form values into $vars
 	$vars = $_POST;
 	
+	// clean up our variables to be safe
+	$vars['user_first_name'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_first_name']);
+	$vars['user_last_name'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_last_name']);
+	$vars['user_phone'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_phone']);
+	$vars['user_address_1'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_address_1']);
+	$vars['user_address_2'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_address_2']);
+	$vars['user_state'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_address_2']);
+	$vars['user_city'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_city']);
+	$vars['user_zip'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_zip']);
+	$vars['user_tell_us'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_tell_us']);
 	
-	//unset($_SESSION['asdf'][$vars['entry_id']]);
-	
-	//$$_SESSION['asdf'] = array_values($$_SESSION['asdf']);
-		
-	//echo count($_SESSION['asdf']);
-	
-	
-	
+	$sc_email = array("!", "#", "%", "^", "&", "*", "(", ")", ",", "/", "{", "}", "[", "]", "<", ">");
+    $vars['user_email'] = str_replace($sc_email, "", $vars['user_email']);
+
+
 
 	// SEND EMAIL
 	//$to = "mark@brightcloudstudio.com";
@@ -54,10 +60,7 @@ include_once("prepend.cart.endpoint.php");
 
 	// build the html for the users contents
 	$message_user_contents = $message_user_contents . '<p>Name: ' . $vars['user_first_name'] . " " . $vars['user_last_name'] . '</p><p>Email: ' . $vars['user_email'] . '</p><p>Phone: ' . $vars['user_phone'] . '</p><p>Address Line 1: ' . $vars['user_address_1'] . '</p><p>Address Line 2: ' . $vars['user_address_2'] . '</p><p>State: ' . $vars['user_state'] . '</p><p>City: ' . $vars['user_city'] . '</p><p>Zip: ' . $vars['user_zip'] . '</p><p>Tell Us About Your Project: ' . $vars['user_tell_us'] . '</p><br>';
-	
-	
-	
-	
+
 	// we need to know what the previous sorting number is, if there is one
 	$sorting_number = getPreviousID();
 	
@@ -69,6 +72,21 @@ include_once("prepend.cart.endpoint.php");
 	// build the html for the panel contents
 	foreach ($_SESSION['asdf'] as $key => $result){
 		$clean = unserialize($result);
+		
+		
+		// lets clean up our $clean values to be safe
+		$clean['panel_id'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['panel_id']);
+		$clean['flat_id'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['flat_id']);
+		$clean['cradle_id'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['cradle_id']);
+		$clean['quantity'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['quantity']);
+		
+		$sc_price = array("!", "@", "#", "%", "^", "&", "*", "(", ")", ",", "/", "{", "}", "[", "]", "<", ">");
+        $clean['price'] = str_replace($sc_price, "", $clean['price']);
+        $sc_size = array("!", "@", "#", "$", "%", "^", "&", "*", "(", ")", ",", "/", "{", "}", "[", "]", "<", ">");
+        $clean['width'] = str_replace($sc_size, "", $clean['width']);
+        $clean['height'] = str_replace($sc_size, "", $clean['height']);
+
+		
 		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Panel Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><br>';
 		
 		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`, `created`) VALUES (NULL, '0', '".$sorting_number."', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".$vars['user_tell_us']."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."', '".date('F j, Y, g:i a')."')";
