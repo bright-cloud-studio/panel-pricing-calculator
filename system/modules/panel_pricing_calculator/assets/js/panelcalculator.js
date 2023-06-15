@@ -56,15 +56,35 @@ function send_email(){
 
     // store our quote request values
     var user_first_name = $("#firstname").val();
+    user_first_name = user_first_name.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_last_name = $("#lastname").val();
+    user_last_name = user_last_name.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_email = $("#email").val();
+    user_email = user_email.replace(/([-,€~!#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_phone = $("#phone").val();
+    user_phone = user_phone.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_address_1 = $("#address_1").val();
+    user_address_1 = user_address_1.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_address_2 = $("#address_2").val();
+    user_address_2 = user_address_2.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_state = $("#state").val();
+    user_state = user_state.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_city = $("#city").val();
+    user_city = user_city.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_zip = $("#zip").val();
+    user_zip = user_zip.replace(/([-,.€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
     var user_tell_us = $("#tell_us").val();
+    user_tell_us = user_tell_us.replace(/([-€~!@#$%^&*()_+=`{}\[\]\|\\:;'<>])+/g, '');
+    
 
 	
 	// if first name isnt blank
@@ -76,9 +96,7 @@ function send_email(){
             type:'POST',
             data:"user_first_name="+user_first_name+"&user_last_name="+user_last_name+"&user_email="+user_email+"&user_phone="+user_phone+"&user_address_1="+user_address_1+"&user_address_2="+user_address_2+"&user_state="+user_state+"&user_city="+user_city+"&user_zip="+user_zip+"&user_tell_us="+user_tell_us+"",
             success:function(result){
-            	//$("#send_email_notification").html(result);
-            	//$("#request_form").hide();
-            	
+                
             	// redirect us to the success page
             	window.location.replace("https://ampersandart.com/custom-calculator-success-message");
             	
