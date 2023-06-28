@@ -265,7 +265,6 @@ function calculate(){
 				// quote_render - update values on page
 				///////////////////////////////////////
 			
-			
 				$("#quote_render_image").html('<img src="system/modules/panel_pricing_calculator/assets/images/'+getPanelNameFromID(panel_id)+'.jpg">');
 			
 				$("#panel_name").html(getPanelNameFromID(panel_id));
