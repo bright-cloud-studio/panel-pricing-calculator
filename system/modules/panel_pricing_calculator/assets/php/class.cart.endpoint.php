@@ -5,7 +5,7 @@ class QuoteCart
 {
 	public static $cart_cookie_name = 'ampersandart_cart';
 	
-	public function __construct()
+	public function __construct($dbh)
 	{
 		$this->dbh = $dbh;
 		$this->message = array();
@@ -26,31 +26,13 @@ class QuoteCart
 	{
 		// turn the form values into $vars
 		$vars = $_POST;
-
-		//// validateForm just makes sure numbers are set
-		//if ($this->validateForm($vars)) {
-		//	$total_price = $this->calculatePrice($vars);
-		//	return $this->formatPrice($total_price);
-		//}            
-		//return false;
 		
-		
-		//$ourQuote = new Quote();
-		//$ourQuote->set_panel_id($vars['panel_id']);
-		//$ourQuote->set_panel_thickness_id($vars['flat_id']);
-		//$ourQuote->set_panel_cradle_id($vars['cradle_id']);
-		//$ourQuote->set_panel_width($vars['width']);
-		//$ourQuote->set_panel_height($vars['height']);
-		//$ourQuote->set_order_quantity($vars['quantity']);
-		
-		//array_push($_SESSION['asdf'],serialize($ourQuote));
-		
-		
+		// create an reference array filled with our passed in values
 		$ourQuote = array("panel_id"=>$vars['panel_id'], "flat_id"=>$vars['flat_id'], "cradle_id"=>$vars['cradle_id'], "width"=>$vars['width'], "height"=>$vars['height'], "quantity"=>$vars['quantity'], "price"=>$vars['price']);
+		// add a serialized copy of our array into our session array
 		array_push($_SESSION['asdf'],serialize($ourQuote));
-		
+		// return the total count of entries in our session array
 		return count($_SESSION['asdf']);
-		//return $ourQuote->get_panel_id();
 	}
 
 }
@@ -58,6 +40,7 @@ class QuoteCart
 
 
 class Quote {
+    
 	// Properties
 	public $panel_id;
 	public $panel_thickness_id;
@@ -116,4 +99,3 @@ class Quote {
 		return $this->order_price;
 	}
 }
-
