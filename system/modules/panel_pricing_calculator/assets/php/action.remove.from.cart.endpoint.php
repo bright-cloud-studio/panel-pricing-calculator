@@ -7,5 +7,5 @@
 	$vars = $_POST;
 	
 	unset($_SESSION['asdf'][$vars['entry_id']]);
-	$$_SESSION['asdf'] = array_values($$_SESSION['asdf']);
+	$_SESSION['asdf'] = array_values($_SESSION['asdf']);
 	echo count($_SESSION['asdf']);
