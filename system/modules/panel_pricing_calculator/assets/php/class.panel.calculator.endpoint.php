@@ -4,7 +4,7 @@
 class PanelCalculator
 {
 	public static $cart_cookie_name = 'ampersandart_cart';
-	public function __construct()
+	public function __construct($dbh)
 	{
 		$this->dbh = $dbh;
 		$this->message = array();
