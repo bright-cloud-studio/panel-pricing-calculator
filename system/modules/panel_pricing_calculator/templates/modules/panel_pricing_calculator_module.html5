@@ -65,7 +65,7 @@
 	<div class="flex_wrapper vert_center">
 		<!-- Panel Width -->
 		<div class="details_1 size33 marbot30">
-			<label for="width" class="control-label block">Panel width <span class="small">(max 48")</span></label>
+			<label for="width" class="control-label block">Panel width<br><span class="small">(shortest side: max 48")</span></label>
 			<input required="" type="number" min="1" step="any" class="form-control" id="width" name="width" max="48" data-w="width" placeholder="">
 			<label id="width_error" for="width" class="control-label block control-error">Width can't be larger than 48"</label>
 		</div>
@@ -73,14 +73,14 @@
 			
 		<!-- End Panel Width -->
 		<div class="details_2 size33 marbot30">
-			<label for="height" class="control-label block">Panel height  <span class="small">(max 90")</span></label>
+			<label for="height" class="control-label block">Panel height<br><span class="small">(longest side: max 90")</span></label>
 			<input required="" type="number" min="1" max="90" step="any" class="form-control" id="height" name="height" data-h="height" placeholder="">
 			<label id="height_error" for="height" class="control-label block control-error">Height can't be larger than 90"</label>
 		</div>
 		
 			<!-- Quantity-->
-	<div class="form-group size33 marbot60"> <!-- State Button -->
-		<label for="quantity" class="control-label">Quantity OF THIS PANEL<span class="small"> (quantity discount may apply)</span></label>	
+	<div class="form-group size33 marbot30"> <!-- State Button -->
+		<label for="quantity" class="control-label">Quantity OF THIS PANEL<br><span class="small"> (quantity discount may apply)</span></label>	
 		<input required="" type="number" min="1" class="form-control" id="quantity" name="quantity" placeholder="QTY"><br>
 		<!-- End Quantity -->
 	</div>
