@@ -16,13 +16,17 @@ use Contao\Database;
 class Hooks
 {
 
-  // Called when a form is submitted
-  public function onProcessForm($submittedData, $formData, $files, $labels, $form)
-  {
-    if($formData['formID'] == 'calc_add_to_cart') {
-      echo "BING";
-      die();
+    // Called when a form is submitted
+    public function onProcessForm($submittedData, $formData, $files, $labels, $form)
+    {
+        // If this is our "Add to cart" button
+        if($formData['formID'] == 'calc_add_to_cart') {
+            
+            echo "BING";
+            die();
+            
+        }
+        
     }
-  }
   
 }
