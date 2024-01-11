@@ -12,154 +12,154 @@
 <!-- End Message container -->
 
 <div class="calc_wrapper">
-<!-- The main calc module container -->
-<div class="calculator_container marbot60 step1">
-<h2 class="size100">Step 1: Add orders to quote</h2>
-	<!-- Form top row -->
-	<div class="flex_wrapper">
-
-		<!-- Panel ID -->
-		<div class="widget-select size33">
-			<select required="" class="form-control" id="panel_id" name="panel_id">
-				<option value="0">Panel name</option>
-				<option value="1">Claybord</option>
-				<option value="2">Gessobord</option>
-				<option value="3">Aquabord</option>
-				<option value="4">Encausticbord</option>
-				<option value="5">Scratchbord</option>
-				<option value="6">Pastelbord</option>
-				<option value="7">Hardbord</option>
-			</select>
-		</div>
-		<!-- End Panel ID -->
-		
-		<!-- Panel Thickness -->
-		<div class="widget-select size33">
-			<select required="" class="form-control" id="flat_id" name="flat_id">
-				<option value="0">Panel thickness</option>
-				<option value="1">1/8"</option>
-				<option value="2">1/4"</option>
-			</select>	
-		</div>
-		
-				<!-- Cradle Depths -->
-		<div class="widget widget-select size33">
-			<select required="" class="form-control" id="cradle_id" name="cradle_id">
-				<option value="default">Cradle depth</option>
-				<option value="none">None</option>
-				<option value="3">3/4" cradled</option>
-				<option value="4">1" cradled</option>
-				<option value="5">1 1/2" cradled</option>
-				<option value="6">2" cradled</option>
-				<option value="7">2 1/2" cradled</option>
-				<option value="8">3" cradled</option>
-			</select>	
-		</div>
-		<!-- End Cradle Depths -->
-		<!-- End Panel Thickness -->
-				 
-	</div>
-	<!-- End Form top row -->
+	<!-- The main calc module container -->
+	<div class="calculator_container marbot60 step1">
+	<h2 class="size100">Step 1: Add orders to quote</h2>
+		<!-- Form top row -->
+		<div class="flex_wrapper">
 	
-	<!-- Form bottom row -->
-	<div class="flex_wrapper vert_center">
-		<!-- Panel Width -->
-		<div class="details_1 size33 marbot30">
-			<label for="width" class="control-label block">Panel width<br><span class="small">(shortest side: max 48")</span></label>
-			<input required="" type="number" min="1" step="any" class="form-control" id="width" name="width" max="48" data-w="width" placeholder="">
-			<label id="width_error" for="width" class="control-label block control-error">Width can't be larger than 48"</label>
-		</div>
-		<!-- End Panel Width -->
-			
-		<!-- End Panel Width -->
-		<div class="details_2 size33 marbot30">
-			<label for="height" class="control-label block">Panel height<br><span class="small">(longest side: max 90")</span></label>
-			<input required="" type="number" min="1" max="90" step="any" class="form-control" id="height" name="height" data-h="height" placeholder="">
-			<label id="height_error" for="height" class="control-label block control-error">Height can't be larger than 90"</label>
-		</div>
-		
-			<!-- Quantity-->
-	<div class="form-group size33 marbot30"> <!-- State Button -->
-		<label for="quantity" class="control-label">Quantity OF THIS PANEL<br><span class="small"> (quantity discount may apply)</span></label>	
-		<input required="" type="number" min="1" class="form-control" id="quantity" name="quantity" placeholder="QTY"><br>
-		<!-- End Quantity -->
-	</div>
-	<div class="size100">
-		<div class="marbot30 center_element">
-			<div class="form_error" style="display:none;">ERROR: All values need to be filled in in-order to calculate an estimate</div>
-		</div>
-	</div>
-	<div class="size100">
-		<div class="marbot30 center_element calculator_note">
-			NOTE: Minimum of 1.5″ deep cradles are recommended for sizes larger than 24″x36″
-		</div>
-	</div>
-	<div class="calculate center">
-		<button onclick="calculate()">Calculate</button>
-	</div>
-
-			
-	</div>
-	
-
-	<!-- End Form bottom row -->
-	
-	
-	
-	<a id="calculate_anchor"></a>
-	<!-- the calculated display -->
-	<div id="quote_render" class="quote_render form-group size100" style="display:none;">
-		<hr>
-		<div class="quote_render_wrapper flex_wrapper">
-			<div class="size20 no-pad image"><span id="quote_render_image"></span></div>
-			<div class="size30 details_1">
-				<div style="display:none;" id="name_id_wrapper"><strong id="name_id_label">Panel ID: </strong><span id="panel_name_id"></span></div>
-				<div id="name_wrapper"><strong id="name_label">Panel: </strong><span id="panel_name"></span></div>
-				<div style="display:none;" id="thickness_id_wrapper"><strong id="thickness_id_label">Thickness ID: </strong><span id="panel_thickness_id"></span></div>
-				<div id="thickness_wrapper"><strong id="thickness_label">Thickness: </strong><span id="panel_thickness"></span></div>
-				<div style="display:none;" id="cradle_id_wrapper"><strong id="cradle_id_wrapper">Cradle ID: </strong><span id="panel_cradle_id"></span></div>
-				<div id="cradle_wrapper"><strong id="cradle_wrapper">Cradle: </strong><span id="panel_cradle"></span></div>
-				<div id="width_wrapper"><strong id="width_label">Width: </strong><span id="panel_width"></span></div>
-				<div id="height_wrapper"><strong id="height_label">Height: </strong><span id="panel_height"></span></div>
+			<!-- Panel ID -->
+			<div class="widget-select size33">
+				<select required="" class="form-control" id="panel_id" name="panel_id">
+					<option value="0">Panel name</option>
+					<option value="1">Claybord</option>
+					<option value="2">Gessobord</option>
+					<option value="3">Aquabord</option>
+					<option value="4">Encausticbord</option>
+					<option value="5">Scratchbord</option>
+					<option value="6">Pastelbord</option>
+					<option value="7">Hardbord</option>
+				</select>
 			</div>
-			<div class="size30 details_2">
-				<div class="qty-price">
-				<div id="quantity_wrapper"><strong id="quantity_label">Quantity: </strong><span id="quote_quantity"></span></div>
-				<div style="display:none;" id="discount_wrapper"><strong id="discount_label">Discount: </strong><span id="quote_discount"></span></div>
-				<div id="price_wrapper"><strong id="price_label">Price: </strong><span id="quote_price"></span>	
-				</div>
-				</div>
-				<div class="no-pad addtocart">
-				<button onclick="add_to_cart()">Add to quote</button>
+			<!-- End Panel ID -->
+			
+			<!-- Panel Thickness -->
+			<div class="widget-select size33">
+				<select required="" class="form-control" id="flat_id" name="flat_id">
+					<option value="0">Panel thickness</option>
+					<option value="1">1/8"</option>
+					<option value="2">1/4"</option>
+				</select>	
 			</div>
+			
+					<!-- Cradle Depths -->
+			<div class="widget widget-select size33">
+				<select required="" class="form-control" id="cradle_id" name="cradle_id">
+					<option value="default">Cradle depth</option>
+					<option value="none">None</option>
+					<option value="3">3/4" cradled</option>
+					<option value="4">1" cradled</option>
+					<option value="5">1 1/2" cradled</option>
+					<option value="6">2" cradled</option>
+					<option value="7">2 1/2" cradled</option>
+					<option value="8">3" cradled</option>
+				</select>	
+			</div>
+			<!-- End Cradle Depths -->
+			<!-- End Panel Thickness -->
+					 
+		</div>
+		<!-- End Form top row -->
+		
+		<!-- Form bottom row -->
+		<div class="flex_wrapper vert_center">
+			<!-- Panel Width -->
+			<div class="details_1 size33 marbot30">
+				<label for="width" class="control-label block">Panel width <span class="small">(max 48")</span></label>
+				<input required="" type="number" min="1" step="any" class="form-control" id="width" name="width" max="48" data-w="width" placeholder="">
+				<label id="width_error" for="width" class="control-label block control-error">Width can't be larger than 48"</label>
+			</div>
+			<!-- End Panel Width -->
+				
+			<!-- End Panel Width -->
+			<div class="details_2 size33 marbot30">
+				<label for="height" class="control-label block">Panel height  <span class="small">(max 90")</span></label>
+				<input required="" type="number" min="1" max="90" step="any" class="form-control" id="height" name="height" data-h="height" placeholder="">
+				<label id="height_error" for="height" class="control-label block control-error">Height can't be larger than 90"</label>
+			</div>
+			
+				<!-- Quantity-->
+		<div class="form-group size33 marbot60"> <!-- State Button -->
+			<label for="quantity" class="control-label">Quantity OF THIS PANEL<span class="small"> (quantity discount may apply)</span></label>	
+			<input required="" type="number" min="1" class="form-control" id="quantity" name="quantity" placeholder="QTY"><br>
+			<!-- End Quantity -->
+		</div>
+		<div class="size100">
+			<div class="marbot30 center_element">
+				<div class="form_error" style="display:none;">ERROR: All values need to be filled in in-order to calculate an estimate</div>
+			</div>
+		</div>
+		<div class="size100">
+			<div class="marbot30 center_element calculator_note">
+				NOTE: Minimum of 1.5″ deep cradles are recommended for sizes larger than 24″x36″
+			</div>
+		</div>
+		<div class="calculate center">
+			<button onclick="calculate()">Calculate</button>
+		</div>
+	
+				
+		</div>
+		
+	
+		<!-- End Form bottom row -->
+		
+		
+		
+		<a id="calculate_anchor"></a>
+		<!-- the calculated display -->
+		<div id="quote_render" class="quote_render form-group size100" style="display:none;">
+			<hr>
+			<div class="quote_render_wrapper flex_wrapper">
+				<div class="size20 no-pad image"><span id="quote_render_image"></span></div>
+				<div class="size30 details_1">
+					<div style="display:none;" id="name_id_wrapper"><strong id="name_id_label">Panel ID: </strong><span id="panel_name_id"></span></div>
+					<div id="name_wrapper"><strong id="name_label">Panel: </strong><span id="panel_name"></span></div>
+					<div style="display:none;" id="thickness_id_wrapper"><strong id="thickness_id_label">Thickness ID: </strong><span id="panel_thickness_id"></span></div>
+					<div id="thickness_wrapper"><strong id="thickness_label">Thickness: </strong><span id="panel_thickness"></span></div>
+					<div style="display:none;" id="cradle_id_wrapper"><strong id="cradle_id_wrapper">Cradle ID: </strong><span id="panel_cradle_id"></span></div>
+					<div id="cradle_wrapper"><strong id="cradle_wrapper">Cradle: </strong><span id="panel_cradle"></span></div>
+					<div id="width_wrapper"><strong id="width_label">Width: </strong><span id="panel_width"></span></div>
+					<div id="height_wrapper"><strong id="height_label">Height: </strong><span id="panel_height"></span></div>
+				</div>
+				<div class="size30 details_2">
+					<div class="qty-price">
+					<div id="quantity_wrapper"><strong id="quantity_label">Quantity: </strong><span id="quote_quantity"></span></div>
+					<div style="display:none;" id="discount_wrapper"><strong id="discount_label">Discount: </strong><span id="quote_discount"></span></div>
+					<div id="price_wrapper"><strong id="price_label">Price: </strong><span id="quote_price"></span>	
+					</div>
+					</div>
+					<div class="no-pad addtocart">
+					<button onclick="add_to_cart()">Add to quote</button>
+				</div>
+					
+				</div>
 				
 			</div>
-			
+				
 		</div>
-			
+		
 	</div>
-	
-</div>
-<!-- End main calc container -->
+	<!-- End main calc container -->
 
 
-<!-- Cart Container -->
-<a id="anchor_cart" name="anchor_cart"></a>
-<div id="calc_cart_container" class="calc_cart_container marbot60 step2" style="display: none;">
-	<hr>
-	<h2 class="size100">Step 2: Review quote and make request</h2>
-	
-	<div class="marbot30">
-		<div id="cart_contents"></div>
+	<!-- Cart Container -->
+	<a id="anchor_cart" name="anchor_cart"></a>
+	<div id="calc_cart_container" class="calc_cart_container marbot60 step2" style="display: none;">
+		<hr>
+		<h2 class="size100">Step 2: Review quote and make request</h2>
+		
+		<div class="marbot30">
+			<div id="cart_contents"></div>
+		</div>
+		
+		<div class="size100 center_element">
+			<button class="popup_calculator">Process quote request</button>
+		</div>
+		
 	</div>
-	
-	<div class="size100 center_element">
-		<button class="popup_calculator">Process quote request</button>
-	</div>
-	
-</div>
-</div>
 
+</div>
 
 
 <!-- Scripts -->
