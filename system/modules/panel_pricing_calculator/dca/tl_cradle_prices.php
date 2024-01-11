@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_cradle_prices'] = array
 		(
 			array('Bcs\Backend\CradlePricesBackend', 'generateAlias')
 		),
-		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
+		'sql'                     => "varchar(255) BINARY NOT NULL default ''"
 
 	),
 	'3_4_inch' => array
