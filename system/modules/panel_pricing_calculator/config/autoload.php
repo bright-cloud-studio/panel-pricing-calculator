@@ -21,7 +21,11 @@ ClassLoader::addClasses(array
 	'Bcs\Backend\PriceChartBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PriceChartBackend.php',
 	'Bcs\Backend\PriceChartLargeBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/PriceChartLargeBackend.php',
 	'Bcs\Backend\CradlePricesBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/CradlePricesBackend.php',
-	'Bcs\Backend\QuoteRequestBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/QuoteRequestBackend.php'
+	'Bcs\Backend\QuoteRequestBackend' 		=> 'system/modules/panel_pricing_calculator/library/Bcs/Backend/QuoteRequestBackend.php',
+
+    // Hooks
+    'Bcs\Hooks'    => 'system/modules/panel_pricing_calculator/library/Bcs/Hooks.php',
+    
 ));
 
 /* Register the templates */
