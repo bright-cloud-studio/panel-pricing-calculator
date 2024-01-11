@@ -123,7 +123,7 @@ $GLOBALS['TL_DCA']['tl_price_chart'] = array
 		(
 			array('Bcs\Backend\PriceChartBackend', 'generateAlias')
 		),
-		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
+		'sql'                     => "varchar(255) BINARY NOT NULL default ''"
 
 	),
 	'width' => array
