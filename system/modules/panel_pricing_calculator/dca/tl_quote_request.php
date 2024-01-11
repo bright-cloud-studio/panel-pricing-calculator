@@ -125,7 +125,7 @@ $GLOBALS['TL_DCA']['tl_quote_request'] = array
 		(
 			array('Bcs\Backend\QuoteRequestBackend', 'generateAlias')
 		),
-		'sql'                     => "varchar(128) COLLATE utf8_bin NOT NULL default ''"
+		'sql'                     => "varchar(255) BINARY NOT NULL default ''"
 
 	),
 	'reviewed' => array
