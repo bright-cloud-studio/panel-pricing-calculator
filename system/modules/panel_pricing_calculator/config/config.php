@@ -1,15 +1,13 @@
 <?php
 
-/**
- * Panel Pricing Calculator - Adds a panel pricing calculator with a front end module for users and a back end system for managing the data.
+/*
+ * Bright Cloud Studio's Panel Pricing Calculator
+ * Copyright (C) 2023-2024 Bright Cloud Studio
  *
- * Copyright (C) 2021 Bright Cloud Studio
- *
- * @package    bright-cloud-studio/panel-pricing-calculator
+ * @package    bright-cloud-studio/panel-pricing-calculato
  * @link       https://www.brightcloudstudio.com/
  * @license    http://opensource.org/licenses/lgpl-3.0.html
- */
-
+*/
 
 
 /* Back end modules */
@@ -48,10 +46,11 @@ $GLOBALS['BE_MOD']['panel_pricing_calculator']['quote_request'] = array(
 /* Front end modules */
 $GLOBALS['FE_MOD']['panel_pricing_calculator']['panel_pricing_calculator_module'] 	= 'Bcs\Module\PanelPricingCalculatorModule';
 
-
 /* Models */
 $GLOBALS['TL_MODELS']['tl_panel_pricing_calculator'] = 'Bcs\Model\PanelPricingCalculator';
 
+/* Hooks */
+$GLOBALS['TL_HOOKS']['processFormData'][]      = array('Bcs\Hooks', 'onProcessForm');
 
 /* Add Backend CSS to style Reviewed and Unreviewed */
 if (TL_MODE == 'BE')
