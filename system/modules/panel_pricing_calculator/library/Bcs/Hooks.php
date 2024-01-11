@@ -19,11 +19,32 @@ class Hooks
     // Called when a form is submitted
     public function onProcessForm($submittedData, $formData, $files, $labels, $form)
     {
+        
         // If this is our "Add to cart" button
         if($formData['formID'] == 'calc_add_to_cart') {
             
-            echo "BING";
+            /** Dev Stuffs
+            echo "HOOK: Successful<br><br>";
+            echo "<pre>";
+            print_r($submittedData);
+            echo "</pre>";
+            echo "<pre>";
+            print_r($formData);
+            echo "</pre>";
             die();
+            */
+            
+            
+            // First, see if this product exists
+            
+                // If exists, add to cart
+                
+                // If doesnt exist, create the variant
+                    // Add to cart
+                    
+            // Return back to the page
+            
+            
             
         }
         
