@@ -23,7 +23,7 @@ class Hooks
         // If this is our "Add to cart" button
         if($formData['formID'] == 'calc_add_to_cart') {
             
-            /** Dev Stuffs
+            /** Dev Stuffs */
             echo "HOOK: Successful<br><br>";
             echo "<pre>";
             print_r($submittedData);
@@ -32,7 +32,7 @@ class Hooks
             print_r($formData);
             echo "</pre>";
             die();
-            */
+
             
             
             // First, see if this product exists
