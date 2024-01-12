@@ -28,7 +28,6 @@ class Hooks
         // If this is our "Add to cart" button
         if($formData['formID'] == 'calc_add_to_cart') {
             
-            
             /** Dev Stuffs
             echo "HOOK: Successful<br><br>";
             
@@ -43,13 +42,8 @@ class Hooks
             */
             
             
-            
-            
-            
-            
-            // First, try and see if this product already exists
-            // If it exists, add it to the cart
-                
+            // STEP ONE
+            // Build our product query by getting the proper IDs for the selected options
             
             $parent_id = 1466;
             $custom_width = 238;
@@ -59,37 +53,22 @@ class Hooks
             
             $quantity = $submittedData['quantity'];
 
-
+            // See if the product exists
             $prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
-            
-            
             if($prod == null) {
-                echo "NOPE";
-            } else {
-                echo "YES";
                 
+                // Product does not exist, lets create it
+                echo "NOPE";
+                
+            } else {
+                
+                // Product exists, add it to the cart
                 $arrConfig = array();
                 if (Isotope::getCart()->addProduct($prod, $quantity, $arrConfig) !== false)
 					$blnAdded = true;
                 
             }
                 
-            // If it doesnt exist
-                // Add the attribute options if it doesnt exist
-                // Add the variant using the attributes we created/updated
-                // Add to cart
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
         }
         
     }
