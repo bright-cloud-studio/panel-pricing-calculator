@@ -13,6 +13,11 @@ namespace Bcs;
 
 use Contao\Database;
 
+use Isotope\Interfaces\IsotopeProduct;
+use Isotope\Isotope;
+
+use Isotope\Model\Product;
+
 class Hooks
 {
 
@@ -23,26 +28,65 @@ class Hooks
         // If this is our "Add to cart" button
         if($formData['formID'] == 'calc_add_to_cart') {
             
-            /** Dev Stuffs */
+            
+            /** Dev Stuffs
             echo "HOOK: Successful<br><br>";
+            
             echo "<pre>";
             print_r($submittedData);
             echo "</pre>";
+            
             echo "<pre>";
             print_r($formData);
             echo "</pre>";
             die();
-
+            */
             
             
-            // First, see if this product exists
             
-                // If exists, add to cart
+            
+            
+            
+            // First, try and see if this product already exists
+            // If it exists, add it to the cart
                 
-                // If doesnt exist, create the variant
-                    // Add to cart
-                    
-            // Return back to the page
+            
+            $parent_id = 1466;
+            $custom_width = 238;
+            $custom_height = 240;
+            $custom_depth = 230;
+            $custom_thickness = 236;
+            
+            $quantity = $submittedData['quantity'];
+
+
+            $prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
+            
+            
+            if($prod == null) {
+                echo "NOPE";
+            } else {
+                echo "YES";
+                
+                $arrConfig = array();
+                if (Isotope::getCart()->addProduct($prod, $quantity, $arrConfig) !== false)
+					$blnAdded = true;
+                
+            }
+                
+            // If it doesnt exist
+                // Add the attribute options if it doesnt exist
+                // Add the variant using the attributes we created/updated
+                // Add to cart
+            
+            
+            
+            
+            
+            
+            
+            
+            
             
             
             
