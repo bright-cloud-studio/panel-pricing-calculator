@@ -15,6 +15,7 @@ use Contao\Database;
 
 use Isotope\Interfaces\IsotopeProduct;
 use Isotope\Isotope;
+use Isotope\Model\AttributeOption;
 
 use Isotope\Model\Product;
 
@@ -46,8 +47,10 @@ class Hooks
             // Build our product query by getting the proper IDs for the selected options
             
             $parent_id = 1466;
-            $custom_width = 238;
-            $custom_height = 240;
+            
+            $custom_width = AttributeOption::findOneBy(['tl_iso_attribute_option.label=?'],[$submittedData['width'] . "&#34;"])->id;
+            $custom_height = AttributeOption::findOneBy(['tl_iso_attribute_option.label=?'],[$submittedData['height'] . "&#34;"])->id;
+
             $custom_depth = 230;
             $custom_thickness = 236;
             
@@ -59,6 +62,7 @@ class Hooks
                 
                 // Product does not exist, lets create it
                 echo "NOPE";
+                die();
                 
             } else {
                 
