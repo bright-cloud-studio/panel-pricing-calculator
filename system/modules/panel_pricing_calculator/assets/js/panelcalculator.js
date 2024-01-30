@@ -282,6 +282,7 @@ function calculate(){
 			
 				// update product details in the quote_rendered area
 				$("#quote_price").html("$"+result);
+				$(".calc_add_to_cart input[name='price']").val(result);
 			
 				// slide down the quote_render section
 				$("#quote_render").slideDown();
