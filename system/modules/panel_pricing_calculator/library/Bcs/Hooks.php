@@ -52,8 +52,7 @@ class Hooks
                 
                 // This product does not exist! Let's create it.
                 
-                
-                //If $custom_width is null, make the attribute
+                // If the custom width doesn't exist yet, make it and save the id
                 if(!$custom_width) {
                     $attr = new AttributeOption();
                     $attr->pid = $attribute_id_custom_width;
@@ -67,7 +66,7 @@ class Hooks
                     
                     $custom_width = $attr->id;
                 }
-                
+                // If the custom height doesn't exist yet, make it and save the id
                 if(!$custom_height) {
                     $attr = new AttributeOption();
                     $attr->pid = $attribute_id_custom_height;
@@ -81,27 +80,57 @@ class Hooks
                     
                     $custom_height = $attr->id;
                 }
-
-
+                
+                // Insert these IDs into 'tl_iso_product'
+                //$prod = new Product();
+                //$prod->pid = $parent_id;
+                
+                //$prod->custom_width = $custom_width;
+                //$prod->custom_height = $custom_height;
+                //$prod->custom_depth = $custom_depth;
+                //$prod->custom_thickness = $custom_thickness;
+                
+                // SKU = panel_id _ panel_thickness _ panel_depth _ custom_width _ custom_height
+                //$prod->sku = "1" + "_" + "1" + "_" + "2";
+                
+                //$prod->tstamp = time();
+                //$prod->published = 1;
+                //$prod->save();
                 
                 
+                $newProd = array();
+                $newProd['pid'] = $parent_id;
+                $newProd['sku'] = $submittedData['panel_id'] . "_" . $submittedData['flat_id'] . "_" . $submittedData['cradle_id'] . "_" . $submittedData['width'] . "_" . $submittedData['height'];
+                $newProd['tstamp'] = time();
                 
-                //Of $custom_height is null, make the attribute
+                $newProd['custom_width'] = $custom_width;
+                $newProd['custom_height'] = $custom_height;
+                $newProd['custom_depth'] = $custom_depth;
+                $newProd['custom_thickness'] = $custom_thickness;
                 
+                //$newProd['price'] = '1.00';
                 
-                // Create a variant with the attribute IDs we created
+                $newProd['published'] = 1;
                 
-                // Add the new variant to the cart!
+                // Add our newly created product to the cart
                 
-                
-                
-                
-                
-                echo "custom_width: " . $custom_width . "<br>";
-                echo "custom_height: " . $custom_height . "<br>";
-                echo "custom_depth: " . $custom_depth . "<br>";
-                echo "custom_thickness: " . $custom_thickness . "<br>";
+                $result = \Database::getInstance()->prepare("INSERT INTO tl_iso_product %s")
+                                                         ->set($newProd)
+                                                         ->execute();
+                echo "INSERT ID: " . $result->insertId;
                 die();
+                
+                //$prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
+                //$arrConfig = array();
+                //if (Isotope::getCart()->addProduct($prod, $quantity, $arrConfig) !== false)
+				//	$blnAdded = true;
+                
+                
+                //echo "custom_width: " . $custom_width . "<br>";
+                //echo "custom_height: " . $custom_height . "<br>";
+                //echo "custom_depth: " . $custom_depth . "<br>";
+                //echo "custom_thickness: " . $custom_thickness . "<br>";
+                //die();
                 
             } else {
                 
