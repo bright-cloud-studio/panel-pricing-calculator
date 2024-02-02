@@ -117,13 +117,12 @@ class Hooks
                 $result = \Database::getInstance()->prepare("INSERT INTO tl_iso_product %s")
                                                          ->set($newProd)
                                                          ->execute();
-                echo "INSERT ID: " . $result->insertId;
-                die();
+                                                         
                 
-                //$prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
-                //$arrConfig = array();
-                //if (Isotope::getCart()->addProduct($prod, $quantity, $arrConfig) !== false)
-				//	$blnAdded = true;
+                $prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
+                $arrConfig = array();
+                if (Isotope::getCart()->addProduct($prod, $quantity, $arrConfig) !== false)
+					$blnAdded = true;
                 
                 
                 //echo "custom_width: " . $custom_width . "<br>";
