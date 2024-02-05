@@ -281,7 +281,7 @@ function calculate(){
 				//$("#quote_discount").html("0%");
 			
 				// update product details in the quote_rendered area
-				$("#quote_price").html("$"+result);
+				$("#quote_price").html("$"+(result*order_quantity));
 				$(".calc_add_to_cart input[name='price']").val(result);
 			
 				// slide down the quote_render section
