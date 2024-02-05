@@ -29,7 +29,7 @@ class Hooks
         
         // If this is our "Add to cart" button
         if($formData['formID'] == 'calc_add_to_cart') {
-
+            
             // STEP ONE
             // First we will gather all of our IDs based on the submitted form so that we can query Isotope and see if this product exists or not
             
@@ -97,33 +97,45 @@ class Hooks
                 //$prod->published = 1;
                 //$prod->save();
                 
-                
                 $newProd = array();
                 $newProd['pid'] = $parent_id;
                 $newProd['sku'] = $submittedData['panel_id'] . "_" . $submittedData['flat_id'] . "_" . $submittedData['cradle_id'] . "_" . $submittedData['width'] . "_" . $submittedData['height'];
                 $newProd['tstamp'] = time();
-                
                 $newProd['custom_width'] = $custom_width;
                 $newProd['custom_height'] = $custom_height;
                 $newProd['custom_depth'] = $custom_depth;
                 $newProd['custom_thickness'] = $custom_thickness;
-                
-                //$newProd['price'] = '1.00';
-                
                 $newProd['published'] = 1;
-                
                 // Add our newly created product to the cart
-                
                 $result = \Database::getInstance()->prepare("INSERT INTO tl_iso_product %s")
-                                                         ->set($newProd)
-                                                         ->execute();
+                                                 ->set($newProd)
+                                                 ->execute();
                                                          
-                                                         
-                // First, create entry in the 'tl_product_pricetier" table
-                
                 
                 // Second, create entry in the 'tl_product_price' table                    
+                $price = array();
+                $price['pid'] = $result->insertId;
+                $price['tstamp'] = time();
+                $price['tax_class'] = 1;
+                $price['config_id'] = 0;
+                $price['member_group'] = 0;
+                $priceResult = \Database::getInstance()->prepare("INSERT INTO tl_iso_product_price %s")
+                                 ->set($price)
+                                 ->execute();                                           
                                                          
+                
+                                                         
+                // First, create entry in the 'tl_product_pricetier" table
+                $priceTier = array();
+                $priceTier['pid'] = $priceResult->insertId;
+                $priceTier['tstamp'] = time();
+                $priceTier['min'] = 1;
+                $priceTier['price'] = $submittedData['price'];
+                $priceTierResult = \Database::getInstance()->prepare("INSERT INTO tl_iso_product_pricetier %s")
+                                 ->set($priceTier)
+                                 ->execute();
+
+                          
                                                          
                                                          
                                                          
