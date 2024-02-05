@@ -118,6 +118,15 @@ class Hooks
                                                          ->set($newProd)
                                                          ->execute();
                                                          
+                                                         
+                // First, create entry in the 'tl_product_pricetier" table
+                
+                
+                // Second, create entry in the 'tl_product_price' table                    
+                                                         
+                                                         
+                                                         
+                                                         
                 
                 $prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
                 $arrConfig = array();
