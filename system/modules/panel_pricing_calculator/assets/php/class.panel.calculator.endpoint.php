@@ -179,6 +179,8 @@ class PanelCalculator
 			$price = $price + ($price * (20/100));
 
 		// multiply the price based on the quantity
+		
+		$individual_price = $price;
 		$price = $price * $quantity;
 		
 		
@@ -196,11 +198,13 @@ class PanelCalculator
 			$quantity_discount = 0.40;
 		if($quantity >= 500)
 			$quantity_discount = 0.50;
-			
+		
+		
 		$price = $price - ($price * $quantity_discount);
 		
 		
 		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
+		return $individual_price;
 		return $price;
 	}
 	
@@ -387,6 +391,7 @@ class PanelCalculator
 			
 		// multiply by quantity
 		
+		$individual_price = $price_total;
 		$price_total = $price_total * $quantity;
 		
 		// add the cradle price onto the total
@@ -399,6 +404,7 @@ class PanelCalculator
 		// Debug - send email with values
 		//$this->pushDebugMessage($d_db_price, $d_sf_price, $d_after_quantity_price, $d_square_inch_price, $d_cradle_price);
 		
+		return $individual_price;
 		return $price_total;
 		//return $price_per_inch;
 		
