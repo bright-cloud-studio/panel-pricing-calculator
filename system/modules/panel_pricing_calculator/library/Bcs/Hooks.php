@@ -138,13 +138,7 @@ class Hooks
                 $arrConfig = array();
                 if (Isotope::getCart()->addProduct($prod, $quantity, $arrConfig) !== false)
 					$blnAdded = true;
-                
-                
-                //echo "custom_width: " . $custom_width . "<br>";
-                //echo "custom_height: " . $custom_height . "<br>";
-                //echo "custom_depth: " . $custom_depth . "<br>";
-                //echo "custom_thickness: " . $custom_thickness . "<br>";
-                //die();
+
                 
             } else {
                 
