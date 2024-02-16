@@ -111,7 +111,6 @@ class Hooks
                                                  ->set($newProd)
                                                  ->execute();
                                                          
-                
                 // Second, create entry in the 'tl_product_price' table                    
                 $price = array();
                 $price['pid'] = $result->insertId;
@@ -122,9 +121,8 @@ class Hooks
                 $priceResult = \Database::getInstance()->prepare("INSERT INTO tl_iso_product_price %s")
                                  ->set($price)
                                  ->execute();                                           
-                                                         
+
                 
-                                                         
                 // First, create entry in the 'tl_product_pricetier" table
                 $priceTier = array();
                 $priceTier['pid'] = $priceResult->insertId;
@@ -135,11 +133,7 @@ class Hooks
                                  ->set($priceTier)
                                  ->execute();
 
-                          
-                                                         
-                                                         
-                                                         
-                
+
                 $prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
                 $arrConfig = array();
                 if (Isotope::getCart()->addProduct($prod, $quantity, $arrConfig) !== false)
