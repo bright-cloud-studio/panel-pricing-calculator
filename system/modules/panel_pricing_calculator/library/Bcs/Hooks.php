@@ -105,13 +105,19 @@ class Hooks
                 $newProd['custom_height'] = $custom_height;
                 $newProd['custom_depth'] = $custom_depth;
                 $newProd['custom_thickness'] = $custom_thickness;
+                
+                
+                // Calculate the square feet
+                
+                $newProd['custom_sq_ft_panel'] = $this->getSquareFeet($custom_width, $custom_height);
+                $newProd['custom_sq_ft_cradle'] = "0";
+                
                 $newProd['published'] = 1;
                 // Add our newly created product to the cart
                 $result = \Database::getInstance()->prepare("INSERT INTO tl_iso_product %s")
                                                  ->set($newProd)
                                                  ->execute();
                                                          
-                
                 
                 // Second, create entry in the 'tl_product_price' table                    
                 $price = array();
@@ -137,6 +143,9 @@ class Hooks
                                  ->execute();
 
                           
+                                                         
+                                                         
+                                                         
                 
                 $prod = Product::findOneBy(['tl_iso_product.pid=?', 'tl_iso_product.custom_width=?', 'tl_iso_product.custom_height=?', 'tl_iso_product.custom_depth=?', 'tl_iso_product.custom_thickness=?'],[$parent_id, $custom_width, $custom_height, $custom_depth, $custom_thickness]);
                 $arrConfig = array();
@@ -250,5 +259,17 @@ class Hooks
                 return -1;
         }
     }
+    
+    public function getSquareFeet($width, $height)
+	{
+		$square_inches = $this->getSquareInches($width, $height);
+		return round(($square_inches / 144), 4);
+	}
+
+	public function getSquareInches($width, $height)
+	{
+		return ($width * $height);
+	}
+		
     
 }
