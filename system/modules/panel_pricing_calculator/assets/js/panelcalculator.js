@@ -2,7 +2,6 @@
 // A $( document ).ready() block.
 $( document ).ready(function() {
 
-
     $.ajax({
         url:'/system/modules/panel_pricing_calculator/assets/php/action.get.cart.total.endpoint.php',
         type:'POST',
@@ -28,6 +27,8 @@ $( document ).ready(function() {
     });
     
     
+    
+    
     // adding exception for 1/4" sizes for hardbord selections
 	$('#panel_id').on('change', function() {
 		// if the selection is hardbord, remove 1/4" as a panel thickness option, otherwise put it back in
@@ -43,6 +44,8 @@ $( document ).ready(function() {
 			}
 		}
 	});
+    
+    
     
     
 });
@@ -186,8 +189,10 @@ function remove_from_cart(id){
 
 // This is just an ajax call to send in the IDs from the form and get back the total, then push it onto the page
 function calculate(){
-
-
+	
+	
+	
+	
     // store our form values
     var panel_id = $("#panel_id").val();
     var panel_thickness_id = $("#flat_id").val();
