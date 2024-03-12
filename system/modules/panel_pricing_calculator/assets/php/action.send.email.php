@@ -47,8 +47,10 @@ include_once("prepend.cart.endpoint.php");
 	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
 
 	// More headers
-	$headers .= 'From: <orders@ampersandart.com>' . "\r\n";
-	$headers .= 'Cc: <web@brightcloudstudio.com>, <bords@ampersandart.com>' . "\r\n";
+	//$headers .= 'From: <orders@ampersandart.com>' . "\r\n";
+	//$headers .= 'Cc: <web@brightcloudstudio.com>, <bords@ampersandart.com>' . "\r\n";
+	
+	$headers .= 'From: <mark@brightcloudstudio.com>' . "\r\n";
 	
 
 	// Add our custom intro text
