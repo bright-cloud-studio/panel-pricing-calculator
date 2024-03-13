@@ -181,7 +181,7 @@ class Hooks
                 break;
             // Gessobord
             case 2:
-                return 1503;
+                return 1467;
                 break;
             // Aquabord
             case 3:
