@@ -190,9 +190,6 @@ function remove_from_cart(id){
 // This is just an ajax call to send in the IDs from the form and get back the total, then push it onto the page
 function calculate(){
 	
-	
-	
-	
     // store our form values
     var panel_id = $("#panel_id").val();
     var panel_thickness_id = $("#flat_id").val();
@@ -281,7 +278,14 @@ function calculate(){
 				//$("#quote_discount").html("0%");
 			
 				// update product details in the quote_rendered area
-				$("#quote_price").html("$"+(result*order_quantity));
+				
+				console.log("PRICE: " + result);
+				console.log("QUANTITY: " + order_quantity);
+				console.log("FINAL: " + (result * order_quantity));
+				
+				var quantity_price = result * order_quantity;
+				
+				$("#quote_price").html("$"+quantity_price.toFixed(2));
 				$(".calc_add_to_cart input[name='price']").val(result);
 			
 				// slide down the quote_render section
