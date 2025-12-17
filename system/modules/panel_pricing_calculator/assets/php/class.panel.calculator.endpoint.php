@@ -110,20 +110,21 @@ class PanelCalculator
 	// For Square Feet 6 or under
 	public function getSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
 	{
-		
+	    
+	    // Create a text file to store our price calculation values for debugging purposes
+		$debug_file = fopen("debug_price_calculations/get_six_rate_".time()."txt", "w");
+        
 		// Create connection
 		$dbh = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
 		if ($dbh->connect_error) {
 			die("Connection failed: " . $dbh->connect_error);
 		}
 
-		
 		// values to build our query
 		$price = '9999';
 		$product_type = 'unselected';
 		$thicknessPlusPercentage = 0;
 		$cradlePlusPercentage = 0;
-		
 		
 		// if uncradled, otherwise use 3/4 sizes
 		if($cradle_id == 'none')
@@ -155,6 +156,9 @@ class PanelCalculator
 		
 		// STEPS
 		
+		fwrite($debug_file, "Pre-Calculation - Get Six Rate" . "\n");
+		fwrite($debug_file, "Square Feet: " . $square_feet . "\n\n");
+		
 		// 1. Get price from nearest size
 		$query =  "select * from tl_price_chart WHERE square_feet >= ".$square_feet." ORDER BY square_feet ASC LIMIT 1";
 		$result = $dbh->query($query);
@@ -167,22 +171,26 @@ class PanelCalculator
 			return "Something has gone wrong! ".$sql->errorno;
 		}
 		
+		fwrite($debug_file, "Calculation" . "\n");
+		fwrite($debug_file, "Sq. Ft. Starting Price: " . $price . "\n");
 		
 		// add our thickness plus percentage
 		$price = $price + ($price * ($thicknessPlusPercentage/100));
 		
+		fwrite($debug_file, "Add Thickness Plus Percentage: " . $price . "\n");
+		
 		// add our cradle plus percentage
 		$price = $price + ($price * ($cradlePlusPercentage/100));
+		
+		fwrite($debug_file, "Add Cradle Plus Percentage: " . $price . "\n");
 		
 		// add 20% for lengths of 72 or higher
 		if($height >= 72)
 			$price = $price + ($price * (20/100));
+			
+		fwrite($debug_file, "Add 20% for lengths of 72 or greater: " . $price . "\n");
 
 		// multiply the price based on the quantity
-		
-		$individual_price = $price;
-		$price = $price * $quantity;
-		
 		
 		// add a quantity discount
 		$quantity_discount = 0;
@@ -198,11 +206,35 @@ class PanelCalculator
 			$quantity_discount = 0.40;
 		if($quantity >= 500)
 			$quantity_discount = 0.50;
+			
+		fwrite($debug_file, "Quantity Discount: " . $quantity_discount . "\n");
+		
+		
+		$individual_price = $price - ($price * $quantity_discount);
+		$price = $price * $quantity;
+		
+		fwrite($debug_file, "Price times Quantity: " . $price . "\n");
+
 		
 		
 		$price = $price - ($price * $quantity_discount);
 		
+		fwrite($debug_file, "Price with Quantity Discount applied: " . $price . "\n");
 		
+		fwrite($debug_file, "Individual Price: " . $individual_price . "\n");
+		
+		
+		$individual_price = floor($individual_price * 100) / 100;
+		
+		fwrite($debug_file, "Individual Price (Manually Rounded Down: " . $individual_price . "\n");
+		
+		
+		
+		
+        
+        // Close our debug file
+        fclose($debug_file);
+        
 		// if we see 9999 that means this function finished but we didnt get back what we wanted from it
 		return $individual_price;
 		return $price;
@@ -211,6 +243,10 @@ class PanelCalculator
 	 // For Squre Feet 6 or more
     public function getMoreSixRate($panel_id, $flat_id, $cradle_id, $square_feet, $quantity, $width, $height)
     {
+        
+        $debug_file = fopen("debug_price_calculations/get_more_six_rate_".time()."txt", "w");
+
+
         // Create connection
 		$dbh = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
 		if ($dbh->connect_error) {
@@ -258,6 +294,9 @@ class PanelCalculator
 			
 		// STEPS
 		
+		fwrite($debug_file, "Pre-Calculation - Get Six More Rate" . "\n");
+		fwrite($debug_file, "Thickness: " . $thickness . "\n");
+		
 		// 1. Get price from nearest size
 		$query =  "select * from tl_price_chart_large WHERE width = '".$thickness."'";
 		$result = $dbh->query($query);
@@ -272,10 +311,20 @@ class PanelCalculator
 			return "Something has gone wrong! ".$sql->errorno;
 		}
 		
+		fwrite($debug_file, "Price: " . $price . "\n");
+		fwrite($debug_file, "db_price: " . $db_price . "\n");
+		fwrite($debug_file, "d_db_price: " . $d_db_price . "\n");
+		
+		fwrite($debug_file, "Square Feet: " . $square_feet . "\n\n\n");
+		
 		// multiply the price based on the quantity
 		$price = $price * $square_feet;
 		
 		$d_sf_price = $price;
+		
+		fwrite($debug_file, "Calculation - Move Through Steps" . "\n");
+		fwrite($debug_file, "Multiply price by square feet: " . $price . "\n");
+		
 		
 		// add a quantity discount
 		$quantity_discount = 0.10;
@@ -288,7 +337,11 @@ class PanelCalculator
 		if($quantity >= 10)
 			$quantity_discount = 0.50;
 			
+		fwrite($debug_file, "Quantity Discount: " . $quantity_discount . "\n");
+			
 		$price = $price - ($price * $quantity_discount);
+		
+		fwrite($debug_file, "Apply quantity discount to the price: " . $price . "\n");
 		
 		$d_after_quantity_price = $price;
 	
@@ -303,6 +356,8 @@ class PanelCalculator
 		// figure out the price per linear inch price
 		$price_per_inch = 0;
 		
+		
+		fwrite($debug_file, "Every X Inches size: " . $every_x_inches . "\n");
 		
 		/*
 		if($cradle_id == 3)
@@ -342,6 +397,8 @@ class PanelCalculator
 				break;
 		}
 		
+		fwrite($debug_file, "Cradle Table: " . $cradle_table . "\n");
+		
 		
 		$query =  "select * from tl_cradle_prices";
 		$result = $dbh->query($query);
@@ -354,6 +411,8 @@ class PanelCalculator
 			return "Something has gone wrong! ".$sql->errorno;
 		}
 		
+		fwrite($debug_file, "Price Per Inch: " . $price_per_inch . "\n");
+		
 		//return $price_per_inch;
 		$d_square_inch_price = $price_per_inch;
 			
@@ -361,10 +420,19 @@ class PanelCalculator
 		$cross_width = ceil($width / $every_x_inches);
 		$cross_height = ceil($height / $every_x_inches);
 		
+		fwrite($debug_file, "Cross Width: " . $cross_width . "\n");
+		fwrite($debug_file, "Cross Height: " . $cross_height . "\n");
+		
+		
 		$linear_inch_width = ($cross_width + 1) * $height;
 		$linear_inch_height = ($cross_height + 1) * $width;
 		
+		fwrite($debug_file, "Linear Inch Width: " . $linear_inch_width . "\n");
+		fwrite($debug_file, "Linear Inch Height: " . $linear_inch_height . "\n");
+		
 		$cradle_price = ($linear_inch_width + $linear_inch_height) * $price_per_inch;
+		
+	    fwrite($debug_file, "Cradle Price: " . $cradle_price . "\n");
 		
 		$d_cradle_price = $cradle_price;
 		
@@ -372,7 +440,7 @@ class PanelCalculator
 		if($cradle_id == 3 || $cradle_id == 4 || $cradle_id == 5 || $cradle_id == 6 || $cradle_id == 7 || $cradle_id == 8)
 			$cradle_price = $cradle_price - ($cradle_price * 0.15);
 		
-		
+		fwrite($debug_file, "Cradle Price after 15% panel discount: " . $cradle_price . "\n");
 		
 		
 		// cradle price total is price multiplied by how many
@@ -384,15 +452,26 @@ class PanelCalculator
 		
 		$price_total = $price + $cradle_price;
 		
+		fwrite($debug_file, "Combine Price and Cradle Price: " . $price_total . "\n");
+		
 		//if 48" add ten percent;
 		if($width == 48)
 			$price_total = $price_total + ($price_total * 0.10);
+			
+		fwrite($debug_file, "Price after 10% discount for widths above 48: " . $price_total . "\n");
 			
 			
 		// multiply by quantity
 		
 		$individual_price = $price_total;
 		$price_total = $price_total * $quantity;
+		
+		fwrite($debug_file, "Price times Quantity: " . $price_total . "\n");
+		
+		
+		
+		fwrite($debug_file, "Price (Indivudual): " . $this->round_up($individual_price, 2) . "\n");
+		
 		
 		// add the cradle price onto the total
 		//$price_total = $price_total + $cradle_price;
@@ -403,6 +482,9 @@ class PanelCalculator
 		
 		// Debug - send email with values
 		//$this->pushDebugMessage($d_db_price, $d_sf_price, $d_after_quantity_price, $d_square_inch_price, $d_cradle_price);
+		
+		// Close our debug file
+        fclose($debug_file);
 		
 		return $individual_price;
 		return $price_total;
@@ -479,13 +561,15 @@ class PanelCalculator
     
 	public function formatPrice($total_price)
 	{
-		return round($total_price, 2);
+		return $this->round_up($total_price, 2);
 	}
     
 	public function getSquareFeet($width, $height)
 	{
 		$square_inches = $this->getSquareInches($width, $height);
-		return round(($square_inches / 144), 4);
+		
+		return $square_inches / 144;
+		//return round(($square_inches / 144), 4);
 	}
 
 	public function getSquareInches($width, $height)
@@ -687,5 +771,10 @@ class PanelCalculator
         }
         return true;
     }
+    
+    function round_up ( $value, $precision ) { 
+        $pow = pow ( 10, $precision ); 
+        return ( ceil ( $pow * $value ) + ceil ( $pow * $value - ceil ( $pow * $value ) ) ) / $pow; 
+    } 
 
 }
