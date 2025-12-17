@@ -108,9 +108,27 @@ class Hooks
                 
                 
                 // Calculate the square feet
-                
-                $newProd['custom_sq_ft_panel'] = $this->getSquareFeet($custom_width, $custom_height);
+
+                $newProd['custom_sq_ft_panel'] = $this->getSquareFeet($submittedData['width'], $submittedData['height']);
                 $newProd['custom_sq_ft_cradle'] = "0";
+                
+                // Calculate the cross
+                $every_x_inches = 12.01;
+        		if( $submittedData['cradle_id'] == 5 || $submittedData['cradle_id'] == 6 || $submittedData['cradle_id'] == 7 || $submittedData['cradle_id'] == 8 )
+        			$every_x_inches = 24.01;
+        		$newProd['custom_every_x_inches'] = $every_x_inches;
+        			
+                $cross_width = ceil($submittedData['width'] / $every_x_inches);
+		        $cross_height = ceil($submittedData['height'] / $every_x_inches);
+		        $newProd['custom_cross_width'] = $cross_width;
+		        $newProd['custom_cross_height'] = $cross_height;
+		        
+		        $linear_inch_width = ($cross_width + 1) * $submittedData['height'];
+		        $linear_inch_height = ($cross_height + 1) * $submittedData['width'];
+		        $newProd['custom_linear_inch_width'] = $linear_inch_width;
+		        $newProd['custom_linear_inch_height'] = $linear_inch_height;
+                
+                
                 
                 $newProd['published'] = 1;
                 // Add our newly created product to the cart
@@ -263,7 +281,9 @@ class Hooks
     public function getSquareFeet($width, $height)
 	{
 		$square_inches = $this->getSquareInches($width, $height);
-		return round(($square_inches / 144), 4);
+		
+		return $square_inches / 144;
+		//return round(($square_inches / 144), 4);
 	}
 
 	public function getSquareInches($width, $height)
