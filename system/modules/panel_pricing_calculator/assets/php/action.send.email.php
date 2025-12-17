@@ -45,12 +45,13 @@ include_once("prepend.cart.endpoint.php");
 	// Always set content-type when sending HTML email
 	$headers = "MIME-Version: 1.0" . "\r\n";
 	$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+	$headers .= "Content-Transfer-Encoding: base64" . "\r\n";
 
 	// More headers
-	//$headers .= 'From: <orders@ampersandart.com>' . "\r\n";
-	//$headers .= 'Cc: <web@brightcloudstudio.com>, <bords@ampersandart.com>' . "\r\n";
+	$headers .= 'From: <orders@ampersandart.com>' . "\r\n";
+	$headers .= 'Cc: <web@brightcloudstudio.com>, <bords@ampersandart.com>, <mark@brightcloudstudio.com>' . "\r\n";
 	
-	$headers .= 'From: <mark@brightcloudstudio.com>' . "\r\n";
+	//$headers .= 'From: <mark@brightcloudstudio.com>' . "\r\n";
 	
 
 	// Add our custom intro text
@@ -91,16 +92,19 @@ include_once("prepend.cart.endpoint.php");
 		
 		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Panel Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><br>';
 		
-		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`, `created`) VALUES (NULL, '0', '".$sorting_number."', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".addslashes($vars['user_tell_us'])."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."', '".date('F j, Y, g:i a')."')";
+		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`, `created`) VALUES (NULL, '".time()."', '".$sorting_number."', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".addslashes($vars['user_tell_us'])."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."', '".date('F j, Y, g:i a')."')";
 		$result = $dbh->prepare($query);
 		$result->execute();
 	
 	}
 	
 	
+	$final_message = $message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents . $message_end;
+	$final_message = chunk_split(base64_encode($final_message));
+	
 	
 	// send the mail
-	mail($to,$subject,($message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents . $message_end),$headers);
+	mail($to,$subject,$final_message,$headers);
 	
 	unset($_SESSION['asdf']);
 		
