@@ -2,25 +2,15 @@
 // Starts the session and connects to the database
 include_once("prepend.cart.endpoint.php");
 
+    $debug_mode = true;
+    if($debug_mode)
+        $log = fopen($_SERVER['DOCUMENT_ROOT'] . '/../calc_logs/send_email_'.date('m_d_y').'.txt', "a+") or die("Unable to open file!");
+        
 	// turn the form values into $vars
 	$vars = $_POST;
 	
-	// clean up our variables to be safe
-	//$vars['user_first_name'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_first_name']);
-	//$vars['user_last_name'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_last_name']);
-	//$vars['user_phone'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_phone']);
-	//$vars['user_address_1'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_address_1']);
-	//$vars['user_address_2'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_address_2']);
-	//$vars['user_state'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_address_2']);
-	//$vars['user_city'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_city']);
-	//$vars['user_zip'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_zip']);
-	//$vars['user_tell_us'] = preg_replace('/[^A-Za-z0-9\-]/', '', $vars['user_tell_us']);
+	debug($debug_mode, $log, "[Send Mail] Triggering script for email - " . $vars['user_email']);
 	
-	//$sc_email = array("!", "#", "%", "^", "&", "*", "(", ")", ",", "/", "{", "}", "[", "]", "<", ">");
-    //$vars['user_email'] = str_replace($sc_email, "", $vars['user_email']);
-
-
-
 	// SEND EMAIL
     //$to = "mark@brightcloudstudio.com";
 	$to = $vars['user_email'];
@@ -50,9 +40,7 @@ include_once("prepend.cart.endpoint.php");
 	// More headers
 	$headers .= 'From: <orders@ampersandart.com>' . "\r\n";
 	$headers .= 'Cc: <web@brightcloudstudio.com>, <bords@ampersandart.com>, <mark@brightcloudstudio.com>' . "\r\n";
-	
-	//$headers .= 'From: <mark@brightcloudstudio.com>' . "\r\n";
-	
+
 
 	// Add our custom intro text
 	$message_user_contents = $message_user_contents . '<p>Thank you for your Ampersand Art Supply custom quote request.</p>';
@@ -67,54 +55,44 @@ include_once("prepend.cart.endpoint.php");
 	// we need to know what the previous sorting number is, if there is one
 	$sorting_number = getPreviousID();
 	
-
-	
-	
-	
+	$has_product = false;
 	
 	// build the html for the panel contents
 	foreach ($_SESSION['asdf'] as $key => $result){
 		$clean = unserialize($result);
-		
-		
-		// lets clean up our $clean values to be safe
-		//$clean['panel_id'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['panel_id']);
-		//$clean['flat_id'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['flat_id']);
-		//$clean['cradle_id'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['cradle_id']);
-		//$clean['quantity'] = preg_replace('/[^A-Za-z0-9\-]/', '', $clean['quantity']);
-		
-		//$sc_price = array("!", "@", "#", "%", "^", "&", "*", "(", ")", ",", "/", "{", "}", "[", "]", "<", ">");
-        //$clean['price'] = str_replace($sc_price, "", $clean['price']);
-       // $sc_size = array("!", "@", "#", "$", "%", "^", "&", "*", "(", ")", ",", "/", "{", "}", "[", "]", "<", ">");
-       // $clean['width'] = str_replace($sc_size, "", $clean['width']);
-       // $clean['height'] = str_replace($sc_size, "", $clean['height']);
 
-		
 		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Panel Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><br>';
 		
 		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`, `created`) VALUES (NULL, '".time()."', '".$sorting_number."', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".addslashes($vars['user_tell_us'])."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."', '".date('F j, Y, g:i a')."')";
 		$result = $dbh->prepare($query);
 		$result->execute();
-	
+	    $has_product = true;
 	}
 	
 	
 	$final_message = $message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents . $message_end;
 	$final_message = chunk_split(base64_encode($final_message));
 	
-	
-	// send the mail
-	mail($to,$subject,$final_message,$headers);
-	
-	unset($_SESSION['asdf']);
-		
-	echo "Email Sent!";
+	if($has_product) {
+    	// send the mail
+    	mail($to,$subject,$final_message,$headers);
+    	unset($_SESSION['asdf']);
+    	echo "Email Sent!";
+	} else {
+	    debug($debug_mode, $log, "[Send Mail] No Products found, email skipped for: " . $vars['user_email']);
+	}
+
+    if($debug_mode)
+        fclose($log);
 
 
+/** HELPER FUNCTIONS **/
+function debug($debug_mode, $log, $message) {
+    if($debug_mode)
+        fwrite($log, $message . "\n");
 
-
-// Functions
-//////////////////////////
+    echo $message . "<br>";
+}
 
 function getPreviousID(){
     $dbh = new mysqli("localhost", "ampers_cms_db_admin", "JKDlS*3klsd9sk", "ampers_cms413");
