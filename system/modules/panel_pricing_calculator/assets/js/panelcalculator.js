@@ -45,9 +45,6 @@ $( document ).ready(function() {
 		}
 	});
     
-    
-    
-    
 });
 
 
@@ -65,13 +62,150 @@ function send_email(){
     var user_city = $("#city").val();
     var user_zip = $("#zip").val();
     var user_tell_us = $("#tell_us").val();
-
-    // Validate for more than just being empty
-    // Check for more characters than spaces
+    
+    var email_is_valid = false;
+    
+    
+    if($.trim(user_first_name).length > 0) {
+        email_is_valid = true;
+        
+        /*
+        var logData = {
+            level: "SUCCESS",
+            message: "First Name is valid",
+            timestamp: new Date().toISOString()
+        };
+        $.ajax({
+            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
+            type: 'POST',
+            data: logData,
+            success: function(response) {
+                console.log("Logged successfully");
+            }
+        });
+        */
+    }
+        
+    if($.trim(user_last_name).length > 0) {
+        email_is_valid = true;
+        
+        /*
+        var logData = {
+            level: "SUCCESS",
+            message: "Last Name is valid",
+            timestamp: new Date().toISOString()
+        };
+        $.ajax({
+            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
+            type: 'POST',
+            data: logData,
+            success: function(response) {
+                console.log("Logged successfully");
+            }
+        });
+        */
+    }
+        
+    if (user_email.indexOf('@') > -1) {
+        email_is_valid = true;
+        
+        /*
+        var logData = {
+            level: "SUCCESS",
+            message: "Email is valid",
+            timestamp: new Date().toISOString()
+        };
+        $.ajax({
+            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
+            type: 'POST',
+            data: logData,
+            success: function(response) {
+                console.log("Logged successfully");
+            }
+        });
+        */
+    }
+        
+    if($.trim(user_address_1).length > 0) {
+        email_is_valid = true;
+        
+        /*
+        var logData = {
+            level: "SUCCESS",
+            message: "Address 1 is valid",
+            timestamp: new Date().toISOString()
+        };
+        $.ajax({
+            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
+            type: 'POST',
+            data: logData,
+            success: function(response) {
+                console.log("Logged successfully");
+            }
+        });
+        */
+    }
+        
+    if($.trim(user_city).length > 0) {
+        email_is_valid = true;
+        
+        /*
+        var logData = {
+            level: "SUCCESS",
+            message: "City is valid",
+            timestamp: new Date().toISOString()
+        };
+        $.ajax({
+            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
+            type: 'POST',
+            data: logData,
+            success: function(response) {
+                console.log("Logged successfully");
+            }
+        });
+        */
+    }
+        
+    if($.trim(user_zip).length > 0) {
+        email_is_valid = true;
+        
+        /*
+        var logData = {
+            level: "SUCCESS",
+            message: "ZIP is valid",
+            timestamp: new Date().toISOString()
+        };
+        $.ajax({
+            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
+            type: 'POST',
+            data: logData,
+            success: function(response) {
+                console.log("Logged successfully");
+            }
+        });
+        */
+    }
     
     
 	// if first name isnt blank
-	if(user_first_name !== '' && user_last_name !== '' && user_email !== '' && user_address_1 !== '' && user_city !== '' && user_zip !== '') {
+	//if(user_first_name !== '' && user_last_name !== '' && user_email !== '' && user_address_1 !== '' && user_city !== '' && user_zip !== '') {
+	if(email_is_valid) {
+	    
+	    /*
+	    var logData = {
+            level: "SUCCESS",
+            message: "Email passed all validity checks, sending email!",
+            timestamp: new Date().toISOString()
+        };
+        $.ajax({
+            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
+            type: 'POST',
+            data: logData,
+            success: function(response) {
+                console.log("Logged successfully");
+            }
+        });
+        */
 	    
 	   // trigger this function when our form runs
         $.ajax({
@@ -98,6 +232,10 @@ function send_email(){
 
 // this is the call to save to cart
 function add_to_cart(){
+    
+    // Validate that there is in fact a product stored in the session before we continue here
+    
+        // Otherwise, display a messages stating to go back up
 
 	// store our quote request values
     var panel_id = $("#panel_name_id").html();
