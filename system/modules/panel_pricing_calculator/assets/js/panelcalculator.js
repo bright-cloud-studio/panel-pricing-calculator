@@ -45,6 +45,15 @@ $( document ).ready(function() {
 		}
 	});
     
+    
+    $('#step_calculate').on('click', function() {
+        // Your code goes here
+        console.log('Calculate button was clicked!');
+        calculate();
+    });
+        
+    
+    
 });
 
 
