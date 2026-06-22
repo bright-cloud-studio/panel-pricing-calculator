@@ -66,7 +66,8 @@ class PanelPricingCalculatorModule extends \Contao\Module
 	{
 		// add our js
 		$rand_ver = rand(1,9999);
-		$GLOBALS['TL_BODY'][] = '<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js?v='.$rand_ver.'"></script>';
+		//$GLOBALS['TL_BODY']['ppc'] = '<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js?v='.$rand_ver.'"></script>';
+		$GLOBALS['TL_HEAD']['ppc'] = '<script src="system/modules/panel_pricing_calculator/assets/js/panelcalculator.js?v='.$rand_ver.'"></script>';
 		
 	    
 	    /*
