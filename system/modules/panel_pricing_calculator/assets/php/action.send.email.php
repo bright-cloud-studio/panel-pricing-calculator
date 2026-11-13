@@ -26,6 +26,7 @@ include_once("prepend.cart.endpoint.php");
 	
 	$message_user_contents = "";
 	$message_panel_contents = "";
+	$message_panel_contents_internal = "";
 		
 	$message_end = "
 		</body>
@@ -39,7 +40,11 @@ include_once("prepend.cart.endpoint.php");
 
 	// More headers
 	$headers .= 'From: <orders@ampersandart.com>' . "\r\n";
-	$headers .= 'Cc: <web@brightcloudstudio.com>, <bords@ampersandart.com>, <mark@brightcloudstudio.com>' . "\r\n";
+
+	// The in house copy is sent on its own rather than as a Cc, so it can carry the production
+	// values without showing them to the customer. Same headers, different recipients.
+	$internal_to = 'web@brightcloudstudio.com, bords@ampersandart.com, mark@brightcloudstudio.com';
+	$internal_headers = $headers;
 
 
 	// Add our custom intro text
@@ -62,7 +67,19 @@ include_once("prepend.cart.endpoint.php");
 		$clean = unserialize($result);
 
 		$message_panel_contents = $message_panel_contents . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Panel Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><br>';
-		
+
+		// Work out the square footage and bracing for production. Cradles 1 1/2" and deeper brace
+		// every 24", everything shallower every 12" - same math the calculator uses elsewhere.
+		$square_feet = getSquareFeet($clean['width'], $clean['height']);
+		$every_x_inches = in_array((int) $clean['cradle_id'], array(5, 6, 7, 8), true) ? 24.01 : 12.01;
+		$cross_width = ceil($clean['width'] / $every_x_inches);
+		$cross_height = ceil($clean['height'] / $every_x_inches);
+		$linear_inch_width = ($cross_width + 1) * $clean['height'];
+		$linear_inch_height = ($cross_height + 1) * $clean['width'];
+
+		// The in house copy repeats the panel block and adds what production needs
+		$message_panel_contents_internal = $message_panel_contents_internal . '<p>Panel: ' .getPanelNameByID($clean['panel_id']). '</p><p>Panel Thickness: ' .getPanelThicknessFromID($clean['flat_id']). '</p><p>Cradle: ' .getPanelCradleFromID($clean['cradle_id']). '</p><p>Size: ' .$clean['width']. ' X ' .$clean['height']. '</p><p>Quantity: ' .$clean['quantity']. '</p><p>Price: ' .$clean['price']. '</p><p>Custom Sq. Ft.: ' .$square_feet. '</p><p>Every X Inches: ' .$every_x_inches. '</p><p>Cross Width: ' .$cross_width. '</p><p>Cross Height: ' .$cross_height. '</p><p>Linear Inch Width: ' .$linear_inch_width. '</p><p>Linear Inch Height: ' .$linear_inch_height. '</p><br>';
+
 		$query = "INSERT INTO `tl_quote_request` (`id`, `tstamp`, `sorting`, `alias`, `panel_type`, `thickness`, `cradle`, `width`, `height`, `quantity`, `discount`, `price`, `published`, `tell_us`, `zip`, `state`, `city`, `address_2`, `address_1`, `phone`, `email`, `last_name`, `reviewed`, `first_name`, `created`) VALUES (NULL, '".time()."', '".$sorting_number."', '', '".getPanelNameByID($clean['panel_id'])."', '".getPanelThicknessFromID($clean['flat_id'])."', '".getPanelCradleFromID($clean['cradle_id'])."', '".$clean['width']."', '".$clean['height']."', '".$clean['quantity']."', '0', '".$clean['price']."', '1', '".addslashes($vars['user_tell_us'])."', '".$vars['user_zip']."', '".$vars['user_state']."', '".$vars['user_city']."', '".$vars['user_address_2']."', '".$vars['user_address_1']."', '".$vars['user_phone']."', '".$vars['user_email']."', '".$vars['user_last_name']."', 'unreviewed', '".$vars['user_first_name']."', '".date('F j, Y, g:i a')."')";
 		$result = $dbh->prepare($query);
 		$result->execute();
@@ -72,10 +89,15 @@ include_once("prepend.cart.endpoint.php");
 	
 	$final_message = $message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents . $message_end;
 	$final_message = chunk_split(base64_encode($final_message));
-	
+
+	// Same message for the in house copy, built from the panel block that carries the production values
+	$internal_message = $message_start . $message_user_contents . '<h2>Quote Items:</h2>' . $message_panel_contents_internal . $message_end;
+	$internal_message = chunk_split(base64_encode($internal_message));
+
 	if($has_product) {
     	// send the mail
     	mail($to,$subject,$final_message,$headers);
+    	mail($internal_to,$subject,$internal_message,$internal_headers);
     	unset($_SESSION['asdf']);
     	echo "Email Sent!";
 	} else {
@@ -175,4 +197,12 @@ function getPanelCradleFromID($panel_id){
 			return "3\" Cradled";
 			break;
 	}
+}
+
+function getSquareFeet($width, $height){
+	return getSquareInches($width, $height) / 144;
+}
+
+function getSquareInches($width, $height){
+	return ($width * $height);
 }
