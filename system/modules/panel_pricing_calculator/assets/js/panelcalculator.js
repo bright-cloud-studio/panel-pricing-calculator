@@ -72,132 +72,18 @@ function send_email(){
     var user_zip = $("#zip").val();
     var user_tell_us = $("#tell_us").val();
     
-    var email_is_valid = false;
+    // Every mandatory (*) field must be filled before we send. These were previously six
+    // separate checks that each set the flag to true, so any one filled field passed and
+    // the quote could be submitted with no email address to reply to.
+    var email_is_valid = (
+        $.trim(user_first_name).length > 0 &&
+        $.trim(user_last_name).length > 0 &&
+        user_email.indexOf('@') > -1 &&
+        $.trim(user_address_1).length > 0 &&
+        $.trim(user_city).length > 0 &&
+        $.trim(user_zip).length > 0
+    );
     
-    
-    if($.trim(user_first_name).length > 0) {
-        email_is_valid = true;
-        
-        /*
-        var logData = {
-            level: "SUCCESS",
-            message: "First Name is valid",
-            timestamp: new Date().toISOString()
-        };
-        $.ajax({
-            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
-            type: 'POST',
-            data: logData,
-            success: function(response) {
-                console.log("Logged successfully");
-            }
-        });
-        */
-    }
-        
-    if($.trim(user_last_name).length > 0) {
-        email_is_valid = true;
-        
-        /*
-        var logData = {
-            level: "SUCCESS",
-            message: "Last Name is valid",
-            timestamp: new Date().toISOString()
-        };
-        $.ajax({
-            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
-            type: 'POST',
-            data: logData,
-            success: function(response) {
-                console.log("Logged successfully");
-            }
-        });
-        */
-    }
-        
-    if (user_email.indexOf('@') > -1) {
-        email_is_valid = true;
-        
-        /*
-        var logData = {
-            level: "SUCCESS",
-            message: "Email is valid",
-            timestamp: new Date().toISOString()
-        };
-        $.ajax({
-            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
-            type: 'POST',
-            data: logData,
-            success: function(response) {
-                console.log("Logged successfully");
-            }
-        });
-        */
-    }
-        
-    if($.trim(user_address_1).length > 0) {
-        email_is_valid = true;
-        
-        /*
-        var logData = {
-            level: "SUCCESS",
-            message: "Address 1 is valid",
-            timestamp: new Date().toISOString()
-        };
-        $.ajax({
-            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
-            type: 'POST',
-            data: logData,
-            success: function(response) {
-                console.log("Logged successfully");
-            }
-        });
-        */
-    }
-        
-    if($.trim(user_city).length > 0) {
-        email_is_valid = true;
-        
-        /*
-        var logData = {
-            level: "SUCCESS",
-            message: "City is valid",
-            timestamp: new Date().toISOString()
-        };
-        $.ajax({
-            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
-            type: 'POST',
-            data: logData,
-            success: function(response) {
-                console.log("Logged successfully");
-            }
-        });
-        */
-    }
-        
-    if($.trim(user_zip).length > 0) {
-        email_is_valid = true;
-        
-        /*
-        var logData = {
-            level: "SUCCESS",
-            message: "ZIP is valid",
-            timestamp: new Date().toISOString()
-        };
-        $.ajax({
-            url: '/system/modules/panel_pricing_calculator/assets/php/log_handler.php',
-            type: 'POST',
-            data: logData,
-            success: function(response) {
-                console.log("Logged successfully");
-            }
-        });
-        */
-    }
-    
-    
-	// if first name isnt blank
-	//if(user_first_name !== '' && user_last_name !== '' && user_email !== '' && user_address_1 !== '' && user_city !== '' && user_zip !== '') {
 	if(email_is_valid) {
 	    
 	    /*
